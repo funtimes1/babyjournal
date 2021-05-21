@@ -1,9 +1,16 @@
 import React from "react";
-import logo from "./logo.svg";
-import "./App.css";
+import { Login } from "./components/auth/Login";
+import { Signup } from "./components/auth/Signup";
+import { AddJournal } from "./components/journal-entry/AddJournal";
+import { JournalList } from "./components/journal-entry/JournalList";
 
 function App() {
-  return <div className="App"></div>;
+  return (
+    <div className="App">
+      <AddJournal />
+      <JournalList />
+    </div>
+  );
 }
 
 export default App;
