@@ -1,11 +1,11 @@
-import { createStackNavigator } from "@react-navigation/stack";
-import React from "react";
-import { Layout } from "../../../components/Layout.components";
+import { createStackNavigator } from '@react-navigation/stack';
+import React from 'react';
+import { Layout } from '../../../components/Layout.components';
 
-import { stackStyleConfig } from "../../../theme/NavigationStyleConfig";
-import { LoginScreen } from "./Login.screen";
-import { SignUpScreen } from "./SignUp.screen";
-import { WelcomeScreen } from "./Welcome.screen";
+import { stackStyleConfig } from '../../../theme/NavigationStyleConfig';
+import { LoginScreen } from './Login.screen';
+import { SignUpScreen } from './SignUp.screen';
+import { WelcomeScreen } from './Welcome.screen';
 
 export type AuthStackParamsList = {
   Welcome: undefined;

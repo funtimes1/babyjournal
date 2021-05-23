@@ -1645,6 +1645,11 @@
   dependencies:
     "@hapi/hoek" "^8.3.0"
 
+"@hookform/resolvers@^2.5.1":
+  version "2.5.1"
+  resolved "https://registry.yarnpkg.com/@hookform/resolvers/-/resolvers-2.5.1.tgz#09f2228c9061c350819881dc11e4f65af90c5a1a"
+  integrity sha512-dNChuOJ7ker2ZALGhXO6KjeycwnBGcSslGsREgqTDSiBOgbEysupfGTJKzQsb0sXpNhrZLCGvQcT+qPmCdBEMw==
+
 "@jest/console@^24.9.0":
   version "24.9.0"
   resolved "https://registry.yarnpkg.com/@jest/console/-/console-24.9.0.tgz#79b1bc06fb74a8cfb01cbdedf945584b1b9707f0"
@@ -6701,7 +6706,7 @@ react-firebase-hooks@^3.0.4:
   resolved "https://registry.yarnpkg.com/react-firebase-hooks/-/react-firebase-hooks-3.0.4.tgz#2185357d2bd6f7292552bc65f2459bbf9364e673"
   integrity sha512-eqhj8O5t/9nzGS/DfCGQX9goqbxTP2T/qrY2B13s4rx/VIJ4Bx3WnZgqxEVA0Y/mWZBh7gOlXSPdRGbxBq5d8g==
 
-react-hook-form@^7.6.3:
+react-hook-form@^7.6.5:
   version "7.6.5"
   resolved "https://registry.yarnpkg.com/react-hook-form/-/react-hook-form-7.6.5.tgz#f3e2d75e3ca5312522c7ea5cd597f0bab123da1f"
   integrity sha512-bxWzRYbPGg830NezZsAiAO/rYKsF3j4IJeX9M/MPqF1uS5vNaxnn1+P93J/EOZhb4IPq5/5hM24e0C4nfIZJjQ==
@@ -8293,6 +8298,11 @@ yocto-queue@^0.1.0:
   version "0.1.0"
   resolved "https://registry.yarnpkg.com/yocto-queue/-/yocto-queue-0.1.0.tgz#0294eb3dee05028d31ee1a5fa2c556a6aaf10a1b"
   integrity sha512-rVksvsnNCdJ/ohGc6xgPwyN8eheCxsiLM8mxuE/t/mOVqJewPuO1miLpTHQiRgTKCLexL4MeAFVagts7HmNZ2Q==
+
+zod@^3.0.2:
+  version "3.0.2"
+  resolved "https://registry.yarnpkg.com/zod/-/zod-3.0.2.tgz#0d8f0adbc7569e1a3c67b2cc788f81a55dc8a403"
+  integrity sha512-a+9VrxBi5CWBFq2LO5aNgbAaIRzPpBLbH4qGjSFeKd/ClLAXZq1dNFLTe9N1VDUBKxqXgHVkMlyp5MtSJylJww==
 
 zustand@^3.5.1:
   version "3.5.1"
