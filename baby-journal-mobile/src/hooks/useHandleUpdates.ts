@@ -13,7 +13,9 @@ export function useHandleUpdates() {
       if (appState.match(/inactive|background/) && nextAppState === 'active') {
         console.info('App has come to the foreground!');
         console.info('Checking for updates');
-        checkForAppUpdate();
+        if (!__DEV__) {
+          checkForAppUpdate();
+        }
       }
       setAppState(nextAppState);
     };

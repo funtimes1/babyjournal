@@ -16,12 +16,6 @@ export const MenuScreen: React.FC = () => {
           onPress={() => navigate('Settings', { screen: 'AccountInfo' })}
         />
         <Separator.Horizontal />
-        <ActionRow
-          content="Export"
-          icon="download-outline"
-          onPress={() => navigate('Settings', { screen: 'Export' })}
-        />
-        <Separator.Horizontal />
         <ActionRow content="Debug" icon="bug-outline" onPress={() => navigate('Debug')} />
         <Separator.Horizontal />
       </Layout.Scroll>

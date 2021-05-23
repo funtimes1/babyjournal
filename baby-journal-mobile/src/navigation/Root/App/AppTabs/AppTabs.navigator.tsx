@@ -7,10 +7,8 @@ import { MenuScreen } from './Settings/Menu.screen';
 import { DashboardScreen } from './Summary/Dashboard.screen';
 
 export type AppTabsParamsList = {
-  Summary: undefined;
-  Transactions: undefined;
-  Mileages: undefined;
-  Reports: undefined;
+  Journal: undefined;
+
   Menu: undefined;
 };
 
@@ -20,10 +18,10 @@ export const AppTabsNavigator: React.FC = () => {
   return (
     <AppTabs.Navigator screenOptions={{ ...bottomTabStyleConfig }}>
       <AppTabs.Screen
-        name="Summary"
+        name="Journal"
         options={{
           tabBarIcon: (props) => (
-            <Icon name={`pie-chart${props.focused ? '' : '-outline'}` as IconName} {...props} />
+            <Icon name={`calendar${props.focused ? '' : '-outline'}` as IconName} {...props} />
           ),
         }}
         component={DashboardScreen}
