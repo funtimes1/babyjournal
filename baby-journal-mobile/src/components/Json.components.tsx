@@ -1,6 +1,6 @@
-import { DefaultTextProps } from '@easy-expense/ui/native';
-import { styled } from '@easy-expense/ui/theme';
 import { Text, View } from 'react-native';
+import { styled } from '../theme/theme';
+import { DefaultTextProps } from './Typography.components';
 
 export const JsonComponents = {
   Text: styled(Text).attrs({

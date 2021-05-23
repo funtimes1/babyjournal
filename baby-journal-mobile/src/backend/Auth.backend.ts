@@ -17,12 +17,6 @@ export function login(email: string, password: string) {
   return fuego.auth().signInWithEmailAndPassword(email, password);
 }
 
-export async function signInGuest() {
-  const user = await fuego.auth().signInAnonymously();
-
-  return user;
-}
-
 export function logout() {
   return fuego.auth().signOut();
 }

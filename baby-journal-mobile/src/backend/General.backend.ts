@@ -11,15 +11,14 @@ import '@firebase/firestore';
 import '@firebase/functions';
 
 // const firebaseConfig = Constants.manifest.extra?.firebase;
-const firebaseConfig = {
-  apiKey: 'AIzaSyCdhUfwTdA6DCGtCPador9BfVM5jTX7dcE',
-  authDomain: 'easy-expense-dev.firebaseapp.com',
-  databaseURL: 'https://easy-expense-dev.firebaseio.com',
-  projectId: 'easy-expense-dev',
-  storageBucket: 'easy-expense-dev.appspot.com',
-  messagingSenderId: '656576554418',
-  appId: '1:656576554418:web:4b2317316cb7fd678770ab',
-  measurementId: 'G-20644XXPQV',
+var firebaseConfig = {
+  apiKey: 'AIzaSyDcp_Nh7DELDBpj2BSkQzx9KZg0jHa9JTM',
+  authDomain: 'babyjournal11.firebaseapp.com',
+  projectId: 'babyjournal11',
+  storageBucket: 'babyjournal11.appspot.com',
+  messagingSenderId: '217743478381',
+  appId: '1:217743478381:web:dafd441b27e47819153964',
+  measurementId: 'G-VTG6PJ7ERL',
 };
 export const fuego = new Fuego(firebaseConfig);
 // fuego.db.enablePersistence().catch((e) => console.warn(e.message));

@@ -3,15 +3,18 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 import { StatusBar } from 'expo-status-bar';
 import React from 'react';
 import { Switch, Clipboard } from 'react-native';
+import { currentUser, logout } from '../../../../backend/Auth.backend';
 
 import { ActionRow } from '../../../../components/ActionRow.component';
-import { AvailableEmoji } from '../../../../components/Debug/AvailableEmoji.component';
-import { AvailableLocales } from '../../../../components/Debug/AvailableLocales.component';
 import { DebugInfoContainer } from '../../../../components/DebugInfoContainer.component';
+import { Layout } from '../../../../components/Layout.components';
+import { Separator } from '../../../../components/Separator.components';
+import { Spacer } from '../../../../components/Spacer.components';
+import { Mono, OpenSans } from '../../../../components/Typography.components';
 import { useAppStore } from '../../../../stores/App.store';
 import { useDebugStore } from '../../../../stores/Debug.store';
+import { styled } from '../../../../theme/theme';
 import { useNav } from '../../../useNav';
-// import { EmojiPicker } from '../../../../components/Forms/Fields/Selection/EmojiPicker.component';
 
 const DebugActionRow = styled(ActionRow).attrs({
   color: 'inverse',
@@ -49,21 +52,6 @@ export const DebugScreen: React.FC = () => {
 
   const snapPoints = React.useMemo(() => ['90%'], []);
 
-  const localeSheetRef = React.useRef<BottomSheetModal>(null);
-  const presentLocaleSheet = React.useCallback(() => {
-    localeSheetRef.current?.present();
-  }, []);
-
-  // const emojiPickerSheetRef = React.useRef<BottomSheetModal>(null);
-  // const presentEmojiPickerSheet = React.useCallback(() => {
-  //   emojiPickerSheetRef.current?.present();
-  // }, []);
-
-  const emojiSheetRef = React.useRef<BottomSheetModal>(null);
-  const presentEmojiSheet = React.useCallback(() => {
-    emojiSheetRef.current?.present();
-  }, []);
-
   const asyncStorageSheetRef = React.useRef<BottomSheetModal>(null);
   const presentAsyncStorageSheet = React.useCallback(() => {
     asyncStorageSheetRef.current?.present();
@@ -93,21 +81,6 @@ export const DebugScreen: React.FC = () => {
             <OpenSans.Inverse grow>Toggle Floating Debug Button</OpenSans.Inverse>
             <Switch value={debugShowDebugButton} onValueChange={toggleShowDebugButton} />
           </DebugActionRow>
-          <Separator.Horizontal />
-          <DebugActionRow onPress={presentLocaleSheet}>
-            <OpenSans.Inverse grow>Show Available Locales</OpenSans.Inverse>
-            <AvailableLocales ref={localeSheetRef} />
-          </DebugActionRow>
-          <Separator.Horizontal />
-          <DebugActionRow onPress={presentEmojiSheet}>
-            <OpenSans.Inverse grow>Show Available Emoji</OpenSans.Inverse>
-            <AvailableEmoji ref={emojiSheetRef} />
-          </DebugActionRow>
-          {/* <Separator.Horizontal />
-          <DebugActionRow onPress={presentEmojiPickerSheet}>
-            <OpenSans.Inverse grow>Show Emoji Picker</OpenSans.Inverse>
-            <EmojiPicker ref={emojiPickerSheetRef} />
-          </DebugActionRow> */}
           <Separator.Horizontal />
           <DebugActionRow onPress={presentAsyncStorageSheet}>
             <OpenSans.Inverse grow>Show Async Storage</OpenSans.Inverse>
@@ -146,7 +119,7 @@ export const DebugScreen: React.FC = () => {
             }}
           >
             <OpenSans.Inverse>Copy Firestore Data Path:</OpenSans.Inverse>
-            <Mono.Inverse size="xs-12">{userDataPath(currentUser()?.uid ?? 'none')}</Mono.Inverse>
+            <Mono.Inverse size="xs-12">{`users/${currentUser()?.uid ?? 'none'}`}</Mono.Inverse>
           </Layout.PressableColumn>
         </DebugInfoContainer>
         <Spacer.Vertical />

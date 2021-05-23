@@ -1,7 +1,11 @@
-import { EntityName, userDataEntityCollectionPath } from '@easy-expense/data-schema-v2';
-
 import { currentUser, useUser } from './Auth.backend';
 import { fuego } from './General.backend';
+
+type EntityName = 'journal-entry';
+
+function userDataEntityCollectionPath(userId: string, entity: EntityName) {
+  return `users/${userId}/${entity}s`;
+}
 
 export function firestoreCollectionRef(entity: EntityName) {
   const userId = currentUser()?.uid ?? `none`;

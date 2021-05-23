@@ -7,7 +7,7 @@ import { BorderlessButton as BaseBorderlessButton } from 'react-native-gesture-h
 import { useThrottle } from '../hooks/useThrottle';
 import { platformValue } from '../lib/Platform/platformValue';
 import { baseColumnLayout, baseLayout, LayoutProps, styled, TypographyProps } from '../theme/theme';
-import { Layout } from './Layout.components';
+import { DefaultPressableProps, Layout } from './Layout.components';
 import { OpenSans } from './Typography.components';
 
 // type ButtonProps = {

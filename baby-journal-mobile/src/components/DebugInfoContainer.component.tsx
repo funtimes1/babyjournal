@@ -1,15 +1,15 @@
-import { Layout, OpenSans } from '@easy-expense/ui/native';
-import { LayoutProps } from '@easy-expense/ui/theme';
-import { FixMe } from '@easy-expense/utils';
 import React from 'react';
 import { JsonBlob } from 'turbo-json-blob';
+import { LayoutProps } from '../theme/theme';
 
 import { JsonComponents } from './Json.components';
+import { Layout } from './Layout.components';
+import { OpenSans } from './Typography.components';
 
 export const DebugInfoContainer: React.FC<
   {
     title?: string;
-    content?: FixMe;
+    content?: any;
   } & LayoutProps
 > = (props) => {
   const { title, content, children, ...rest } = props;

@@ -1,5 +1,4 @@
 import React from 'react';
-import { signInGuest } from '../../../backend/Auth.backend';
 
 import { Button } from '../../../components/Button.components';
 import { Layout } from '../../../components/Layout.components';
@@ -16,8 +15,7 @@ export const WelcomeScreen: React.FC = () => {
         Welcome!
       </OpenSans.Primary>
       <Spacer.Vertical units={5} />
-      <Button.Black onPress={signInGuest} content="Start" />
-      <Spacer.Vertical />
+
       <Button.White onPress={() => navigate('Login')} content="Login" />
       <Spacer.Vertical />
       <Button.White onPress={() => navigate('SignUp')} content="Sign up" />

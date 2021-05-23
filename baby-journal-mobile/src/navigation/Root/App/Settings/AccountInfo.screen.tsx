@@ -1,8 +1,8 @@
-import { useUser } from '@easy-expense/auth-client';
-import { Layout } from '@easy-expense/ui/native';
 import React from 'react';
+import { useUser } from '../../../../backend/Auth.backend';
 
 import { DebugInfoContainer } from '../../../../components/DebugInfoContainer.component';
+import { Layout } from '../../../../components/Layout.components';
 
 export const AccountInfoScreen: React.FC = () => {
   const user = useUser();
