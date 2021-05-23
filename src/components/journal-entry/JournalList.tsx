@@ -1,11 +1,11 @@
 import { firestore } from "../../firebase";
-import { useUserJournalEntries } from "../hooks/UseUserJournalEntries";
+import { useJournalEntriesFirestoreRef } from "../hooks/UseUserJournalEntries";
 import { useCollection } from "react-firebase-hooks/firestore";
 import { JournalEntry } from "../../Types";
 import React from "react";
 
 export const JournalList: React.FunctionComponent = () => {
-  const journalCollectionRef = useUserJournalEntries();
+  const journalCollectionRef = useJournalEntriesFirestoreRef();
   const [value, loading, error] = useCollection<JournalEntry>(
     journalCollectionRef,
     { snapshotListenOptions: { includeMetadataChanges: true } }
