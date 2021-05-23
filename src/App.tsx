@@ -5,12 +5,7 @@ import { AddJournal } from "./components/journal-entry/AddJournal";
 import { JournalList } from "./components/journal-entry/JournalList";
 
 function App() {
-  return (
-    <div className="App">
-      <AddJournal />
-      <JournalList />
-    </div>
-  );
+  return <div className="App"></div>;
 }
 
 export default App;

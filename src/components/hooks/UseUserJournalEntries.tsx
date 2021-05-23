@@ -1,9 +1,8 @@
 import { firestore } from "../../firebase";
 import { useCurrentUser } from "./UseCurrentUser";
 
-export function useUserJournalEntries() {
+export function useJournalEntriesFirestoreRef() {
   const user = useCurrentUser();
-  // console.log(user.uid);
   return firestore
     .collection("users")
     .doc(user?.uid)

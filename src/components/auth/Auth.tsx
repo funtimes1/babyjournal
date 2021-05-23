@@ -4,7 +4,8 @@ import React from "react";
 import { useAuthState } from "react-firebase-hooks/auth";
 import { Login } from "./Login";
 import { Signup } from "./Signup";
-import App from "../../App";
+import { AddJournal } from "../journal-entry/AddJournal";
+import { JournalList } from "../journal-entry/JournalList";
 
 // export const Auth = () => {
 //   const login = () => {
@@ -42,9 +43,12 @@ export const Auth: React.FunctionComponent = () => {
 //User information such as ID contained in and accessible via Authenticated App
 const AuthenticatedApp: React.FC = () => {
   const user = useCurrentUser();
+
   return (
     <div>
       {/* JSON stringify converts object or value to a JSON string */}
+      <AddJournal />
+      <JournalList />
       {JSON.stringify(user, null, 2)}
       <button onClick={() => firebase.auth().signOut()}>LOGOUT</button>
     </div>

@@ -3,10 +3,10 @@ import React from "react";
 export type JournalEntry = {
   id: string; //cuid
   date: Date; //createdAt
-  title?: string; //defaults to event if no title is provided
-  notes?: string; // overall summary of day
+  title: string | null; //defaults to event if no title is provided
+  notes: string | null; // overall summary of day
   events: Events[]; //button to add a new event, leads to a list of categories, user selects category, leads to a simple "event" form, which opens up on the same page
-  photos?: [Photo];
+  photos: [Photo] | null;
 };
 
 // list of notes / things that happened throughout the day
