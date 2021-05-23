@@ -1,9 +1,7 @@
-import { useCurrentUser } from "../hooks/UseCurrentUser";
 import cuid from "cuid";
 import { useForm } from "react-hook-form";
 import { useUserJournalEntries } from "../hooks/UseUserJournalEntries";
 import { JournalEntry } from "../../Types";
-import React from "react";
 
 //use JournalEntry type
 //create hook usejournalentries hook
@@ -33,11 +31,12 @@ export const AddJournal: React.FunctionComponent = () => {
       <h2>Add Journal</h2>
       <form onSubmit={handleSubmit(addJournalEntry)}>
         <input
-          {...register("title")}
+          {...register("title", { required: "Title is required" })}
           type="text"
           placeholder="Title of Journal Entry"
           name="title"
         />
+        {errors.title && <p>{errors.title.message}</p>}
       </form>
 
       <button type="submit">Submit</button>
