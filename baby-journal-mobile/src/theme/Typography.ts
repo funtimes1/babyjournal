@@ -1,4 +1,4 @@
-import { baseTypography, css, HairlineWidth, TypographyProps } from "./theme";
+import { baseTypography, css, HairlineWidth, TypographyProps } from './theme';
 
 const BaseText = css<TypographyProps>`
   ${baseTypography}
@@ -19,34 +19,30 @@ export const BaseTypography = {
 
 const OpenSansPrimary = css<TypographyProps>`
   ${BaseText}
-  font-family: ${({ theme, weight }) =>
-    theme.fonts["open-sans"][weight ?? "regular"]};
+  font-family: ${({ theme, weight }) => theme.fonts['open-sans'][weight ?? 'regular']};
 `;
 
 const OpenSansInput = css<TypographyProps>`
   ${BaseTextInput}
-  font-family: ${({ theme, weight }) =>
-    theme.fonts["open-sans"][weight ?? "regular"]};
+  font-family: ${({ theme, weight }) => theme.fonts['open-sans'][weight ?? 'regular']};
 `;
 
-export const OpenSans = {
+export const OpenSansCSS = {
   Primary: OpenSansPrimary,
   Input: OpenSansInput,
 } as const;
 
 const MonoPrimary = css<TypographyProps>`
   ${BaseText}
-  font-family: ${({ theme, weight }) =>
-    theme.fonts["plex-mono"][weight ?? "light"]};
+  font-family: ${({ theme, weight }) => theme.fonts['plex-mono'][weight ?? 'light']};
 `;
 
 const MonoInput = css<TypographyProps>`
   ${BaseTextInput}
-  font-family: ${({ theme, weight }) =>
-    theme.fonts["plex-mono"][weight ?? "light"]};
+  font-family: ${({ theme, weight }) => theme.fonts['plex-mono'][weight ?? 'light']};
 `;
 
-export const Mono = {
+export const MonoCSS = {
   Primary: MonoPrimary,
   Input: MonoInput,
 } as const;

@@ -281,7 +281,7 @@ const AppTheme = {
     defaultSeparator: GlobalColors.trueGray['300'],
     // text
     primary: GlobalColors.trueGray['800'],
-    primaryHighlight: GlobalColors.trueGray['700'],
+    primaryHighlight: GlobalColors.trueGray['600'],
     secondary: GlobalColors.trueGray['500'],
     inverse: GlobalColors.white,
     placeholder: GlobalColors.trueGray['400'],
@@ -294,6 +294,9 @@ const AppTheme = {
     buttonWhiteInactive: GlobalColors.trueGray['300'],
     shadow: '#2224',
     haze: '#fffb',
+    addButtonOption: GlobalColors.trueGray['700'],
+    addButtonInner: GlobalColors.trueGray['800'],
+    addButtonHalo: '#2224',
     // form
     formSection: GlobalColors.trueGray['100'],
     // calendar

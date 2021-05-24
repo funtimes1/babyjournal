@@ -13,7 +13,7 @@ import {
 } from 'date-fns';
 import React from 'react';
 
-import { Color } from '../theme/theme';
+import { Color, LayoutProps } from '../theme/theme';
 import { Icon } from './Icons/Icon';
 import { Layout } from './Layout.components';
 import { Circle, Square } from './Shape.components';
@@ -97,9 +97,7 @@ type CalendarProps = {
   };
   headerFormatString?: string;
   syncSelectedDayWithMonth?: boolean;
-  setGCal?: () => void;
-  leftButton?: JSX.Element;
-};
+} & LayoutProps;
 
 const TodayCalTheme: CalendarProps['calendarTheme'] = {
   calendarSelectedDay: 'calendarSelectedDay',
@@ -116,7 +114,7 @@ export const Calendar: React.FC<CalendarProps> = (props) => {
     calendarTheme = TodayCalTheme,
     headerFormatString,
     syncSelectedDayWithMonth,
-    leftButton,
+    ...rest
   } = props;
   const [currentMonth, setCurrentMonth] = React.useState(startOfMonth(selectedDay));
 
@@ -134,7 +132,6 @@ export const Calendar: React.FC<CalendarProps> = (props) => {
     <CalendarHeader
       selectedDay={syncSelectedDayWithMonth ? selectedDay : currentMonth}
       formatString={headerFormatString ?? 'MMM yyyy'}
-      leftButton={leftButton}
       leftPress={() => {
         const prevMonth = startOfMonth(subMonths(currentMonth, 1));
         setCurrentMonth(prevMonth);
@@ -232,7 +229,7 @@ export const Calendar: React.FC<CalendarProps> = (props) => {
   );
 
   return (
-    <Layout.Column grow>
+    <Layout.Column {...rest}>
       {header}
       {daysOfWeek}
       {monthDays}
