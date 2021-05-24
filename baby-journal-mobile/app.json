@@ -2,13 +2,12 @@
   "expo": {
     "android": {
       "adaptiveIcon": {
-        "backgroundColor": "#FFFFFF",
+        "backgroundColor": "#1EE5CE",
         "foregroundImage": "./assets/adaptive-icon.png"
       }
     },
-    "assetBundlePatterns": [
-      "**/*"
-    ],
+    "assetBundlePatterns": ["**/*"],
+    "description": "",
     "icon": "./assets/icon.png",
     "ios": {
       "supportsTablet": true
@@ -18,8 +17,8 @@
     "owner": "babyjournal",
     "slug": "baby-journal-mobile",
     "splash": {
-      "backgroundColor": "#ffffff",
-      "image": "./assets/splash.png",
+      "backgroundColor": "#1EE5CE",
+      "image": "./assets/icon.png",
       "resizeMode": "contain"
     },
     "updates": {
@@ -27,8 +26,7 @@
     },
     "version": "1.0.0",
     "web": {
-      "favicon": "./assets/favicon.png"
-    },
-    "description": ""
+      "favicon": "./assets/icon.png"
+    }
   }
 }
