@@ -32,7 +32,7 @@ export const AddButton: React.FC = () => {
           <MotiView
             from={{
               opacity: 0,
-              translateY: +100,
+              translateY: +80,
             }}
             animate={{
               opacity: 1,
@@ -40,14 +40,14 @@ export const AddButton: React.FC = () => {
             }}
             exit={{
               opacity: 0,
-              translateY: +100,
+              translateY: +80,
             }}
           >
             {options.map((o) => {
               return (
                 <Layout.PressableColumn onPress={o.onPress} key={o.name}>
-                  <Circle circleSize={40} bg="addButtonOption" center>
-                    <Icon name={o.iconName} size={18} iconColor="inverse" />
+                  <Circle circleSize={50} bg="addButtonOption" center>
+                    <Icon name={o.iconName} size={24} iconColor="inverse" />
                   </Circle>
                   <Spacer.Vertical />
                 </Layout.PressableColumn>
@@ -56,6 +56,7 @@ export const AddButton: React.FC = () => {
           </MotiView>
         )}
       </AnimatePresence>
+      <Spacer.Vertical />
       <Layout.Column>
         <MotiView
           animate={{ scale: open ? 1.25 : 1 }}
