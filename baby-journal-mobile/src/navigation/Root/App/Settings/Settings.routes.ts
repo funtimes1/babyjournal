@@ -1,6 +1,7 @@
 import { RouteProp, useRoute } from '@react-navigation/native';
 
 export type SettingsStackParamsList = {
+  Menu: undefined;
   // Settings
   AccountInfo: undefined;
 };

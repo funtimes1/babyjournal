@@ -12,16 +12,19 @@ import {
   subMonths,
 } from 'date-fns';
 import React from 'react';
+import { useNav } from '../navigation/useNav';
 
 import { Color, LayoutProps } from '../theme/theme';
 import { Icon } from './Icons/Icon';
 import { Layout } from './Layout.components';
 import { Circle, Square } from './Shape.components';
+import { Spacer } from './Spacer.components';
 import { OpenSans } from './Typography.components';
 
 export const days = ['S', 'M', 'T', 'W', 'T', 'F', 'S'];
 
 const CIRCLE_SIZE = 36;
+const HEADING_SIZE = CIRCLE_SIZE + 16;
 
 type CalendarHeaderProps = {
   selectedDay: Date;
@@ -41,42 +44,49 @@ export const CalendarHeader: React.FC<CalendarHeaderProps> = (props) => {
     rightPress,
     calendarButtonPress,
     showCalendarButton,
-    leftButton,
   } = props;
+  const { navigate } = useNav<'Journal'>();
   return (
-    <Layout.Row center>
+    <Layout.Row center bg="primaryHighlight" radius>
       <Layout.Row grow align>
-        {!!leftButton && (
-          <Square squareSize={CIRCLE_SIZE} center>
-            {leftButton}
-          </Square>
-        )}
+        <Square squareSize={HEADING_SIZE} center>
+          <Layout.PressableRow
+            onPress={() => navigate('Settings', { screen: 'Menu' })}
+            grow
+            center
+            size={HEADING_SIZE}
+            style={{ width: HEADING_SIZE }}
+            hitSlop={{ right: 40 }}
+          >
+            <Icon name="menu-outline" size={30} iconColor="inverse" />
+          </Layout.PressableRow>
+        </Square>
         <Layout.Row grow reverse size={40} align>
           <Layout.PressableRow onPress={leftPress} size={40} style={{ width: 40 }} center>
-            <Icon name="chevron-back-circle-outline" size={28} />
+            <Icon name="chevron-back-circle" size={28} iconColor="inverse" />
           </Layout.PressableRow>
         </Layout.Row>
       </Layout.Row>
       <Layout.Column px style={{ minWidth: 150 }} center>
-        <OpenSans.Primary weight="bold">{format(selectedDay, formatString)}</OpenSans.Primary>
+        <OpenSans.Inverse weight="bold">{format(selectedDay, formatString)}</OpenSans.Inverse>
       </Layout.Column>
       <Layout.Row grow align>
         <Layout.Row grow size={40} align>
           <Layout.PressableRow onPress={rightPress} size={40} style={{ width: 40 }} center>
-            <Icon name="chevron-forward-circle-outline" size={28} />
+            <Icon name="chevron-forward-circle" size={28} iconColor="inverse" />
           </Layout.PressableRow>
         </Layout.Row>
         {showCalendarButton && (
-          <Square squareSize={CIRCLE_SIZE} center>
+          <Square squareSize={HEADING_SIZE} center>
             <Layout.PressableRow
               onPress={calendarButtonPress}
               grow
               center
-              size={CIRCLE_SIZE}
-              style={{ width: CIRCLE_SIZE }}
+              size={HEADING_SIZE}
+              style={{ width: HEADING_SIZE }}
               hitSlop={{ right: 40 }}
             >
-              <Icon name="calendar" size={22} />
+              <Icon name="calendar" size={22} iconColor="inverse" />
             </Layout.PressableRow>
           </Square>
         )}
@@ -197,7 +207,7 @@ export const Calendar: React.FC<CalendarProps> = (props) => {
                     }
                     border={
                       isToday
-                        ? [1, 'solid', calendarTheme.calendarSelectedDay]
+                        ? [2, 'solid', calendarTheme.calendarSelectedDay]
                         : isInMonth && !isSelectedDay
                         ? [1, 'solid', calendarTheme.calendarDayBorder]
                         : undefined
@@ -205,7 +215,7 @@ export const Calendar: React.FC<CalendarProps> = (props) => {
                   >
                     <OpenSans.Primary
                       size="s-16"
-                      weight="regular"
+                      weight={isToday ? 'bold' : 'regular'}
                       color={
                         isSelectedDay
                           ? 'inverse'
@@ -231,8 +241,11 @@ export const Calendar: React.FC<CalendarProps> = (props) => {
   return (
     <Layout.Column {...rest}>
       {header}
-      {daysOfWeek}
-      {monthDays}
+      <Spacer.Vertical />
+      <Layout.Column px={8}>
+        {daysOfWeek}
+        {monthDays}
+      </Layout.Column>
     </Layout.Column>
   );
 };

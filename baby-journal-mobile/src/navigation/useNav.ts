@@ -2,7 +2,6 @@ import { useNavigation } from '@react-navigation/native';
 import { StackNavigationProp } from '@react-navigation/stack';
 
 import { AppStackParamsList } from './Root/App/App.routes';
-import { AppTabsParamsList } from './Root/App/AppTabs/AppTabs.navigator';
 import { OnboardingStackParamsList } from './Root/App/Onboarding/Onboarding.navigator';
 import { AuthStackParamsList } from './Root/Auth/Auth.navigator';
 import { SettingsStackParamsList } from './Root/App/Settings/Settings.routes';
@@ -13,7 +12,6 @@ type AllScreens = RootStackParamsList &
   AuthStackParamsList &
   AppStackParamsList &
   OnboardingStackParamsList &
-  AppTabsParamsList &
   SettingsStackParamsList;
 
 export type AllScreenKeys = keyof AllScreens;

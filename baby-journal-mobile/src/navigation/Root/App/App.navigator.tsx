@@ -4,7 +4,7 @@ import React from 'react';
 import { PlaceHolderScreen } from '../../../lib/PlaceHolders/Placeholder.screen';
 import { stackStyleConfig } from '../../../theme/NavigationStyleConfig';
 import { AppStackParamsList } from './App.routes';
-import { AppTabsNavigator } from './AppTabs/AppTabs.navigator';
+import { DashboardScreen } from './Dashboard.screen';
 import { SettingsNavigator } from './Settings/Settings.navigator';
 
 const AppStack = createStackNavigator<AppStackParamsList>();
@@ -18,8 +18,8 @@ export const AppNavigator: React.FC = () => {
       ) : (
         <>
           <AppStack.Screen
-            name="AppTabs"
-            component={AppTabsNavigator}
+            name="Journal"
+            component={DashboardScreen}
             options={{ headerShown: false }}
           />
           <AppStack.Screen name="Modal" component={PlaceHolderScreen} />
