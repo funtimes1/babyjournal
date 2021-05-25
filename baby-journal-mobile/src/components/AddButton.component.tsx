@@ -1,5 +1,7 @@
 import { View as MotiView, AnimatePresence } from 'moti';
 import React from 'react';
+import { saveNewJournalEntry, saveNewJournalEntryPhoto } from '../database/journalEntry.database';
+import { useDayStore } from '../stores/Day.store';
 import { Icon, IconName } from './Icons/Icon';
 
 import { Layout } from './Layout.components';
@@ -7,12 +9,14 @@ import { Circle } from './Shape.components';
 import { Spacer } from './Spacer.components';
 
 export const AddButton: React.FC = () => {
+  const { selectedDay } = useDayStore();
   const [open, setOpen] = React.useState(false);
 
   const options: { name: string; onPress: () => void; iconName: IconName }[] = [
     {
       name: 'add-entry',
       onPress: () => {
+        saveNewJournalEntry(selectedDay);
         setOpen(false);
       },
       iconName: 'book-outline',
@@ -20,6 +24,7 @@ export const AddButton: React.FC = () => {
     {
       name: 'add-photo',
       onPress: () => {
+        saveNewJournalEntryPhoto(selectedDay);
         setOpen(false);
       },
       iconName: 'camera-outline',

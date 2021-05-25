@@ -1,10 +1,10 @@
 import { currentUser, useUser } from './Auth.backend';
 import { fuego } from './General.backend';
 
-type EntityName = 'journal-entry';
+type EntityName = 'journal-entries' | 'user-profiles';
 
 function userDataEntityCollectionPath(userId: string, entity: EntityName) {
-  return `users/${userId}/${entity}s`;
+  return `users/${userId}/${entity}`;
 }
 
 export function firestoreCollectionRef(entity: EntityName) {
