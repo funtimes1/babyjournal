@@ -12,6 +12,7 @@ import { zodResolver } from '@hookform/resolvers/zod';
 import * as z from 'zod';
 import { FormDebug } from '../../../components/Forms/FormDebug.component';
 import { CategoryMockList } from '../../../components/Category.component';
+import { AddPhoto } from '../../../components/AddPhoto.component';
 
 const schema = z.object({
   category: z.string(),
@@ -48,7 +49,7 @@ const Form: React.FC = () => {
     <>
       <>
         <Layout.Column bg="buttonWhite" px py radius>
-          <CategoryMockList />
+          <AddPhoto />
           <Spacer.Vertical />
           <AuthField label="Notes">
             <PasswordField<AddEventFields>
@@ -64,7 +65,7 @@ const Form: React.FC = () => {
           onPress={handleSubmit(onSubmit)}
           inactiveOnPress={handleSubmit(onSubmit)}
           active={isValid && isDirty}
-          content="Add Event"
+          content="Add Photo"
         />
       </>
       <FormDebug formState={methods.formState} />
@@ -72,7 +73,7 @@ const Form: React.FC = () => {
   );
 };
 
-export const AddEventScreen: React.FC = () => {
+export const AddPhotoScreen: React.FC = () => {
   return (
     <Layout.Scroll>
       <Layout.Column px py grow>

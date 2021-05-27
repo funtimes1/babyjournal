@@ -28,7 +28,7 @@ export const AddButton: React.FC = () => {
     {
       name: 'add-photo',
       onPress: () => {
-        saveNewJournalEntryPhoto(selectedDay);
+        navigate('AddPhoto');
         setOpen(false);
       },
       iconName: 'camera-outline',
