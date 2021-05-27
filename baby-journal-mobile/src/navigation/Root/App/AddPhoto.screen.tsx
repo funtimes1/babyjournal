@@ -11,7 +11,6 @@ import { PasswordField } from '../../../components/Forms/Fields/Text/PasswordFie
 import { zodResolver } from '@hookform/resolvers/zod';
 import * as z from 'zod';
 import { FormDebug } from '../../../components/Forms/FormDebug.component';
-import { CategoryMockList } from '../../../components/Category.component';
 import { AddPhoto } from '../../../components/AddPhoto.component';
 
 const schema = z.object({
@@ -51,10 +50,10 @@ const Form: React.FC = () => {
         <Layout.Column bg="buttonWhite" px py radius>
           <AddPhoto />
           <Spacer.Vertical />
-          <AuthField label="Notes">
+          <AuthField label="Caption">
             <PasswordField<AddEventFields>
               controllerProps={{ name: 'notes', control, defaultValue: '' }}
-              placeholder="Notes"
+              placeholder="This is a great photo of great stuff..."
               multiline
               showErrors
             />
