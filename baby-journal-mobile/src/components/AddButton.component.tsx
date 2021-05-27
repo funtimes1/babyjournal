@@ -1,6 +1,8 @@
 import { View as MotiView, AnimatePresence } from 'moti';
 import React from 'react';
+import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { saveNewJournalEntry, saveNewJournalEntryPhoto } from '../database/journalEntry.database';
+import { useNav } from '../navigation/useNav';
 import { useDayStore } from '../stores/Day.store';
 import { Icon, IconName } from './Icons/Icon';
 
@@ -11,12 +13,14 @@ import { Spacer } from './Spacer.components';
 export const AddButton: React.FC = () => {
   const { selectedDay } = useDayStore();
   const [open, setOpen] = React.useState(false);
+  const { bottom } = useSafeAreaInsets();
+  const { navigate } = useNav<'Journal'>();
 
   const options: { name: string; onPress: () => void; iconName: IconName }[] = [
     {
       name: 'add-entry',
       onPress: () => {
-        saveNewJournalEntry(selectedDay);
+        navigate('AddEvent');
         setOpen(false);
       },
       iconName: 'book-outline',
@@ -31,7 +35,7 @@ export const AddButton: React.FC = () => {
     },
   ];
   return (
-    <Layout.Column absolute={{ bottom: 16, right: 16 }} center>
+    <Layout.Column absolute={{ bottom: bottom + 16, right: 16 }} center>
       <AnimatePresence>
         {open && (
           <MotiView

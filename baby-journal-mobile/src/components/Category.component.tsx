@@ -2,83 +2,36 @@ import React from 'react';
 import { Layout } from './Layout.components';
 import { Circle } from './Shape.components';
 import { OpenSans } from './Typography.components';
-import { colorForTopic } from '../lib/colorGenerators';
+import { categories } from '../lib/category';
+import { Icon } from './Icons/Icon';
+import { Spacer } from './Spacer.components';
 
-const categories = [
-  {
-    name: 'napping',
-    emoji: '😴',
-  },
-  {
-    name: 'feeding',
-    emoji: '🍼',
-  },
-  {
-    name: 'play time',
-    emoji: '🏀',
-  },
-  {
-    name: 'first',
-    emoji: '🥇',
-  },
-  {
-    name: 'napping',
-    emoji: '😴',
-  },
-  {
-    name: 'feeding',
-    emoji: '🍼',
-  },
-  {
-    name: 'play time',
-    emoji: '🏀',
-  },
-  {
-    name: 'first',
-    emoji: '🥇',
-  },
-  {
-    name: 'napping',
-    emoji: '😴',
-  },
-  {
-    name: 'feeding',
-    emoji: '🍼',
-  },
-  {
-    name: 'play time',
-    emoji: '🏀',
-  },
-  {
-    name: 'first',
-    emoji: '🥇',
-  },
-];
 export const CategoryMockList: React.FC = () => {
+  const [selected, setSelected] = React.useState('');
   return (
     <Layout.Scroll>
-      {categories.map((c, i, a) => {
-        const color = colorForTopic({ count: a.length, index: i, lightVal: '80%' });
-        const circleColor = colorForTopic({ count: a.length, index: i, lightVal: '75%' });
+      {categories.map((c, i) => {
+        const isSelected = c.name === selected;
         return (
           <Layout.Column key={`${c.name}${i}`} align="baseline">
-            <Layout.Row
-              style={{ marginBottom: 4 }}
+            <Layout.PressableRow
+              onPress={() => setSelected(c.name)}
+              style={{ marginBottom: 4, marginRight: 4 }}
               px={4}
               py="4xs-4"
               radius="3xl-38"
               align
               bg="primaryHighlight"
             >
-              <Circle circleSize={24} style={{ backgroundColor: circleColor }} center>
-                <OpenSans.Secondary size="xs-12" weight="bold">
-                  {c.emoji}
-                </OpenSans.Secondary>
+              <Circle circleSize={24} style={{ backgroundColor: c.color }} center>
+                {isSelected && <Icon name="checkmark-sharp" color={c.iconColor} size={18} />}
               </Circle>
+              <Spacer.Horizontal units={0.5} />
               <OpenSans.Inverse size="xs-12" weight="bold" px={4}>
-                {c.name}
+                {c.displayName}
               </OpenSans.Inverse>
-            </Layout.Row>
+              <Spacer.Horizontal />
+            </Layout.PressableRow>
           </Layout.Column>
         );
       })}

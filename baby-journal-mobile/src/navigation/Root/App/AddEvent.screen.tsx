@@ -1,12 +1,8 @@
 import React from 'react';
 import { Alert } from 'react-native';
-import { login } from '../../../backend/Auth.backend';
 import { useForm, SubmitHandler } from 'react-hook-form';
 
-// import { Login } from "../../../components/Forms/Auth/Login.form";
-// import { FormDebug } from "../../../components/Forms/FormDebug.component";
 import { Layout } from '../../../components/Layout.components';
-import { OpenSans } from '../../../components/Typography.components';
 import { useNav } from '../../useNav';
 import { Button } from '../../../components/Button.components';
 import { AuthField } from '../../../components/Forms/Auth/AuthField.component';
@@ -16,28 +12,33 @@ import { PasswordField } from '../../../components/Forms/Fields/Text/PasswordFie
 import { zodResolver } from '@hookform/resolvers/zod';
 import * as z from 'zod';
 import { FormDebug } from '../../../components/Forms/FormDebug.component';
+import { CategoryMockList } from '../../../components/Category.component';
 
 const schema = z.object({
-  email: z.string().email({ message: 'Please use valid email address' }),
-  password: z.string().min(6),
+  category: z.string(),
+  time: z.date(),
+  duration: z.number().nullable(),
+  notes: z.string().optional(),
 });
 
-type LoginFields = {
-  email: string;
-  password: string;
+type AddEventFields = {
+  category: string;
+  notes: string;
+  duration?: number;
+  time: Date;
 };
 
 const Form: React.FC = () => {
-  const { navigate, popToTop } = useNav<'Login'>();
-  const methods = useForm<LoginFields>({
+  const { navigate, popToTop } = useNav<'AddEvent'>();
+  const methods = useForm<AddEventFields>({
     resolver: zodResolver(schema),
     mode: 'onChange',
     reValidateMode: 'onChange',
   });
   const { control, handleSubmit, formState } = methods;
-  const onSubmit: SubmitHandler<LoginFields> = async (data) => {
+  const onSubmit: SubmitHandler<AddEventFields> = async (data) => {
     try {
-      await login(data.email, data.password);
+      Alert.alert(JSON.stringify(data, null, 2));
     } catch (error) {
       Alert.alert(error.message);
     }
@@ -48,19 +49,13 @@ const Form: React.FC = () => {
     <>
       <>
         <Layout.Column bg="buttonWhite" px py radius>
-          <AuthField label="Email">
-            <EmailField<LoginFields>
-              controllerProps={{ name: 'email', control, defaultValue: '' }}
-              placeholder="username@email.com"
-              showErrors
-              autoFocus
-            />
-          </AuthField>
-          <Spacer.Vertical units={2} />
-          <AuthField label="Password">
-            <PasswordField<LoginFields>
-              controllerProps={{ name: 'password', control, defaultValue: '' }}
-              placeholder="***********"
+          <CategoryMockList />
+          <Spacer.Vertical />
+          <AuthField label="Notes">
+            <PasswordField<AddEventFields>
+              controllerProps={{ name: 'notes', control, defaultValue: '' }}
+              placeholder="Notes"
+              multiline
               showErrors
             />
           </AuthField>
@@ -70,28 +65,18 @@ const Form: React.FC = () => {
           onPress={handleSubmit(onSubmit)}
           inactiveOnPress={handleSubmit(onSubmit)}
           active={isValid && isDirty}
-          content="Login"
+          content="Add Event"
         />
       </>
-      <Layout.PressableColumn
-        py
-        onPress={() => {
-          popToTop();
-          navigate('SignUp');
-        }}
-      >
-        <OpenSans.Primary center>Need to make an account?</OpenSans.Primary>
-        <OpenSans.Primary center>Sign up</OpenSans.Primary>
-      </Layout.PressableColumn>
       <FormDebug formState={methods.formState} />
     </>
   );
 };
 
-export const LoginScreen: React.FC = () => {
+export const AddEventScreen: React.FC = () => {
   return (
     <Layout.Scroll>
-      <Layout.Column px py justify grow>
+      <Layout.Column px py grow>
         <Form />
       </Layout.Column>
     </Layout.Scroll>

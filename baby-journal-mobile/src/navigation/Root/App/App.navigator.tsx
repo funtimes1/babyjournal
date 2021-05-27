@@ -3,6 +3,7 @@ import React from 'react';
 
 import { PlaceHolderScreen } from '../../../lib/PlaceHolders/Placeholder.screen';
 import { stackStyleConfig } from '../../../theme/NavigationStyleConfig';
+import { AddEventScreen } from './AddEvent.screen';
 import { AppStackParamsList } from './App.routes';
 import { DashboardScreen } from './Dashboard.screen';
 import { SettingsNavigator } from './Settings/Settings.navigator';
@@ -21,6 +22,11 @@ export const AppNavigator: React.FC = () => {
             name="Journal"
             component={DashboardScreen}
             options={{ headerShown: false }}
+          />
+          <AppStack.Screen
+            name="AddEvent"
+            component={AddEventScreen}
+            options={{ presentation: 'modal', title: 'Add Event' }}
           />
           <AppStack.Screen name="Modal" component={PlaceHolderScreen} />
           {/* Settings Tab */}

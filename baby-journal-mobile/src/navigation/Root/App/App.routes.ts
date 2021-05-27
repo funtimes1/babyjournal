@@ -5,6 +5,7 @@ import { SettingsStackParamsList } from './Settings/Settings.routes';
 export type AppStackParamsList = {
   // Root level
   Journal: undefined;
+  AddEvent: undefined;
   Modal: undefined;
   Onboarding: undefined;
   // Settings
