@@ -92,5 +92,5 @@ export function useFormNavButtons(
       ),
       headerLeft: (props) => <HeaderBackButton {...props} onPress={handleBack} />,
     });
-  }, [isValid, dirty]);
+  }, [isValid, dirty, isSubmitting]);
 }

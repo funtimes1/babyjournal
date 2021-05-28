@@ -56,29 +56,30 @@ export function saveNewJournalEntryEvent(
     });
 }
 
-export function saveNewJournalEntry(newDate: Date) {
-  const date = format(newDate, dateFormats.database);
+export function saveNewJournalEntryPhoto(date: Date, photo: { url: string; caption?: string }) {
+  const day = format(date, dateFormats.database);
   const updatedAt = Date.now();
-  firestoreCollectionRef('journal-entries').doc(date).set({
-    date,
-    title: ``,
-    updatedAt,
-    photos: [],
-  });
-}
-
-export function saveNewJournalEntryPhoto(newDate: Date) {
-  const date = format(newDate, dateFormats.database);
-  const updatedAt = Date.now();
-  firestoreCollectionRef('journal-entries')
-    .doc(date)
+  return firestoreCollectionRef('journal-entries')
+    .doc(day)
     .update({
       date,
-      title: ``,
       updatedAt,
-      photos: firebase.firestore.FieldValue.arrayUnion({
-        // url: `https://placekitten.com/g/200/200`,
-        caption: `kitten - ${cuid()}`,
-      }),
+      photos: firebase.firestore.FieldValue.arrayUnion(photo),
     });
 }
+
+// export function saveNewJournalEntryPhoto(newDate: Date) {
+//   const date = format(newDate, dateFormats.database);
+//   const updatedAt = Date.now();
+//   firestoreCollectionRef('journal-entries')
+//     .doc(date)
+//     .update({
+//       date,
+//       title: ``,
+//       updatedAt,
+//       photos: firebase.firestore.FieldValue.arrayUnion({
+//         // url: `https://placekitten.com/g/200/200`,
+//         caption: `kitten - ${cuid()}`,
+//       }),
+//     });
+// }

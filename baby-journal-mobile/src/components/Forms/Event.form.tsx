@@ -1,16 +1,11 @@
-import { useFormikContext } from 'formik';
 import React from 'react';
 import { z } from 'zod';
 
-import { Button } from '../Button.components';
-import { CategoryMockList } from '../Category.component';
 import { Layout } from '../Layout.components';
-import { Spacer } from '../Spacer.components';
 import { CategoryField } from './Fields/CategoryField.component';
 import { LabelTextField } from './Fields/LabelTextField.component';
 import { MultilineTextField } from './Fields/Text/MultilineTextField.component';
 import { NumberField } from './Fields/Text/NumberField.component';
-import { TextField } from './Fields/Text/TextField.component';
 import { TimeField } from './Fields/TimeField.component';
 import { validateFormSchema } from './validateFormSchema';
 
@@ -33,7 +28,6 @@ const defaultValues = {
 };
 
 const Form: React.FC = () => {
-  const { isValid, dirty, handleSubmit } = useFormikContext();
   return (
     <>
       <Layout.Column bg="buttonWhite" px py radius>

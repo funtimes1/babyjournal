@@ -1,7 +1,6 @@
 import { View as MotiView, AnimatePresence } from 'moti';
 import React from 'react';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
-import { saveNewJournalEntry, saveNewJournalEntryPhoto } from '../database/journalEntry.database';
 import { useNav } from '../navigation/useNav';
 import { useDayStore } from '../stores/Day.store';
 import { Icon, IconName } from './Icons/Icon';

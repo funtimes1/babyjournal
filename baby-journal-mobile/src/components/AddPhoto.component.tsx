@@ -5,13 +5,15 @@ import { Layout } from './Layout.components';
 import { Spacer } from './Spacer.components';
 import { OpenSans } from './Typography.components';
 import * as ImagePicker from 'expo-image-picker';
-import { ImageEditor } from 'expo-image-editor';
+// import { ImageEditor } from 'expo-image-editor';
+
+const image_width = 250;
 
 export const AddPhoto: React.FC = () => {
   const [image, setImage] = React.useState<string | undefined>(undefined);
   const [dimensions, setDimensions] = React.useState({ h: 0, w: 0 });
 
-  const [editorVisible, setEditorVisible] = React.useState(false);
+  // const [editorVisible, setEditorVisible] = React.useState(false);
 
   const pickImage = async () => {
     const { status } = await ImagePicker.requestMediaLibraryPermissionsAsync();
@@ -64,61 +66,53 @@ export const AddPhoto: React.FC = () => {
 
   return (
     <>
-      <Layout.Row bg="navBackground">
-        <Layout.PressableColumn
-          onPress={takeImage}
-          grow
-          center
-          radius
-          bg="inverse"
-          border={[1, 'dashed', 'primary']}
-          py="xs-12"
-        >
-          <Icon name="camera-outline" size={28} iconColor="primary" />
-          <Spacer.Vertical />
-          <OpenSans.Primary size="s-16">Take Photo</OpenSans.Primary>
-        </Layout.PressableColumn>
-        <Spacer.Horizontal />
-        <Layout.PressableColumn
-          onPress={pickImage}
-          grow
-          center
-          radius
-          bg="inverse"
-          border={[1, 'dashed', 'primary']}
-          py="xs-12"
-        >
-          <Icon name="images-outline" size={28} iconColor="primary" />
-          <Spacer.Vertical />
-          <OpenSans.Primary size="s-16">Pick Photo</OpenSans.Primary>
-        </Layout.PressableColumn>
-      </Layout.Row>
-      <Spacer.Vertical />
-      <ImageEditor
-        fixedCropAspectRatio={16 / 9}
-        lockAspectRatio={false}
-        visible={editorVisible}
-        onCloseEditor={() => setEditorVisible(false)}
-        imageUri={image}
-        minimumCropDimensions={{
-          width: 100,
-          height: 100,
-        }}
-        onEditingComplete={(result) => {
-          Alert.alert(JSON.stringify(result, null, 2));
-        }}
-      />
-      {image && !isNaN(aspect) && (
-        <Layout.Column center>
-          <Layout.Column radius style={{ overflow: 'hidden' }}>
-            <Image
-              source={{ uri: image }}
-              style={{ width: 200, height: 200 * aspect }}
-              resizeMode="contain"
-            />
+      <Layout.Row bg="navBackground" px py radius>
+        {image && !isNaN(aspect) ? (
+          <Layout.Column center grow>
+            <Layout.Column radius style={{ overflow: 'hidden' }}>
+              <Image
+                source={{ uri: image }}
+                style={{ width: image_width, height: image_width * aspect }}
+                resizeMode="contain"
+              />
+            </Layout.Column>
+            <Spacer.Vertical units={2} />
+            <Layout.PressableColumn onPress={() => setImage(undefined)}>
+              <Icon name="trash-bin-outline" size={40} />
+            </Layout.PressableColumn>
           </Layout.Column>
-        </Layout.Column>
-      )}
+        ) : (
+          <>
+            <Layout.PressableColumn
+              onPress={takeImage}
+              grow
+              center
+              radius
+              bg="inverse"
+              border={[1, 'dashed', 'primary']}
+              py="xs-12"
+            >
+              <Icon name="camera-outline" size={28} iconColor="primary" />
+              <Spacer.Vertical />
+              <OpenSans.Primary size="s-16">Take Photo</OpenSans.Primary>
+            </Layout.PressableColumn>
+            <Spacer.Horizontal />
+            <Layout.PressableColumn
+              onPress={pickImage}
+              grow
+              center
+              radius
+              bg="inverse"
+              border={[1, 'dashed', 'primary']}
+              py="xs-12"
+            >
+              <Icon name="images-outline" size={28} iconColor="primary" />
+              <Spacer.Vertical />
+              <OpenSans.Primary size="s-16">Pick Photo</OpenSans.Primary>
+            </Layout.PressableColumn>
+          </>
+        )}
+      </Layout.Row>
     </>
   );
 };

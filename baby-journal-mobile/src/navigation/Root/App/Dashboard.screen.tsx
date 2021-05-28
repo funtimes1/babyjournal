@@ -30,7 +30,13 @@ const JournalEntry: React.FC = () => {
   if (!!events?.length) {
     return (
       <Layout.Scroll>
-        <Mono.Primary center>{format(selectedDay, dateFormats.long)}</Mono.Primary>
+        <Layout.Column center>
+          <Layout.Column bg="primaryHighlight" px py="4xs-4" radius>
+            <Mono.Inverse size="xs-12" center weight="bold">
+              {format(selectedDay, dateFormats.long)}
+            </Mono.Inverse>
+          </Layout.Column>
+        </Layout.Column>
         {events.map((e, i) => {
           const category = categories.find((c) => c.name === e.category);
           return (
