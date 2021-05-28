@@ -7,9 +7,11 @@ function userDataEntityCollectionPath(userId: string, entity: EntityName) {
   return `users/${userId}/${entity}`;
 }
 
-export function firestoreCollectionRef(entity: EntityName) {
+export function firestoreCollectionRef(entity: EntityName, path?: string) {
   const userId = currentUser()?.uid ?? `none`;
-  return fuego.db.collection(userDataEntityCollectionPath(userId, entity));
+  return fuego.db.collection(
+    `${userDataEntityCollectionPath(userId, entity)}${path ? `/${path}` : ``}`,
+  );
 }
 
 export function firestoreCollectionPath(entity: EntityName) {

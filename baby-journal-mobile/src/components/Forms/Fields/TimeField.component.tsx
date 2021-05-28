@@ -1,27 +1,23 @@
 import React from 'react';
 import { Layout } from '../../Layout.components';
 import { Mono, OpenSans } from '../../Typography.components';
-import { FieldError, useController } from 'react-hook-form';
-import { FieldErrorText } from './ErrorText.component';
-import { BaseFieldWithTextProps } from './props';
-import DateTimePickerModal from 'react-native-modal-datetime-picker';
+import { useField } from 'formik';
 import { Keyboard } from 'react-native';
+import DateTimePickerModal from 'react-native-modal-datetime-picker';
+import { format } from 'date-fns';
 
-export const TimeField = <T,>(props: React.PropsWithChildren<BaseFieldWithTextProps<T>>) => {
-  const { controllerProps, showErrors, ...text } = props;
-  const controller = useController(controllerProps);
-  const {
-    field: { ref, ...inputProps },
-    formState,
-  } = controller;
-  const { onChange, onBlur, value, name } = inputProps;
+import { FieldError } from './ErrorText.component';
+import { BaseFieldWithTextProps } from './props';
+
+export const TimeField: React.FC<BaseFieldWithTextProps> = (props) => {
+  const { name, showErrors, showClearButton, ...text } = props;
+  const [field, , helpers] = useField<Date>(name);
+  const { value } = field;
+  const { setValue } = helpers;
   const [showTimePicker, setShowTimePicker] = React.useState(false);
-  const [date, setDate] = React.useState(new Date());
 
-  // @ts-expect-error i dunno how to do this yet
-  const error = formState.errors[name] as FieldError;
   return (
-    <Layout.Column grow>
+    <Layout.Column>
       <Layout.PressableRow
         onPress={() => {
           Keyboard.dismiss();
@@ -34,63 +30,22 @@ export const TimeField = <T,>(props: React.PropsWithChildren<BaseFieldWithTextPr
           color={value ? undefined : 'placeholder'}
           weight="light"
         >
-          {`duration`}
+          {format(value, 'hh:mm')}
         </Mono.Primary>
         <DateTimePickerModal
           headerTextIOS="Duration"
           mode="time"
           display="spinner"
           isVisible={showTimePicker}
-          date={date}
+          date={value}
           onConfirm={(date) => {
             setShowTimePicker(false);
-            setDate(date);
+            setValue(date);
           }}
           onCancel={() => setShowTimePicker(false)}
         />
       </Layout.PressableRow>
-      {!!showErrors && <FieldErrorText {...{ error }} />}
+      {!!showErrors && <FieldError {...{ name }} />}
     </Layout.Column>
   );
 };
-
-// export const TextField = React.forwardRef<TextInput, TextFieldProps>((props, ref) => {
-//   const { name, showErrors, formatter, showClearButton, multiline, ...rest } = props;
-//   const {} = useController({name});
-//   const { value } = field;
-//   const { setValue, setTouched } = helpers;
-
-//   return (
-//     <Layout.Column>
-//       <Layout.Row align>
-//         <Layout.Row grow>
-//           <OpenSans.Input
-//             ref={ref}
-//             style={{ flexGrow: 1 }}
-//             onChangeText={(text) => {
-//               const newValue = formatter ? formatter(value, text) : text;
-//               setValue(newValue);
-//               setTouched(true);
-//             }}
-//             value={value}
-//             ellipsizeMode="tail"
-//             weight="light"
-//             multiline={multiline}
-//             {...rest}
-//           />
-//         </Layout.Row>
-//         {showClearButton ??
-//           (!!value && (
-//             <ClearButton
-//               onPressClear={() => {
-//                 setValue('');
-//                 setTouched(true);
-//               }}
-//               multiline={multiline}
-//             />
-//           ))}
-//       </Layout.Row>
-//       {!!showErrors && <FieldError {...{ name }} />}
-//     </Layout.Column>
-//   );
-// });

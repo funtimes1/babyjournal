@@ -1,8 +1,9 @@
-import React from 'react';
-import { PixelRatio } from 'react-native';
 import { OpenSans } from '../../Typography.components';
 import { styled } from '../../../theme/theme';
-import { ControllerFieldState, FieldError } from 'react-hook-form';
+
+import { useField } from 'formik';
+import React from 'react';
+import { PixelRatio } from 'react-native';
 
 export const ErrorText = styled(OpenSans.Primary)`
   font-size: ${({ theme }) => theme.sizes['2xs-10']}px;
@@ -12,7 +13,11 @@ export const ErrorText = styled(OpenSans.Primary)`
   bottom: -${15 * PixelRatio.getFontScale()}px;
 `;
 
-export const FieldErrorText: React.FC<{ error: FieldError }> = (props) => {
-  const { error } = props;
-  return <ErrorText>{error ? error.message : ' '}</ErrorText>;
+export const FieldError: React.FC<{ name: string }> = (props) => {
+  const { name } = props;
+  const [, meta] = useField(name);
+  const { touched, error } = meta;
+  return (
+    <ErrorText>{touched && error ? (Array.isArray(error) ? error[0] : error) : ' '}</ErrorText>
+  );
 };

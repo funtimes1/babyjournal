@@ -2,20 +2,21 @@ import { TypographyProps } from '../../../theme/theme';
 import { TextInputProps } from 'react-native';
 import { UseControllerProps } from 'react-hook-form';
 
-export type BaseFieldProps<T> = {
+export type BaseFieldProps = {
   /**
    * keyed value to hook form into field level component
    */
-  controllerProps: UseControllerProps<T>;
+  name: string;
   showErrors?: boolean;
+  onValueChange?: (v: any) => void;
 };
 
-export type BaseFieldWithTextProps<T> = BaseFieldProps<T> &
+export type BaseFieldWithTextProps = BaseFieldProps &
   TypographyProps & {
     showClearButton?: boolean;
   };
 
-export type TextFieldProps<T> = BaseFieldWithTextProps<T> &
+export type TextFieldProps = BaseFieldWithTextProps &
   TextInputProps & {
     formatter?: (oldValue: string, newValue: string) => string;
   };

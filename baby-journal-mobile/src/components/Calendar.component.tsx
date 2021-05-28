@@ -13,10 +13,12 @@ import {
 } from 'date-fns';
 import React from 'react';
 import { useNav } from '../navigation/useNav';
+import { useDayStore } from '../stores/Day.store';
 
 import { Color, LayoutProps } from '../theme/theme';
 import { Icon } from './Icons/Icon';
 import { Layout } from './Layout.components';
+import { Separator } from './Separator.components';
 import { Circle, Square } from './Shape.components';
 import { Spacer } from './Spacer.components';
 import { OpenSans } from './Typography.components';
@@ -45,6 +47,7 @@ export const CalendarHeader: React.FC<CalendarHeaderProps> = (props) => {
     calendarButtonPress,
     showCalendarButton,
   } = props;
+  const { setSelectedDay } = useDayStore();
   const { navigate } = useNav<'Journal'>();
   return (
     <Layout.Row center bg="primaryHighlight" radius>
@@ -67,9 +70,14 @@ export const CalendarHeader: React.FC<CalendarHeaderProps> = (props) => {
           </Layout.PressableRow>
         </Layout.Row>
       </Layout.Row>
-      <Layout.Column px style={{ minWidth: 150 }} center>
+      <Layout.PressableColumn
+        onPress={() => setSelectedDay(new Date())}
+        px
+        style={{ minWidth: 150 }}
+        center
+      >
         <OpenSans.Inverse weight="bold">{format(selectedDay, formatString)}</OpenSans.Inverse>
-      </Layout.Column>
+      </Layout.PressableColumn>
       <Layout.Row grow align>
         <Layout.Row grow size={40} align>
           <Layout.PressableRow onPress={rightPress} size={40} style={{ width: 40 }} center>
@@ -127,6 +135,7 @@ export const Calendar: React.FC<CalendarProps> = (props) => {
     ...rest
   } = props;
   const [currentMonth, setCurrentMonth] = React.useState(startOfMonth(selectedDay));
+  const [showCalendar, setShowCalendar] = React.useState(true);
 
   const startDay = startOfWeek(currentMonth);
   const endDay = endOfWeek(endOfMonth(currentMonth));
@@ -157,9 +166,9 @@ export const Calendar: React.FC<CalendarProps> = (props) => {
         }
       }}
       calendarButtonPress={() => {
-        setSelectedDay(new Date());
+        setShowCalendar(!showCalendar);
       }}
-      showCalendarButton={!isSameDay(selectedDay, new Date())}
+      showCalendarButton
     />
   );
 
@@ -241,11 +250,15 @@ export const Calendar: React.FC<CalendarProps> = (props) => {
   return (
     <Layout.Column {...rest}>
       {header}
-      <Spacer.Vertical />
-      <Layout.Column px={8}>
-        {daysOfWeek}
-        {monthDays}
-      </Layout.Column>
+      {showCalendar && (
+        <>
+          <Layout.Column px={8} py>
+            {daysOfWeek}
+            {monthDays}
+          </Layout.Column>
+          <Separator.Horizontal />
+        </>
+      )}
     </Layout.Column>
   );
 };

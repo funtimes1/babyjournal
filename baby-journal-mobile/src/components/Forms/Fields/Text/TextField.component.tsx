@@ -1,21 +1,19 @@
 import React from 'react';
 import { Layout } from '../../../Layout.components';
 import { OpenSans } from '../../../Typography.components';
-import { FieldError, useController } from 'react-hook-form';
+import { useField } from 'formik';
+import { TextInput } from 'react-native';
+
 import { ClearButton } from '../ClearButton.component';
-import { FieldErrorText } from '../ErrorText.component';
+import { FieldError } from '../ErrorText.component';
 import { TextFieldProps } from '../props';
 
-export const TextField = <T,>(props: React.PropsWithChildren<TextFieldProps<T>>) => {
-  const { controllerProps, showErrors, formatter, showClearButton, multiline, ...rest } = props;
-  const controller = useController(controllerProps);
-  const {
-    field: { ref, ...inputProps },
-    formState,
-  } = controller;
-  const { onChange, onBlur, value, name } = inputProps;
-  // @ts-expect-error i dunno how to do this yet
-  const error = formState.errors[name] as FieldError;
+export const TextField = React.forwardRef<TextInput, TextFieldProps>((props, ref) => {
+  const { name, showErrors, formatter, showClearButton, multiline, ...rest } = props;
+  const [field, , helpers] = useField<string>(name);
+  const { value } = field;
+  const { setValue, setTouched } = helpers;
+
   return (
     <Layout.Column>
       <Layout.Row align>
@@ -24,11 +22,11 @@ export const TextField = <T,>(props: React.PropsWithChildren<TextFieldProps<T>>)
             ref={ref}
             style={{ flexGrow: 1 }}
             onChangeText={(text) => {
-              const newValue = formatter ? formatter(value as string, text) : text;
-              onChange(newValue);
+              const newValue = formatter ? formatter(value, text) : text;
+              setValue(newValue);
+              setTouched(true);
             }}
-            onBlur={onBlur}
-            value={value as string}
+            value={value}
             ellipsizeMode="tail"
             weight="light"
             multiline={multiline}
@@ -39,17 +37,17 @@ export const TextField = <T,>(props: React.PropsWithChildren<TextFieldProps<T>>)
           (!!value && (
             <ClearButton
               onPressClear={() => {
-                onChange('');
+                setValue('');
+                setTouched(true);
               }}
               multiline={multiline}
             />
           ))}
       </Layout.Row>
-      {!!showErrors && <FieldErrorText {...{ error }} />}
+      {!!showErrors && <FieldError {...{ name }} />}
     </Layout.Column>
   );
-};
-
+});
 // export const TextField = React.forwardRef<TextInput, TextFieldProps>((props, ref) => {
 //   const { name, showErrors, formatter, showClearButton, multiline, ...rest } = props;
 //   const {} = useController({name});

@@ -8,6 +8,10 @@ export type Category = {
 
 export const baseCategories = [
   {
+    name: 'me-my-body',
+    displayName: 'Me / My Body',
+  },
+  {
     name: 'first',
     displayName: 'First',
   },

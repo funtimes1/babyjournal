@@ -1,12 +1,12 @@
+import { useFormikContext } from 'formik';
 import React from 'react';
-import { FormState } from 'react-hook-form';
 import { useDebugStore } from '../../stores/Debug.store';
 
 import { DebugInfoContainer } from '../DebugInfoContainer.component';
 import { Layout } from '../Layout.components';
 
-export const FormDebug: React.FC<{ formState: FormState<any> }> = (props) => {
-  const { formState } = props;
+export const FormDebug: React.FC = () => {
+  const formik = useFormikContext();
   const { safeDebugFormValues } = useDebugStore();
 
   if (!safeDebugFormValues()) {
@@ -15,7 +15,7 @@ export const FormDebug: React.FC<{ formState: FormState<any> }> = (props) => {
 
   return (
     <Layout.Column py>
-      <DebugInfoContainer title="Form Debug" content={formState} />
+      <DebugInfoContainer title="Form Debug" content={formik} />
     </Layout.Column>
   );
 };

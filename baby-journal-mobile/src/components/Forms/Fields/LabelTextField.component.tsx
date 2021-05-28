@@ -4,7 +4,7 @@ import { Separator } from '../../Separator.components';
 import { Spacer } from '../../Spacer.components';
 import { OpenSans } from '../../Typography.components';
 
-export const AuthField: React.FC<{ label: string }> = (props) => {
+export const LabelTextField: React.FC<{ label: string }> = (props) => {
   const { label, children } = props;
 
   return (

@@ -6,28 +6,30 @@ import { Layout } from '../../../components/Layout.components';
 import { Separator } from '../../../components/Separator.components';
 import { Spacer } from '../../../components/Spacer.components';
 import { Mono, OpenSans } from '../../../components/Typography.components';
-import { useJournalEntries } from '../../../database/journalEntry.database';
+import { useJournalEntries, useJournalEntryEvents } from '../../../database/journalEntry.database';
 import { dateFormats } from '../../../lib/date';
 import { useDayStore } from '../../../stores/Day.store';
 
 const JournalEntry: React.FC = () => {
   const { selectedDay } = useDayStore();
-  const [data, loading] = useJournalEntries();
+  // const [data] = useJournalEntries();
+  const [events, loading] = useJournalEntryEvents(selectedDay);
 
   if (loading) {
     return (
-      <Layout.Column>
-        <OpenSans.Primary>woohoo</OpenSans.Primary>
+      <Layout.Column center>
+        <OpenSans.Primary>Loading...</OpenSans.Primary>
       </Layout.Column>
     );
   }
-  const todaysEntry = data
-    ? data.find((entry) => entry.date === format(selectedDay, dateFormats.database))
-    : undefined;
-  if (todaysEntry) {
+  // const todaysEntry = data
+  //   ? data.find((entry) => entry.date === format(selectedDay, dateFormats.database))
+  //   : undefined;
+
+  if (events) {
     return (
       <Layout.Scroll>
-        <Mono.Primary>{JSON.stringify(todaysEntry, null, 2)}</Mono.Primary>
+        <Mono.Primary>{JSON.stringify(events, null, 2)}</Mono.Primary>
       </Layout.Scroll>
     );
   }
@@ -53,7 +55,6 @@ export const DashboardScreen: React.FC = () => {
   return (
     <Layout.ScreenContainer px grow bg="navScreenBackground">
       <Calendar {...{ selectedDay, setSelectedDay }} py />
-      <Separator.Horizontal />
       <JournalEntry />
       <AddButton />
     </Layout.ScreenContainer>

@@ -5,10 +5,9 @@ import { useForm, SubmitHandler } from 'react-hook-form';
 import { Layout } from '../../../components/Layout.components';
 import { useNav } from '../../useNav';
 import { Button } from '../../../components/Button.components';
-import { AuthField } from '../../../components/Forms/Auth/AuthField.component';
+import { LabelTextField } from '../../../components/Forms/Fields/LabelTextField.component';
 import { Spacer } from '../../../components/Spacer.components';
 import { PasswordField } from '../../../components/Forms/Fields/Text/PasswordField.component';
-import { zodResolver } from '@hookform/resolvers/zod';
 import * as z from 'zod';
 import { FormDebug } from '../../../components/Forms/FormDebug.component';
 import { AddPhoto } from '../../../components/AddPhoto.component';
@@ -50,14 +49,14 @@ const Form: React.FC = () => {
         <Layout.Column bg="buttonWhite" px py radius>
           <AddPhoto />
           <Spacer.Vertical />
-          <AuthField label="Caption">
+          <LabelTextField label="Caption">
             <PasswordField<AddEventFields>
               controllerProps={{ name: 'notes', control, defaultValue: '' }}
               placeholder="This is a great photo of great stuff..."
               multiline
               showErrors
             />
-          </AuthField>
+          </LabelTextField>
         </Layout.Column>
         <Spacer.Vertical />
         <Button.Black

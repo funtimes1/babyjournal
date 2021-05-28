@@ -19,8 +19,41 @@ type JournalEntry = {
   photos?: [Photo]; // array of photo objects (in this case exactly ONE Photo object)
 };
 
+type Event = {
+  category: string;
+  time: number;
+  duration: number | null;
+  notes: string | null;
+};
+
 export function useJournalEntries() {
   return useCollectionData<JournalEntry>(firestoreCollectionRef('journal-entries'));
+}
+
+export function useJournalEntryEvents(date: Date) {
+  const day = format(date, dateFormats.database);
+  return useCollectionData<JournalEntry>(
+    firestoreCollectionRef('journal-entries', `${day}/events`),
+  );
+}
+
+export function saveNewJournalEntryEvent(
+  date: Date,
+  event: { category: string; time: Date; duration: number | null; notes: string | null },
+) {
+  const id = cuid();
+  const day = format(date, dateFormats.database);
+  const updatedAt = Date.now();
+  return firestoreCollectionRef('journal-entries')
+    .doc(day)
+    .collection('events')
+    .doc(id)
+    .set({
+      ...event,
+      time: event.time.getTime(),
+      id,
+      updatedAt,
+    });
 }
 
 export function saveNewJournalEntry(newDate: Date) {
@@ -28,7 +61,7 @@ export function saveNewJournalEntry(newDate: Date) {
   const updatedAt = Date.now();
   firestoreCollectionRef('journal-entries').doc(date).set({
     date,
-    title: `new journal entry`,
+    title: ``,
     updatedAt,
     photos: [],
   });
@@ -41,7 +74,7 @@ export function saveNewJournalEntryPhoto(newDate: Date) {
     .doc(date)
     .update({
       date,
-      title: `new journal entry`,
+      title: ``,
       updatedAt,
       photos: firebase.firestore.FieldValue.arrayUnion({
         // url: `https://placekitten.com/g/200/200`,
