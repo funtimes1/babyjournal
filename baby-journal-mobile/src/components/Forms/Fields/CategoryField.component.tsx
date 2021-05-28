@@ -13,12 +13,13 @@ import { Icon } from '../../Icons/Icon';
 
 type Category = typeof categories[number];
 
-const CategoryPill: React.FC<{
+export const CategoryPill: React.FC<{
   category: Category;
   onPress?: (val: string) => void;
   isSelected?: boolean;
 }> = (props) => {
   const { category: c, isSelected, onPress } = props;
+  console.log({ c });
 
   return (
     <Layout.Column align="baseline">

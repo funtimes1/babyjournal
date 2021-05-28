@@ -32,7 +32,7 @@ export function useJournalEntries() {
 
 export function useJournalEntryEvents(date: Date) {
   const day = format(date, dateFormats.database);
-  return useCollectionData<JournalEntry>(
+  return useCollectionData<Event & { id: string }>(
     firestoreCollectionRef('journal-entries', `${day}/events`),
   );
 }

@@ -2,12 +2,14 @@ import { format } from 'date-fns';
 import React from 'react';
 import { AddButton } from '../../../components/AddButton.component';
 import { Calendar } from '../../../components/Calendar.component';
+import { CategoryPill } from '../../../components/Forms/Fields/CategoryField.component';
 import { Layout } from '../../../components/Layout.components';
 import { Separator } from '../../../components/Separator.components';
 import { Spacer } from '../../../components/Spacer.components';
 import { Mono, OpenSans } from '../../../components/Typography.components';
 import { useJournalEntries, useJournalEntryEvents } from '../../../database/journalEntry.database';
-import { dateFormats } from '../../../lib/date';
+import { categories } from '../../../lib/category';
+import { dateFormats, dateFormatSkeleton } from '../../../lib/date';
 import { useDayStore } from '../../../stores/Day.store';
 
 const JournalEntry: React.FC = () => {
@@ -26,10 +28,26 @@ const JournalEntry: React.FC = () => {
   //   ? data.find((entry) => entry.date === format(selectedDay, dateFormats.database))
   //   : undefined;
 
-  if (events) {
+  if (!!events?.length) {
     return (
       <Layout.Scroll>
-        <Mono.Primary>{JSON.stringify(events, null, 2)}</Mono.Primary>
+        <Mono.Primary center>{format(selectedDay, dateFormats.long)}</Mono.Primary>
+        {events.map((e, i) => {
+          const category = categories.find((c) => c.name === e.category);
+          return (
+            <Layout.Row key={i} align justify="space-between" py>
+              <Layout.Column>
+                {!!category && <CategoryPill category={category} />}
+                {e.notes ? (
+                  <OpenSans.Primary size="s-16">{e.notes}</OpenSans.Primary>
+                ) : (
+                  <OpenSans.Secondary size="s-16">no notes</OpenSans.Secondary>
+                )}
+              </Layout.Column>
+              <Mono.Primary>{`${format(new Date(e.time), 'hh:mm')}`}</Mono.Primary>
+            </Layout.Row>
+          );
+        })}
       </Layout.Scroll>
     );
   }
