@@ -3,6 +3,10 @@ export const dateFormats = {
   database: 'yyyy-MM-dd',
 } as const;
 
+export const timeFormats = {
+  time: 'hh:mm',
+} as const;
+
 export const dateFormatSkeleton = {
   abbreviated: 'yMMMdd',
   abbreviatedWithDay: 'EEEyMMMdd',

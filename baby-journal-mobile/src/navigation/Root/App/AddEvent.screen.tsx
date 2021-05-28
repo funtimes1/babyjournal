@@ -28,7 +28,7 @@ export const AddEventScreen: React.FC = () => {
       <Layout.Column px py grow>
         <Formik
           // @ts-expect-error
-          initialValues={{ ...Event.defaultValues }}
+          initialValues={{ ...Event.defaultValues, time: new Date() }}
           validate={Event.validate}
           onSubmit={async (values) => {
             try {

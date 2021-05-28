@@ -1,6 +1,6 @@
 import React from 'react';
 import { Layout } from '../../Layout.components';
-import { Mono, OpenSans } from '../../Typography.components';
+import { Mono } from '../../Typography.components';
 import { useField } from 'formik';
 import { Keyboard } from 'react-native';
 import DateTimePickerModal from 'react-native-modal-datetime-picker';
@@ -8,6 +8,8 @@ import { format } from 'date-fns';
 
 import { FieldError } from './ErrorText.component';
 import { BaseFieldWithTextProps } from './props';
+import { useColorScheme } from 'react-native';
+import { timeFormats } from '../../../lib/date';
 
 export const TimeField: React.FC<BaseFieldWithTextProps> = (props) => {
   const { name, showErrors, showClearButton, ...text } = props;
@@ -15,6 +17,8 @@ export const TimeField: React.FC<BaseFieldWithTextProps> = (props) => {
   const { value } = field;
   const { setValue } = helpers;
   const [showTimePicker, setShowTimePicker] = React.useState(false);
+  const colorScheme = useColorScheme();
+  console.log({ colorScheme });
 
   return (
     <Layout.Column>
@@ -30,7 +34,7 @@ export const TimeField: React.FC<BaseFieldWithTextProps> = (props) => {
           color={value ? undefined : 'placeholder'}
           weight="light"
         >
-          {format(value, 'hh:mm')}
+          {format(value, timeFormats.time)}
         </Mono.Primary>
         <DateTimePickerModal
           headerTextIOS="Duration"

@@ -4,12 +4,11 @@ import { AddButton } from '../../../components/AddButton.component';
 import { Calendar } from '../../../components/Calendar.component';
 import { CategoryPill } from '../../../components/Forms/Fields/CategoryField.component';
 import { Layout } from '../../../components/Layout.components';
-import { Separator } from '../../../components/Separator.components';
 import { Spacer } from '../../../components/Spacer.components';
 import { Mono, OpenSans } from '../../../components/Typography.components';
 import { useJournalEntries, useJournalEntryEvents } from '../../../database/journalEntry.database';
 import { categories } from '../../../lib/category';
-import { dateFormats, dateFormatSkeleton } from '../../../lib/date';
+import { dateFormats, timeFormats } from '../../../lib/date';
 import { useDayStore } from '../../../stores/Day.store';
 
 const JournalEntry: React.FC = () => {
@@ -44,7 +43,7 @@ const JournalEntry: React.FC = () => {
                   <OpenSans.Secondary size="s-16">no notes</OpenSans.Secondary>
                 )}
               </Layout.Column>
-              <Mono.Primary>{`${format(new Date(e.time), 'hh:mm')}`}</Mono.Primary>
+              <Mono.Primary>{`${format(new Date(e.time), timeFormats.time)}`}</Mono.Primary>
             </Layout.Row>
           );
         })}

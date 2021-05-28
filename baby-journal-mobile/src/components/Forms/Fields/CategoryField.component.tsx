@@ -19,7 +19,6 @@ export const CategoryPill: React.FC<{
   isSelected?: boolean;
 }> = (props) => {
   const { category: c, isSelected, onPress } = props;
-  console.log({ c });
 
   return (
     <Layout.Column align="baseline">
