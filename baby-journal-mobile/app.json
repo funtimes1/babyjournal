@@ -4,16 +4,20 @@
       "adaptiveIcon": {
         "backgroundColor": "#1EE5CE",
         "foregroundImage": "./assets/adaptive-icon.png"
-      }
+      },
+      "package": "com.babyjournal.android"
     },
-    "assetBundlePatterns": ["**/*"],
+    "assetBundlePatterns": [
+      "**/*"
+    ],
     "description": "",
     "extra": {
       "isStaging": true
     },
     "icon": "./assets/icon.png",
     "ios": {
-      "supportsTablet": true
+      "supportsTablet": true,
+      "bundleIdentifier": "com.babyjournal.ios"
     },
     "name": "baby-journal-mobile",
     "orientation": "portrait",
