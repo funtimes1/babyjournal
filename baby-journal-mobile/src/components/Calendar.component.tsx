@@ -73,7 +73,7 @@ export const CalendarHeader: React.FC<CalendarHeaderProps> = (props) => {
       <Layout.PressableColumn
         onPress={() => setSelectedDay(new Date())}
         px
-        style={{ minWidth: 150 }}
+        style={{ minWidth: 120 }}
         center
       >
         <OpenSans.Inverse weight="bold">{format(selectedDay, formatString)}</OpenSans.Inverse>
