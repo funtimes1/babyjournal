@@ -24,7 +24,9 @@ export const TextField = React.forwardRef<TextInput, TextFieldProps>((props, ref
             onChangeText={(text) => {
               const newValue = formatter ? formatter(value, text) : text;
               setValue(newValue);
+              setTimeout(() => {
               setTouched(true);
+              })
             }}
             value={value}
             ellipsizeMode="tail"
