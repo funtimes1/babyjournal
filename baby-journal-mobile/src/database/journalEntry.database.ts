@@ -4,6 +4,29 @@ import { format } from 'date-fns';
 import { dateFormats } from '../lib/date';
 import firebase from 'firebase';
 import cuid from 'cuid';
+import * as FileSystem from 'expo-file-system';
+
+export function useUploadImage() {
+  const uploadImage = async (imageUri: string, date: string) => {
+    // Fetch the photo with it's local URI
+    const file = await FileSystem.readAsStringAsync(imageUri, {
+      encoding: FileSystem.EncodingType.Base64,
+    });
+
+    // Create a ref in Firebase (I'm using my user's ID)
+    const ref = firebase.storage().ref().child(`avatars/${user.uid}`);
+
+    // Upload Base64 image to Firebase
+    const snapshot = await ref.putString(file, 'base64');
+
+    // Create a download URL
+    const remoteURL = await snapshot.ref.getDownloadURL();
+
+    // Return the URL
+    return remoteURL;
+  };
+  return uploadImage;
+}
 
 type Photo = {
   url: string;
@@ -56,7 +79,10 @@ export function saveNewJournalEntryEvent(
     });
 }
 
-export function saveNewJournalEntryPhoto(date: Date, photo: { url: string; caption?: string }) {
+export function saveNewJournalEntryPhoto(
+  date: Date,
+  photo: { url: string; caption: string | null },
+) {
   const day = format(date, dateFormats.database);
   const updatedAt = Date.now();
   return firestoreCollectionRef('journal-entries')

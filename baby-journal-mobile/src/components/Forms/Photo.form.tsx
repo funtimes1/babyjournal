@@ -17,7 +17,7 @@ const validation = PhotoSchema;
 const validate = validateFormSchema(validation);
 
 const defaultValues = {
-  url: null,
+  url: '',
   caption: null,
 };
 

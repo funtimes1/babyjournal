@@ -7,7 +7,7 @@ import { Layout } from '../../../components/Layout.components';
 import { Photo } from '../../../components/Forms/Photo.form';
 import { useFormNavButtons } from '../../../components/Forms/useFormNavButtons';
 import { useNav } from '../../useNav';
-import { saveNewJournalEntryEvent } from '../../../database/journalEntry.database';
+import { saveNewJournalEntryPhoto } from '../../../database/journalEntry.database';
 import { useDayStore } from '../../../stores/Day.store';
 
 const Form: React.FC = () => {
@@ -31,7 +31,7 @@ export const AddPhotoScreen: React.FC = () => {
           validate={Photo.validate}
           onSubmit={async (values) => {
             try {
-              await saveNewJournalEntryEvent(selectedDay, values);
+              await saveNewJournalEntryPhoto(selectedDay, values);
               goBack();
             } catch (error) {
               Alert.alert('Woops', error.message);
