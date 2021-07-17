@@ -5,8 +5,10 @@ import { dateFormats } from '../lib/date';
 import firebase from 'firebase';
 import cuid from 'cuid';
 import * as FileSystem from 'expo-file-system';
+import { useUser } from '../backend/Auth.backend';
 
 export function useUploadImage() {
+  const user = useUser();
   const uploadImage = async (imageUri: string, date: string) => {
     // Fetch the photo with it's local URI
     const file = await FileSystem.readAsStringAsync(imageUri, {
@@ -14,7 +16,10 @@ export function useUploadImage() {
     });
 
     // Create a ref in Firebase (I'm using my user's ID)
-    const ref = firebase.storage().ref().child(`avatars/${user.uid}`);
+    const ref = firebase
+      .storage()
+      .ref()
+      .child(`the-images/${user?.uid ?? 'none'}`);
 
     // Upload Base64 image to Firebase
     const snapshot = await ref.putString(file, 'base64');
