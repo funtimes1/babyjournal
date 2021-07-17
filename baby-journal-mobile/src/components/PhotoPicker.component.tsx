@@ -26,7 +26,7 @@ export const PhotoPicker: React.FC<PickerProps<string>> = (props) => {
     }
     let result = await ImagePicker.launchImageLibraryAsync({
       mediaTypes: ImagePicker.MediaTypeOptions.All,
-      quality: 1,
+      quality: 0.9,
     });
 
     console.log(result);
@@ -45,7 +45,7 @@ export const PhotoPicker: React.FC<PickerProps<string>> = (props) => {
     }
     let result = await ImagePicker.launchCameraAsync({
       mediaTypes: ImagePicker.MediaTypeOptions.All,
-      quality: 1,
+      quality: 0.9,
     });
 
     console.log(result);

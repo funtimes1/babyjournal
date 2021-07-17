@@ -68,8 +68,6 @@ const JournalEntry: React.FC = () => {
   }
   return (
     <Layout.Column center grow>
-      <Mono.Primary>{format(selectedDay, dateFormats.long)}</Mono.Primary>
-      <Spacer.Vertical />
       <OpenSans.Primary size="l-20" weight="bold" center>
         No Journal Entry yet
       </OpenSans.Primary>

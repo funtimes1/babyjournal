@@ -9,7 +9,7 @@ export const AccountInfoScreen: React.FC = () => {
   return (
     <Layout.Scroll>
       <Layout.Column px="xs-12" py="xs-12">
-        <DebugInfoContainer title="Account" content={user} />
+        <DebugInfoContainer title="Account" content={JSON.parse(JSON.stringify(user))} />
       </Layout.Column>
     </Layout.Scroll>
   );
