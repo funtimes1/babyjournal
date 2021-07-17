@@ -1,6 +1,5 @@
 import { TypographyProps } from '../../../theme/theme';
 import { TextInputProps } from 'react-native';
-import { UseControllerProps } from 'react-hook-form';
 
 export type BaseFieldProps = {
   /**

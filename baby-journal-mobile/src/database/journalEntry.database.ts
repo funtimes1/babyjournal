@@ -4,33 +4,44 @@ import { format } from 'date-fns';
 import { dateFormats } from '../lib/date';
 import firebase from 'firebase';
 import cuid from 'cuid';
-import * as FileSystem from 'expo-file-system';
 import { useUser } from '../backend/Auth.backend';
+import React from 'react';
+import { useDayStore } from '../stores/Day.store';
 
 export function useUploadImage() {
   const user = useUser();
-  const uploadImage = async (imageUri: string, date: string) => {
+  const { selectedDay } = useDayStore();
+  const [progress, setProgress] = React.useState(0);
+  const [uploading, setUploading] = React.useState(false);
+  const uploadImage = async (imageUri: string) => {
+    setUploading(true);
     // Fetch the photo with it's local URI
-    const file = await FileSystem.readAsStringAsync(imageUri, {
-      encoding: FileSystem.EncodingType.Base64,
-    });
+    const response = await fetch(imageUri);
+    const blob = await response.blob();
 
     // Create a ref in Firebase (I'm using my user's ID)
     const ref = firebase
       .storage()
       .ref()
-      .child(`the-images/${user?.uid ?? 'none'}`);
+      .child(
+        `the-images/${user?.uid ?? 'none'}/${format(selectedDay, dateFormats.database)}/${cuid()}`,
+      );
 
     // Upload Base64 image to Firebase
-    const snapshot = await ref.putString(file, 'base64');
+    // const task = ref.putString(file, 'base64');
+    const task = ref.put(blob);
+    task.on(firebase.storage.TaskEvent.STATE_CHANGED, (snap) => {
+      setProgress(Math.round(snap.bytesTransferred / snap.totalBytes) * 100);
+    });
+    const snapshot = await task;
 
     // Create a download URL
     const remoteURL = await snapshot.ref.getDownloadURL();
-
+    setUploading(false);
     // Return the URL
     return remoteURL;
   };
-  return uploadImage;
+  return [uploadImage, uploading, progress] as const;
 }
 
 type Photo = {
@@ -92,11 +103,14 @@ export function saveNewJournalEntryPhoto(
   const updatedAt = Date.now();
   return firestoreCollectionRef('journal-entries')
     .doc(day)
-    .update({
-      date,
-      updatedAt,
-      photos: firebase.firestore.FieldValue.arrayUnion(photo),
-    });
+    .set(
+      {
+        date: day,
+        updatedAt,
+        photos: firebase.firestore.FieldValue.arrayUnion(photo),
+      },
+      { merge: true },
+    );
 }
 
 // export function saveNewJournalEntryPhoto(newDate: Date) {

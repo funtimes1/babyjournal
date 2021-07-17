@@ -1,9 +1,9 @@
 import React from 'react';
 import { z } from 'zod';
-import { AddPhoto } from '../AddPhoto.component';
 
 import { Layout } from '../Layout.components';
 import { LabelTextField } from './Fields/LabelTextField.component';
+import { PhotoField } from './Fields/PhotoField.component';
 import { MultilineTextField } from './Fields/Text/MultilineTextField.component';
 import { validateFormSchema } from './validateFormSchema';
 
@@ -25,7 +25,7 @@ const Form: React.FC = () => {
   return (
     <>
       <Layout.Column bg="buttonWhite" px py radius>
-        <AddPhoto />
+        <PhotoField name="url" />
         <LabelTextField label="Caption">
           <MultilineTextField name="caption" placeholder="Anything to add? (optional)" showErrors />
         </LabelTextField>

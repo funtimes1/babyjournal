@@ -5,15 +5,18 @@ import { Layout } from './Layout.components';
 import { Spacer } from './Spacer.components';
 import { OpenSans } from './Typography.components';
 import * as ImagePicker from 'expo-image-picker';
-// import { ImageEditor } from 'expo-image-editor';
+import { PickerProps } from './Forms/Fields/props';
+import { useUploadImage } from '../database/journalEntry.database';
+import { Circle } from './Shape.components';
+import { LoadingIndicator } from './Loading.component';
 
 const image_width = 250;
 
-export const AddPhoto: React.FC = () => {
-  const [image, setImage] = React.useState<string | undefined>(undefined);
+export const PhotoPicker: React.FC<PickerProps<string>> = (props) => {
+  const { value, onSelect } = props;
+  const [image, setImage] = React.useState<string | undefined>(value);
   const [dimensions, setDimensions] = React.useState({ h: 0, w: 0 });
-
-  // const [editorVisible, setEditorVisible] = React.useState(false);
+  const [uploadImage, uploading, progress] = useUploadImage();
 
   const pickImage = async () => {
     const { status } = await ImagePicker.requestMediaLibraryPermissionsAsync();
@@ -56,6 +59,7 @@ export const AddPhoto: React.FC = () => {
   const launchEditor = (uri: string) => {
     // Then set the image uri
     setImage(uri);
+    onSelect(uri);
     // And set the image editor to be visible
     // setEditorVisible(true);
   };
@@ -75,11 +79,37 @@ export const AddPhoto: React.FC = () => {
                 style={{ width: image_width, height: image_width * aspect }}
                 resizeMode="contain"
               />
+              <Layout.PressableColumn
+                absolute={{ right: 8, top: 8 }}
+                onPress={async () => {
+                  const uri = await uploadImage(image);
+                  setImage(uri);
+                  onSelect(uri);
+                }}
+              >
+                <Circle circleSize={40} bg="haze" center>
+                  {uploading ? (
+                    <LoadingIndicator />
+                  ) : (
+                    <Icon
+                      name="cloud"
+                      size={28}
+                      iconColor={progress < 100 ? 'placeholder' : 'success'}
+                    />
+                  )}
+                </Circle>
+              </Layout.PressableColumn>
+              <Layout.PressableColumn
+                absolute={{ left: 8, top: 8 }}
+                onPress={() => {
+                  setImage(undefined);
+                }}
+              >
+                <Circle circleSize={40} bg="haze" center>
+                  <Icon name="trash-bin-outline" size={28} iconColor="destructive" />
+                </Circle>
+              </Layout.PressableColumn>
             </Layout.Column>
-            <Spacer.Vertical units={2} />
-            <Layout.PressableColumn onPress={() => setImage(undefined)}>
-              <Icon name="trash-bin-outline" size={40} />
-            </Layout.PressableColumn>
           </Layout.Column>
         ) : (
           <>

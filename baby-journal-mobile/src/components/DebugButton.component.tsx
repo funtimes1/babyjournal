@@ -48,7 +48,7 @@ export const DebugButton: React.FC = () => {
     <>
       {debugShowDebugButton && (
         <PanGestureHandler {...{ onGestureEvent }}>
-          <Animated.View style={[{ position: 'absolute', top: top + 4, right: 8 }, style]}>
+          <Animated.View style={[{ position: 'absolute', top: top + 48, right: 8 }, style]}>
             <Layout.PressableColumn
               onPress={() => {
                 navigate('Debug');

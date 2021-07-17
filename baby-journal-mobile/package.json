@@ -17,6 +17,7 @@
     "cuid": "2.1.8",
     "date-fns": "2.22.1",
     "expo": "42.0.1",
+    "expo-crypto": "~9.2.0",
     "expo-device": "3.3.0",
     "expo-image-editor": "1.5.1",
     "expo-image-manipulator": "9.2.2",

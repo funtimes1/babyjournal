@@ -1,4 +1,5 @@
 import {
+  addDays,
   addMonths,
   eachDayOfInterval,
   eachWeekOfInterval,
@@ -9,6 +10,7 @@ import {
   isSameMonth,
   startOfMonth,
   startOfWeek,
+  subDays,
   subMonths,
 } from 'date-fns';
 import React from 'react';
@@ -16,6 +18,7 @@ import { useNav } from '../navigation/useNav';
 import { useDayStore } from '../stores/Day.store';
 
 import { Color, LayoutProps } from '../theme/theme';
+import { PopDown } from './Animations/PopDown.component';
 import { Icon } from './Icons/Icon';
 import { Layout } from './Layout.components';
 import { Separator } from './Separator.components';
@@ -152,17 +155,25 @@ export const Calendar: React.FC<CalendarProps> = (props) => {
       selectedDay={syncSelectedDayWithMonth ? selectedDay : currentMonth}
       formatString={headerFormatString ?? 'MMM yyyy'}
       leftPress={() => {
-        const prevMonth = startOfMonth(subMonths(currentMonth, 1));
-        setCurrentMonth(prevMonth);
-        if (syncSelectedDayWithMonth) {
-          setSelectedDay(prevMonth);
+        if (showCalendar) {
+          const prevMonth = startOfMonth(subMonths(currentMonth, 1));
+          setCurrentMonth(prevMonth);
+          if (syncSelectedDayWithMonth) {
+            setSelectedDay(prevMonth);
+          }
+        } else {
+          setSelectedDay(subDays(selectedDay, 1));
         }
       }}
       rightPress={() => {
-        const nextMonth = startOfMonth(addMonths(currentMonth, 1));
-        setCurrentMonth(nextMonth);
-        if (syncSelectedDayWithMonth) {
-          setSelectedDay(nextMonth);
+        if (showCalendar) {
+          const nextMonth = startOfMonth(addMonths(currentMonth, 1));
+          setCurrentMonth(nextMonth);
+          if (syncSelectedDayWithMonth) {
+            setSelectedDay(nextMonth);
+          }
+        } else {
+          setSelectedDay(addDays(selectedDay, 1));
         }
       }}
       calendarButtonPress={() => {
@@ -251,13 +262,13 @@ export const Calendar: React.FC<CalendarProps> = (props) => {
     <Layout.Column {...rest}>
       {header}
       {showCalendar && (
-        <>
+        <PopDown>
           <Layout.Column px={8} py>
             {daysOfWeek}
             {monthDays}
           </Layout.Column>
           <Separator.Horizontal />
-        </>
+        </PopDown>
       )}
     </Layout.Column>
   );
