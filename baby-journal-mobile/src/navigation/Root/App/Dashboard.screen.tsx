@@ -34,13 +34,13 @@ const JournalEntry: React.FC = () => {
   if (!!events?.length) {
     return (
       <Layout.Scroll>
-        <Layout.Row>
+        <Layout.Row bg="cardBackground" radius>
           <Layout.Scroll horizontal py>
             {todaysEntry?.photos?.map((photo) => {
               return (
-                <Layout.Column key={photo.url} style={{ paddingRight: 8 }}>
+                <Layout.Column key={photo.url} px={4}>
                   <Layout.Column radius style={{ overflow: 'hidden' }}>
-                    <Photo source={{ uri: photo.url }} resizeMode="contain" width={100} />
+                    <Photo source={{ uri: photo.url }} resizeMode="contain" height={80} />
                   </Layout.Column>
                 </Layout.Column>
               );
@@ -85,8 +85,8 @@ export const DashboardScreen: React.FC = () => {
   const { selectedDay, setSelectedDay } = useDayStore();
   return (
     <Layout.ScreenContainer px grow bg="navScreenBackground">
-      <Calendar {...{ selectedDay, setSelectedDay }} py />
-      <Layout.Column center>
+      <Calendar {...{ selectedDay, setSelectedDay }} />
+      <Layout.Column center py>
         <Layout.Column bg="primaryHighlight" px py="4xs-4" radius>
           <Mono.Inverse size="xs-12" center weight="bold">
             {format(selectedDay, dateFormats.long)}

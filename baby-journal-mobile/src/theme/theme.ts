@@ -299,6 +299,7 @@ const AppTheme = {
     addButtonHalo: '#2224',
     // form
     formSection: GlobalColors.coolGray['100'],
+    cardBackground: GlobalColors.coolGray['200'],
     // calendar
     calendarSelectedDay: GlobalColors.coolGray['900'],
     calendarDayBackgroundInactive: GlobalColors.coolGray['100'],
