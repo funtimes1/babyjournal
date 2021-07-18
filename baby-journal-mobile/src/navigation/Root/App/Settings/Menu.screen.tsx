@@ -1,8 +1,8 @@
 import React from 'react';
-import { Layout } from '../../../../components/Layout.components';
-import { Separator } from '../../../../components/Separator.components';
 
 import { ActionRow } from '../../../../components/ActionRow.component';
+import { Layout } from '../../../../components/Layout.components';
+import { Separator } from '../../../../components/Separator.components';
 import { useNav } from '../../../useNav';
 
 export const MenuScreen: React.FC = () => {

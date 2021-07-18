@@ -1,5 +1,6 @@
-import { TypographyProps } from '../../../theme/theme';
 import { TextInputProps } from 'react-native';
+
+import { TypographyProps } from '../../../theme/theme';
 
 export type BaseFieldProps = {
   /**

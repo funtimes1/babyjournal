@@ -11,7 +11,7 @@ import '@firebase/firestore';
 import '@firebase/functions';
 
 // const firebaseConfig = Constants.manifest.extra?.firebase;
-var firebaseConfig = {
+const firebaseConfig = {
   apiKey: 'AIzaSyDcp_Nh7DELDBpj2BSkQzx9KZg0jHa9JTM',
   authDomain: 'babyjournal11.firebaseapp.com',
   projectId: 'babyjournal11',

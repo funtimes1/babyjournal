@@ -1,13 +1,12 @@
 import { Formik } from 'formik';
 import React from 'react';
 import { Alert } from 'react-native';
-import { login } from '../../../backend/Auth.backend';
 
+import { login } from '../../../backend/Auth.backend';
 import { Login } from '../../../components/Forms/Auth/Login.form';
 import { FormDebug } from '../../../components/Forms/FormDebug.component';
 import { Layout } from '../../../components/Layout.components';
 import { OpenSans } from '../../../components/Typography.components';
-
 import { useNav } from '../../useNav';
 
 const Form: React.FC = () => {

@@ -1,5 +1,6 @@
 import { useField } from 'formik';
 import React from 'react';
+
 import { PhotoPicker } from '../../PhotoPicker.component';
 import { BaseFieldProps } from './props';
 

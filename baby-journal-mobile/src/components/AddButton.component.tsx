@@ -1,16 +1,14 @@
 import { View as MotiView, AnimatePresence } from 'moti';
 import React from 'react';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
-import { useNav } from '../navigation/useNav';
-import { useDayStore } from '../stores/Day.store';
-import { Icon, IconName } from './Icons/Icon';
 
+import { useNav } from '../navigation/useNav';
+import { Icon, IconName } from './Icons/Icon';
 import { Layout } from './Layout.components';
 import { Circle } from './Shape.components';
 import { Spacer } from './Spacer.components';
 
 export const AddButton: React.FC = () => {
-  const { selectedDay } = useDayStore();
   const [open, setOpen] = React.useState(false);
   const { bottom } = useSafeAreaInsets();
   const { navigate } = useNav<'Journal'>();
@@ -71,7 +69,7 @@ export const AddButton: React.FC = () => {
           transition={{ type: 'timing' }}
           style={{ position: 'absolute' }}
         >
-          <Circle circleSize={60} bg="addButtonHalo"></Circle>
+          <Circle circleSize={60} bg="addButtonHalo" />
         </MotiView>
         <Layout.PressableColumn onPress={() => setOpen((open) => !open)}>
           <Circle circleSize={60} bg="addButtonInner" center shadow>

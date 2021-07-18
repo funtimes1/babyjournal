@@ -6,6 +6,7 @@ export type AppStackParamsList = {
   // Root level
   Journal: undefined;
   AddEvent: undefined;
+  EditEvent: { event: Event };
   AddPhoto: undefined;
   Modal: undefined;
   Onboarding: undefined;

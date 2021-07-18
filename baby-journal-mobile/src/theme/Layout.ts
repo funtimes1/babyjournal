@@ -5,7 +5,7 @@ import {
   css,
   HairlineWidth,
   LayoutProps,
-} from "./theme";
+} from './theme';
 
 export const SharedLayoutCss = {
   //  Row Layout

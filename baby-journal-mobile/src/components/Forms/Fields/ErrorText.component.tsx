@@ -1,9 +1,9 @@
-import { OpenSans } from '../../Typography.components';
-import { styled } from '../../../theme/theme';
-
 import { useField } from 'formik';
 import React from 'react';
 import { PixelRatio } from 'react-native';
+
+import { styled } from '../../../theme/theme';
+import { OpenSans } from '../../Typography.components';
 
 export const ErrorText = styled(OpenSans.Primary)`
   font-size: ${({ theme }) => theme.sizes['2xs-10']}px;

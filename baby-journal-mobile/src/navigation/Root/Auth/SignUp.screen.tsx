@@ -1,11 +1,11 @@
+import { Formik } from 'formik';
 import React from 'react';
 import { Alert } from 'react-native';
-import { signUp } from '../../../backend/Auth.backend';
 
+import { signUp } from '../../../backend/Auth.backend';
+import { SignUp } from '../../../components/Forms/Auth/SignUp.form';
 import { Layout } from '../../../components/Layout.components';
 import { OpenSans } from '../../../components/Typography.components';
-import { Formik } from 'formik';
-import { SignUp } from '../../../components/Forms/Auth/SignUp.form';
 import { useNav } from '../../useNav';
 
 export const SignUpScreen: React.FC = () => {

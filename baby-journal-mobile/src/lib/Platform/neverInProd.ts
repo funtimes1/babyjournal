@@ -1,6 +1,6 @@
 import Constants from 'expo-constants';
 
-export const isStaging = Constants.manifest.extra?.isStaging as boolean;
+export const isStaging = Constants.manifest?.extra?.isStaging as boolean;
 
 // safety function to ensure optional input value is NEVER `true` in prod
 export function neverInProd(value = true) {

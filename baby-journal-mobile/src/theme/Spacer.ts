@@ -1,4 +1,4 @@
-import { spacer, SpacerProps, DebugProps, css, HairlineWidth } from "./theme";
+import { spacer, SpacerProps, DebugProps, css, HairlineWidth } from './theme';
 
 export const SharedSpacerCss = {
   /**

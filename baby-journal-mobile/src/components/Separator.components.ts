@@ -1,8 +1,9 @@
-import { StyleSheet, View } from "react-native";
-import { divider, DividerProps, styled } from "../theme/theme";
+import { StyleSheet, View } from 'react-native';
+
+import { divider, DividerProps, styled } from '../theme/theme';
 
 const DefaultSeparatorProps: DividerProps = {
-  color: "defaultSeparator",
+  color: 'defaultSeparator',
   lineWidth: StyleSheet.hairlineWidth,
 };
 

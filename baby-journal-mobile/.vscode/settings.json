@@ -26,8 +26,10 @@
   "bracket-pair-colorizer-2.colors": ["white"],
   "bracket-pair-colorizer-2.showBracketsInRuler": true,
   "editor.codeActionsOnSave": {
-    "source.fixAll": true
+    "source.fixAll.typescript": false,
+    "source.fixAll.eslint": true
   },
+  "eslint.debug": true,
   "editor.autoIndent": "brackets",
   "editor.detectIndentation": true,
   "editor.fontLigatures": true,

@@ -1,5 +1,5 @@
-import * as FileSystem from 'expo-file-system';
 import * as Crypto from 'expo-crypto';
+import * as FileSystem from 'expo-file-system';
 
 const imageDir = FileSystem.cacheDirectory + 'images/';
 const imageFileUri = async (imageUrl: string) => {
@@ -36,9 +36,9 @@ export async function getSingleImage(imageUrl: string) {
   await ensureDirExists();
 
   const fileUri = await imageFileUri(imageUrl);
-  const fileInfo = await FileSystem.getInfoAsync(fileUri, { size: true });
+  const fileInfo = await FileSystem.getInfoAsync(fileUri);
 
-  if (!fileInfo.exists && (fileInfo.size ?? 0) > 1000) {
+  if (!fileInfo.exists) {
     console.log("Image isn't cached locally. Downloading...");
     await FileSystem.downloadAsync(imageUrl, fileUri);
   }

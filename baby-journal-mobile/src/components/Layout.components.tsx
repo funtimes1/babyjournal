@@ -3,6 +3,7 @@ import React from 'react';
 import { View, StyleSheet, SectionList, KeyboardAvoidingView, Platform } from 'react-native';
 import { ScrollView, FlatList } from 'react-native-gesture-handler';
 import { SafeAreaView } from 'react-native-safe-area-context';
+
 import { SharedLayoutCss } from '../theme/Layout';
 import { baseColumnLayout, baseLayout, LayoutProps, styled } from '../theme/theme';
 

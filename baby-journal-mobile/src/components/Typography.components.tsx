@@ -1,6 +1,7 @@
-import { Text, TextInput, TextProps, ColorValue } from "react-native";
-import { styled, TypographyProps } from "../theme/theme";
-import { BaseTypography } from "../theme/Typography";
+import { Text, TextInput, TextProps, ColorValue } from 'react-native';
+
+import { BaseTypography } from '../theme/Typography';
+import { styled, TypographyProps } from '../theme/theme';
 
 export const DefaultTextProps: TextProps = {
   allowFontScaling: true,
@@ -18,8 +19,7 @@ const BaseTextInput = styled(TextInput).attrs(({ theme }) => ({
 `;
 
 const OpenSansPrimary = styled(BaseText)<TypographyProps>`
-  font-family: ${({ theme, weight }) =>
-    theme.fonts["open-sans"][weight ?? "regular"]};
+  font-family: ${({ theme, weight }) => theme.fonts['open-sans'][weight ?? 'regular']};
 `;
 
 const OpenSansSecondary = styled(OpenSansPrimary)`
@@ -31,13 +31,11 @@ const OpenSansInverse = styled(OpenSansPrimary)`
 `;
 
 const OpenSansCustom = styled(BaseText)<TypographyProps>`
-  font-family: ${({ theme, weight }) =>
-    theme.fonts["open-sans"][weight ?? "regular"]};
+  font-family: ${({ theme, weight }) => theme.fonts['open-sans'][weight ?? 'regular']};
 `;
 
 const OpenSansInput = styled(BaseTextInput)<TypographyProps>`
-  font-family: ${({ theme, weight }) =>
-    theme.fonts["open-sans"][weight ?? "regular"]};
+  font-family: ${({ theme, weight }) => theme.fonts['open-sans'][weight ?? 'regular']};
 `;
 
 /**
@@ -74,8 +72,7 @@ export const OpenSans = {
 } as const;
 
 const MonoPrimary = styled(BaseText)`
-  font-family: ${({ theme, weight }) =>
-    theme.fonts["plex-mono"][weight ?? "light"]};
+  font-family: ${({ theme, weight }) => theme.fonts['plex-mono'][weight ?? 'light']};
 `;
 
 const MonoSecondary = styled(MonoPrimary)`
@@ -87,13 +84,11 @@ const MonoInverse = styled(MonoPrimary)`
 `;
 
 const MonoCustom = styled(BaseText)`
-  font-family: ${({ theme, weight }) =>
-    theme.fonts["plex-mono"][weight ?? "light"]};
+  font-family: ${({ theme, weight }) => theme.fonts['plex-mono'][weight ?? 'light']};
 `;
 
 const MonoInput = styled(BaseTextInput)<TypographyProps>`
-  font-family: ${({ theme, weight }) =>
-    theme.fonts["plex-mono"][weight ?? "light"]};
+  font-family: ${({ theme, weight }) => theme.fonts['plex-mono'][weight ?? 'light']};
 `;
 
 /**

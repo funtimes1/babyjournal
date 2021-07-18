@@ -1,15 +1,15 @@
-import React from 'react';
-import { Layout } from '../../Layout.components';
-import { Mono, OpenSans } from '../../Typography.components';
 import { useField } from 'formik';
+import React from 'react';
 import { Keyboard } from 'react-native';
 
-import { FieldError } from './ErrorText.component';
-import { BaseFieldWithTextProps } from './props';
 import { categories } from '../../../lib/category';
+import { Icon } from '../../Icons/Icon';
+import { Layout } from '../../Layout.components';
 import { Circle } from '../../Shape.components';
 import { Spacer } from '../../Spacer.components';
-import { Icon } from '../../Icons/Icon';
+import { OpenSans } from '../../Typography.components';
+import { FieldError } from './ErrorText.component';
+import { BaseFieldWithTextProps } from './props';
 
 type Category = typeof categories[number];
 
@@ -45,7 +45,7 @@ export const CategoryPill: React.FC<{
 };
 
 export const CategoryField: React.FC<BaseFieldWithTextProps> = (props) => {
-  const { name, showErrors, showClearButton, ...text } = props;
+  const { name, showErrors } = props;
   const [field, , helpers] = useField<string>(name);
   const { value } = field;
   const { setValue } = helpers;

@@ -4,10 +4,10 @@ import { TouchableOpacity } from 'react-native-gesture-handler';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 
 import { useAppStore } from '../stores/App.store';
-import { Spacer } from './Spacer.components';
-import { Layout } from './Layout.components';
 import { PopDown } from './Animations/PopDown.component';
 import { Icon } from './Icons/Icon';
+import { Layout } from './Layout.components';
+import { Spacer } from './Spacer.components';
 import { OpenSans } from './Typography.components';
 
 export const AppUpdateBanner: React.FC = () => {

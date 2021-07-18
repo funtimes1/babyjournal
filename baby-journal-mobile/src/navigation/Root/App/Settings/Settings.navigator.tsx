@@ -1,7 +1,7 @@
 import { createStackNavigator } from '@react-navigation/stack';
 import React from 'react';
-import { Layout } from '../../../../components/Layout.components';
 
+import { Layout } from '../../../../components/Layout.components';
 import { stackStyleConfig } from '../../../../theme/NavigationStyleConfig';
 import { AccountInfoScreen } from './AccountInfo.screen';
 import { MenuScreen } from './Menu.screen';

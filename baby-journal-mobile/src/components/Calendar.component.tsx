@@ -14,16 +14,15 @@ import {
   subMonths,
 } from 'date-fns';
 import React from 'react';
+
 import { useNav } from '../navigation/useNav';
 import { useDayStore } from '../stores/Day.store';
-
 import { Color, LayoutProps } from '../theme/theme';
 import { PopDown } from './Animations/PopDown.component';
 import { Icon } from './Icons/Icon';
 import { Layout } from './Layout.components';
 import { Separator } from './Separator.components';
 import { Circle, Square } from './Shape.components';
-import { Spacer } from './Spacer.components';
 import { OpenSans } from './Typography.components';
 
 export const days = ['S', 'M', 'T', 'W', 'T', 'F', 'S'];

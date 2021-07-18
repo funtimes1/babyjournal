@@ -1,6 +1,6 @@
 import React from 'react';
-import { useUser } from '../../../../backend/Auth.backend';
 
+import { useUser } from '../../../../backend/Auth.backend';
 import { DebugInfoContainer } from '../../../../components/DebugInfoContainer.component';
 import { Layout } from '../../../../components/Layout.components';
 

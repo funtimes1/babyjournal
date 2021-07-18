@@ -6,6 +6,7 @@ import Animated, {
   useSharedValue,
 } from 'react-native-reanimated';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
+
 import { useNav } from '../navigation/useNav';
 import { useDebugStore } from '../stores/Debug.store';
 import { Icon } from './Icons/Icon';

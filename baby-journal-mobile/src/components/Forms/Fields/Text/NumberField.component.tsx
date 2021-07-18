@@ -2,10 +2,10 @@ import { Decimal } from '@phensley/cldr';
 import { useField } from 'formik';
 import React from 'react';
 import { TextInput } from 'react-native';
+
 import { useIntlStore } from '../../../../stores/Intl.store';
 import { Layout } from '../../../Layout.components';
 import { Mono } from '../../../Typography.components';
-
 import { ClearButton } from '../ClearButton.component';
 import { FieldError } from '../ErrorText.component';
 import { TextFieldProps } from '../props';

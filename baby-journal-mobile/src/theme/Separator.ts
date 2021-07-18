@@ -1,4 +1,4 @@
-import { divider, DividerProps, css } from "./theme";
+import { divider, DividerProps, css } from './theme';
 
 export const SharedSeparatorCss = {
   /**

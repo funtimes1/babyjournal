@@ -1,14 +1,15 @@
+import * as ImagePicker from 'expo-image-picker';
 import React from 'react';
 import { Alert, Image } from 'react-native';
+
+import { useUploadImage } from '../database/journalEntry.database';
+import { PickerProps } from './Forms/Fields/props';
 import { Icon } from './Icons/Icon';
 import { Layout } from './Layout.components';
+import { LoadingIndicator } from './Loading.component';
+import { Circle } from './Shape.components';
 import { Spacer } from './Spacer.components';
 import { OpenSans } from './Typography.components';
-import * as ImagePicker from 'expo-image-picker';
-import { PickerProps } from './Forms/Fields/props';
-import { useUploadImage } from '../database/journalEntry.database';
-import { Circle } from './Shape.components';
-import { LoadingIndicator } from './Loading.component';
 
 const image_width = 250;
 
@@ -24,7 +25,7 @@ export const PhotoPicker: React.FC<PickerProps<string>> = (props) => {
       Alert.alert('Sorry, we need camera roll permissions to make this work!');
       return;
     }
-    let result = await ImagePicker.launchImageLibraryAsync({
+    const result = await ImagePicker.launchImageLibraryAsync({
       mediaTypes: ImagePicker.MediaTypeOptions.All,
       quality: 0.9,
     });
@@ -43,7 +44,7 @@ export const PhotoPicker: React.FC<PickerProps<string>> = (props) => {
       Alert.alert('Sorry, we need camera permissions to make this work!');
       return;
     }
-    let result = await ImagePicker.launchCameraAsync({
+    const result = await ImagePicker.launchCameraAsync({
       mediaTypes: ImagePicker.MediaTypeOptions.All,
       quality: 0.9,
     });

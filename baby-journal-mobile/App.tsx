@@ -1,14 +1,15 @@
+import { NavigationContainer } from '@react-navigation/native';
 import { StatusBar } from 'expo-status-bar';
 import React from 'react';
-import { ThemeProvider } from 'styled-components';
-import { theme } from './src/theme/theme';
-import { RootNavigator } from './src/navigation/Root/Root.navigator';
-import { NavigationContainer } from '@react-navigation/native';
-import { SafeAreaProvider } from 'react-native-safe-area-context';
 import { LogBox } from 'react-native';
-import { useDebugStore } from './src/stores/Debug.store';
-import { useHandleUpdates } from './src/hooks/useHandleUpdates';
+import { SafeAreaProvider } from 'react-native-safe-area-context';
 import { enableScreens } from 'react-native-screens';
+import { ThemeProvider } from 'styled-components';
+
+import { useHandleUpdates } from './src/hooks/useHandleUpdates';
+import { RootNavigator } from './src/navigation/Root/Root.navigator';
+import { useDebugStore } from './src/stores/Debug.store';
+import { theme } from './src/theme/theme';
 
 enableScreens();
 

@@ -1,12 +1,14 @@
-import { firestoreCollectionRef } from '../backend/Firestore.backend';
-import { useCollectionData } from 'react-firebase-hooks/firestore';
-import { format } from 'date-fns';
-import { dateFormats } from '../lib/date';
-import firebase from 'firebase';
 import cuid from 'cuid';
-import { useUser } from '../backend/Auth.backend';
+import { format } from 'date-fns';
+import firebase from 'firebase';
 import React from 'react';
+import { useCollectionData } from 'react-firebase-hooks/firestore';
+
+import { useUser } from '../backend/Auth.backend';
+import { firestoreCollectionRef } from '../backend/Firestore.backend';
+import { dateFormats } from '../lib/date';
 import { useDayStore } from '../stores/Day.store';
+import { JournalEntry, JournalEvent } from './data';
 
 export function useUploadImage() {
   const user = useUser();
@@ -44,34 +46,13 @@ export function useUploadImage() {
   return [uploadImage, uploading, progress] as const;
 }
 
-type Photo = {
-  url: string;
-  caption?: string;
-};
-
-type JournalEntry = {
-  date: string; // 'yy-mm-dd'
-  title?: string; // ie. "FIRST STEP!" but defaults to date if not present
-  notes?: string; // how the day felt? any hightlights? summary?
-  // See event type below****	events: Event[]; //button to add a new event, leads to a list of categories, user selects
-  //category, leads to a simple form - "event type"
-  photos?: [Photo]; // array of photo objects (in this case exactly ONE Photo object)
-};
-
-type Event = {
-  category: string;
-  time: number;
-  duration: number | null;
-  notes: string | null;
-};
-
 export function useJournalEntries() {
   return useCollectionData<JournalEntry>(firestoreCollectionRef('journal-entries'));
 }
 
 export function useJournalEntryEvents(date: Date) {
   const day = format(date, dateFormats.database);
-  return useCollectionData<Event & { id: string }>(
+  return useCollectionData<JournalEvent & { id: string }>(
     firestoreCollectionRef('journal-entries', `${day}/events`),
   );
 }

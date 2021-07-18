@@ -1,14 +1,14 @@
-import React from 'react';
-import { Layout } from '../../Layout.components';
-import { Mono } from '../../Typography.components';
+import { format } from 'date-fns';
 import { useField } from 'formik';
+import React from 'react';
 import { Keyboard } from 'react-native';
 import DateTimePickerModal from 'react-native-modal-datetime-picker';
-import { format } from 'date-fns';
 
+import { timeFormats } from '../../../lib/date';
+import { Layout } from '../../Layout.components';
+import { Mono } from '../../Typography.components';
 import { FieldError } from './ErrorText.component';
 import { BaseFieldWithTextProps } from './props';
-import { timeFormats } from '../../../lib/date';
 
 export const TimeField: React.FC<BaseFieldWithTextProps> = (props) => {
   const { name, showErrors, showClearButton, ...text } = props;

@@ -1,7 +1,7 @@
 import React from 'react';
+
 import { Layout } from '../../components/Layout.components';
 import { OpenSans } from '../../components/Typography.components';
-
 import { useGoBack } from '../../navigation/useGoBack';
 
 export const PlaceHolderScreen: React.FC<{ name?: string; onPress?: () => void }> = (props) => {

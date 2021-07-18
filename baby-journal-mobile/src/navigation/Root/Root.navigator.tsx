@@ -3,8 +3,8 @@ import { NavigatorScreenParams } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
 import { AnimatePresence } from 'moti';
 import React from 'react';
-import { useAuth } from '../../backend/Auth.backend';
 
+import { useAuth } from '../../backend/Auth.backend';
 import { AppUpdateBanner } from '../../components/AppUpdateBanner.component';
 import { DebugButton } from '../../components/DebugButton.component';
 import { useLoadFonts } from '../../hooks/useLoadFonts';

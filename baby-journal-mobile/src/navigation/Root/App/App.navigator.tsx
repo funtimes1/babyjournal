@@ -1,7 +1,7 @@
 import { createStackNavigator } from '@react-navigation/stack';
 import React from 'react';
-import { Layout } from '../../../components/Layout.components';
 
+import { Layout } from '../../../components/Layout.components';
 import { PlaceHolderScreen } from '../../../lib/PlaceHolders/Placeholder.screen';
 import { stackStyleConfig } from '../../../theme/NavigationStyleConfig';
 import { AddEventScreen } from './AddEvent.screen';

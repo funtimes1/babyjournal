@@ -1,10 +1,11 @@
 import React from 'react';
-import { Layout } from './Layout.components';
-import { Circle } from './Shape.components';
-import { OpenSans } from './Typography.components';
+
 import { categories } from '../lib/category';
 import { Icon } from './Icons/Icon';
+import { Layout } from './Layout.components';
+import { Circle } from './Shape.components';
 import { Spacer } from './Spacer.components';
+import { OpenSans } from './Typography.components';
 
 export const CategoryMockList: React.FC = () => {
   const [selected, setSelected] = React.useState('');

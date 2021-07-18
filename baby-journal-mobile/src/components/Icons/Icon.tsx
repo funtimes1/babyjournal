@@ -1,5 +1,6 @@
 import { Ionicons } from '@expo/vector-icons';
 import { PixelRatio, ViewProps } from 'react-native';
+
 import { Color, styled } from '../../theme/theme';
 
 export const Icon = styled(Ionicons).attrs(({ size }) => ({

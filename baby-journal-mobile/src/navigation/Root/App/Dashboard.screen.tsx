@@ -1,8 +1,8 @@
 import { format } from 'date-fns';
 import React from 'react';
-import { Dimensions, Image, ImageProps, ImageURISource } from 'react-native';
+import { Image, ImageProps, ImageURISource } from 'react-native';
+
 import { AddButton } from '../../../components/AddButton.component';
-import { PopDown } from '../../../components/Animations/PopDown.component';
 import { Calendar } from '../../../components/Calendar.component';
 import { CategoryPill } from '../../../components/Forms/Fields/CategoryField.component';
 import { Layout } from '../../../components/Layout.components';
@@ -10,9 +10,9 @@ import { LoadingIndicator } from '../../../components/Loading.component';
 import { Spacer } from '../../../components/Spacer.components';
 import { Mono, OpenSans } from '../../../components/Typography.components';
 import { useJournalEntries, useJournalEntryEvents } from '../../../database/journalEntry.database';
+import { getImageContentUri } from '../../../lib/Images';
 import { categories } from '../../../lib/category';
 import { dateFormats, timeFormats } from '../../../lib/date';
-import { getImageContentUri } from '../../../lib/Images';
 import { useDayStore } from '../../../stores/Day.store';
 
 const JournalEntry: React.FC = () => {
@@ -31,7 +31,7 @@ const JournalEntry: React.FC = () => {
     );
   }
 
-  if (!!events?.length) {
+  if (events?.length) {
     return (
       <Layout.Scroll>
         <Layout.Row bg="cardBackground" radius>

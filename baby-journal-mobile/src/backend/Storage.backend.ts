@@ -1,4 +1,4 @@
-import { currentUser, useUser } from './Auth.backend';
+import { currentUser } from './Auth.backend';
 import { fuego } from './General.backend';
 
 type EntityName = 'journal-entries' | 'user-profiles';

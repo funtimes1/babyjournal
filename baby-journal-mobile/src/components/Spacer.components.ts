@@ -1,6 +1,7 @@
-import { View } from "react-native";
-import { SharedSpacerCss } from "../theme/Spacer";
-import { DebugProps, SpacerProps, styled } from "../theme/theme";
+import { View } from 'react-native';
+
+import { SharedSpacerCss } from '../theme/Spacer';
+import { DebugProps, SpacerProps, styled } from '../theme/theme';
 
 export const Spacer = {
   /**

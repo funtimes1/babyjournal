@@ -1,12 +1,12 @@
 import React from 'react';
 import { ActivityIndicator } from 'react-native';
 
-import { Color, LayoutProps, styled } from '../theme/theme';
 import { useThrottle } from '../hooks/useThrottle';
+import { Color, LayoutProps, styled } from '../theme/theme';
 import { Icon, IconName } from './Icons/Icon';
-import { OpenSans } from './Typography.components';
 import { Layout } from './Layout.components';
 import { Spacer } from './Spacer.components';
+import { OpenSans } from './Typography.components';
 
 const LoadingIndicator = styled(ActivityIndicator).attrs(({ theme }) => ({
   size: 'small',

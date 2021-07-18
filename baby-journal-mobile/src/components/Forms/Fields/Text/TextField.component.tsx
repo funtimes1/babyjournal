@@ -1,9 +1,9 @@
-import React from 'react';
-import { Layout } from '../../../Layout.components';
-import { OpenSans } from '../../../Typography.components';
 import { useField } from 'formik';
+import React from 'react';
 import { TextInput } from 'react-native';
 
+import { Layout } from '../../../Layout.components';
+import { OpenSans } from '../../../Typography.components';
 import { ClearButton } from '../ClearButton.component';
 import { FieldError } from '../ErrorText.component';
 import { TextFieldProps } from '../props';
@@ -25,8 +25,8 @@ export const TextField = React.forwardRef<TextInput, TextFieldProps>((props, ref
               const newValue = formatter ? formatter(value, text) : text;
               setValue(newValue);
               setTimeout(() => {
-              setTouched(true);
-              })
+                setTouched(true);
+              });
             }}
             value={value}
             ellipsizeMode="tail"

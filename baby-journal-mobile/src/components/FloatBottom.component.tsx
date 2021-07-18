@@ -1,7 +1,9 @@
-import { Layout, Spacer } from '@easy-expense/ui/native';
-import { LayoutProps } from '@easy-expense/ui/theme';
 import React from 'react';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
+
+import { LayoutProps } from '../theme/theme';
+import { Layout } from './Layout.components';
+import { Spacer } from './Spacer.components';
 
 export const FloatBottom: React.FC<LayoutProps & { bottom?: number }> = (props) => {
   const { children, bottom, ...rest } = props;

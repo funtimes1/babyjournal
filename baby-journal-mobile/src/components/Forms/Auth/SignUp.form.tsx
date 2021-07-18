@@ -3,12 +3,12 @@ import React from 'react';
 import { z } from 'zod';
 
 import { Button } from '../../Button.components';
+import { Layout } from '../../Layout.components';
+import { Spacer } from '../../Spacer.components';
+import { LabelTextField } from '../Fields/LabelTextField.component';
 import { EmailField } from '../Fields/Text/EmailField.component';
 import { PasswordField } from '../Fields/Text/PasswordField.component';
 import { validateFormSchema } from '../validateFormSchema';
-import { LabelTextField } from '../Fields/LabelTextField.component';
-import { Layout } from '../../Layout.components';
-import { Spacer } from '../../Spacer.components';
 
 const SignUpSchema = z
   .object({

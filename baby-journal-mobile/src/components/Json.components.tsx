@@ -1,4 +1,5 @@
 import { Text, View } from 'react-native';
+
 import { styled } from '../theme/theme';
 import { DefaultTextProps } from './Typography.components';
 

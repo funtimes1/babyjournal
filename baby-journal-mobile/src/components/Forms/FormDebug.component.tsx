@@ -1,7 +1,7 @@
 import { useFormikContext } from 'formik';
 import React from 'react';
-import { useDebugStore } from '../../stores/Debug.store';
 
+import { useDebugStore } from '../../stores/Debug.store';
 import { DebugInfoContainer } from '../DebugInfoContainer.component';
 import { Layout } from '../Layout.components';
 

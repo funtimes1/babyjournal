@@ -1,7 +1,7 @@
 import React from 'react';
 import { JsonBlob } from 'turbo-json-blob';
-import { LayoutProps } from '../theme/theme';
 
+import { LayoutProps } from '../theme/theme';
 import { JsonComponents } from './Json.components';
 import { Layout } from './Layout.components';
 import { OpenSans } from './Typography.components';

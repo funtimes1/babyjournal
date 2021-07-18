@@ -3,8 +3,8 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 import { StatusBar } from 'expo-status-bar';
 import React from 'react';
 import { Switch, Clipboard } from 'react-native';
-import { currentUser, logout } from '../../../../backend/Auth.backend';
 
+import { currentUser, logout } from '../../../../backend/Auth.backend';
 import { ActionRow } from '../../../../components/ActionRow.component';
 import { DebugInfoContainer } from '../../../../components/DebugInfoContainer.component';
 import { Layout } from '../../../../components/Layout.components';
