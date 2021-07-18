@@ -5,7 +5,7 @@ export type JournalEntry = {
   date: Date; //createdAt
   title: string | null; //defaults to event if no title is provided
   notes: string | null; // overall summary of day
-  events: Events[]; //button to add a new event, leads to a list of categories, user selects category, leads to a simple "event" form, which opens up on the same page
+  // events: Events[]; //button to add a new event, leads to a list of categories, user selects category, leads to a simple "event" form, which opens up on the same page
   photos: [Photo] | null;
 };
 

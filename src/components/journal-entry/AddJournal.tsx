@@ -1,8 +1,9 @@
 import cuid from "cuid";
-import { useForm } from "react-hook-form";
+import { useForm, Controller } from "react-hook-form";
 import { useJournalEntriesFirestoreRef } from "../hooks/UseUserJournalEntries";
 import { JournalEntry } from "../../Types";
 import { format } from "date-fns";
+import { categories } from "../../Categories";
 
 //use JournalEntry type
 //create hook usejournalentries hook
@@ -28,6 +29,7 @@ export const AddJournal: React.FunctionComponent = () => {
     const id = cuid();
     const now = Date.now();
     const entry = {
+      categories,
       id,
       date: now,
       title,
@@ -73,6 +75,9 @@ export const AddJournal: React.FunctionComponent = () => {
           name="title"
         />
         {errors.title && <p>{errors.title.message}</p>}
+
+        <h3>Choose category</h3>
+
         <button type="submit">Submit</button>
       </form>
     </div>
