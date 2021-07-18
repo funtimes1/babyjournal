@@ -8,7 +8,6 @@ import { format } from 'date-fns';
 
 import { FieldError } from './ErrorText.component';
 import { BaseFieldWithTextProps } from './props';
-import { useColorScheme } from 'react-native';
 import { timeFormats } from '../../../lib/date';
 
 export const TimeField: React.FC<BaseFieldWithTextProps> = (props) => {
@@ -17,8 +16,6 @@ export const TimeField: React.FC<BaseFieldWithTextProps> = (props) => {
   const { value } = field;
   const { setValue } = helpers;
   const [showTimePicker, setShowTimePicker] = React.useState(false);
-  const colorScheme = useColorScheme();
-  console.log({ colorScheme });
 
   return (
     <Layout.Column>
@@ -38,7 +35,10 @@ export const TimeField: React.FC<BaseFieldWithTextProps> = (props) => {
         </Mono.Primary>
         <DateTimePickerModal
           headerTextIOS="Duration"
+          textColor="black"
+          isDarkModeEnabled={false}
           mode="time"
+          is24Hour
           display="spinner"
           isVisible={showTimePicker}
           date={value}
