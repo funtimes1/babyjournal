@@ -2,6 +2,7 @@ import cuid from "cuid";
 import { useForm } from "react-hook-form";
 import { useJournalEntriesFirestoreRef } from "../hooks/UseUserJournalEntries";
 import { JournalEntry } from "../../Types";
+import { format } from "date-fns";
 
 //use JournalEntry type
 //create hook usejournalentries hook
@@ -22,6 +23,7 @@ export const AddJournal: React.FunctionComponent = () => {
 
   const addJournalEntry = async (value: JournalEntry) => {
     const { title, notes, events } = value;
+    const formattedDate = format(new Date(), "yyyy-MM-dd");
     const id = cuid();
     const now = Date.now();
     const entry = {
@@ -48,7 +50,7 @@ export const AddJournal: React.FunctionComponent = () => {
     // this is the same
     //checking to see the errors
     try {
-      await journalCollectionRef.doc(id).set({ ...entry });
+      await journalCollectionRef.doc(formattedDate).set({ ...entry });
       console.log("finished");
     } catch (error) {
       console.log(error.message);
