@@ -17,12 +17,13 @@ export const AddJournal: React.FunctionComponent = () => {
     defaultValues: {
       title: "",
       notes: "",
-      events: [],
     },
   });
 
   const addJournalEntry = async (value: JournalEntry) => {
-    const { title, notes, events } = value;
+    // const { title, notes, events } = value;
+    const { title, notes } = value;
+
     const formattedDate = format(new Date(), "yyyy-MM-dd");
     const id = cuid();
     const now = Date.now();
@@ -31,7 +32,6 @@ export const AddJournal: React.FunctionComponent = () => {
       date: now,
       title,
       notes,
-      events,
     };
     console.log({ entry });
     console.log(journalCollectionRef.path);
@@ -50,7 +50,11 @@ export const AddJournal: React.FunctionComponent = () => {
     // this is the same
     //checking to see the errors
     try {
-      await journalCollectionRef.doc(formattedDate).set({ ...entry });
+      await journalCollectionRef
+        .doc(formattedDate)
+        .collection("events")
+        .doc(id)
+        .set({ ...entry });
       console.log("finished");
     } catch (error) {
       console.log(error.message);
