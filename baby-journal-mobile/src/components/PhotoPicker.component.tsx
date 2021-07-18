@@ -57,10 +57,12 @@ export const PhotoPicker: React.FC<PickerProps<string>> = (props) => {
     }
   };
 
-  const launchEditor = (uri: string) => {
+  const launchEditor = async (uri: string) => {
     // Then set the image uri
     setImage(uri);
-    onSelect(uri);
+    const uploadedUri = await uploadImage(uri);
+    setImage(uploadedUri);
+    onSelect(uploadedUri);
     // And set the image editor to be visible
     // setEditorVisible(true);
   };
@@ -80,14 +82,7 @@ export const PhotoPicker: React.FC<PickerProps<string>> = (props) => {
                 style={{ width: image_width, height: image_width * aspect }}
                 resizeMode="contain"
               />
-              <Layout.PressableColumn
-                absolute={{ right: 8, top: 8 }}
-                onPress={async () => {
-                  const uri = await uploadImage(image);
-                  setImage(uri);
-                  onSelect(uri);
-                }}
-              >
+              <Layout.Column absolute={{ right: 8, top: 8 }}>
                 <Circle circleSize={40} bg="haze" center>
                   {uploading ? (
                     <LoadingIndicator />
@@ -99,7 +94,7 @@ export const PhotoPicker: React.FC<PickerProps<string>> = (props) => {
                     />
                   )}
                 </Circle>
-              </Layout.PressableColumn>
+              </Layout.Column>
               <Layout.PressableColumn
                 absolute={{ left: 8, top: 8 }}
                 onPress={() => {
