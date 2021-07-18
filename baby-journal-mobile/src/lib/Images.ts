@@ -36,9 +36,9 @@ export async function getSingleImage(imageUrl: string) {
   await ensureDirExists();
 
   const fileUri = await imageFileUri(imageUrl);
-  const fileInfo = await FileSystem.getInfoAsync(fileUri);
+  const fileInfo = await FileSystem.getInfoAsync(fileUri, { size: true });
 
-  if (!fileInfo.exists) {
+  if (!fileInfo.exists && (fileInfo.size ?? 0) > 1000) {
     console.log("Image isn't cached locally. Downloading...");
     await FileSystem.downloadAsync(imageUrl, fileUri);
   }

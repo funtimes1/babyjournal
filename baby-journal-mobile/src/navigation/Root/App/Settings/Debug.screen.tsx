@@ -11,6 +11,7 @@ import { Layout } from '../../../../components/Layout.components';
 import { Separator } from '../../../../components/Separator.components';
 import { Spacer } from '../../../../components/Spacer.components';
 import { Mono, OpenSans } from '../../../../components/Typography.components';
+import { deleteAllImages } from '../../../../lib/Images';
 import { useAppStore } from '../../../../stores/App.store';
 import { useDebugStore } from '../../../../stores/Debug.store';
 import { styled } from '../../../../theme/theme';
@@ -101,6 +102,7 @@ export const DebugScreen: React.FC = () => {
           <DebugActionRow
             onPress={() => {
               popToTop();
+              deleteAllImages();
               logout();
             }}
           >
@@ -112,7 +114,7 @@ export const DebugScreen: React.FC = () => {
           <Layout.PressableColumn
             onPress={() => {
               const dataUrl = `https://console.firebase.google.com/project/${
-                constants.manifest.extra?.firebase.projectId
+                constants.manifest?.extra?.firebase.projectId
               }/firestore/data~2FuserData~2F${currentUser()?.uid}`;
               Clipboard.setString(dataUrl);
               console.info(dataUrl);

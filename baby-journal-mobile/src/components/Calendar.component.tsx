@@ -138,7 +138,7 @@ export const Calendar: React.FC<CalendarProps> = (props) => {
     ...rest
   } = props;
   const [currentMonth, setCurrentMonth] = React.useState(startOfMonth(selectedDay));
-  const [showCalendar, setShowCalendar] = React.useState(true);
+  const [showCalendar, setShowCalendar] = React.useState(false);
 
   const startDay = startOfWeek(currentMonth);
   const endDay = endOfWeek(endOfMonth(currentMonth));
