@@ -31,7 +31,7 @@ const JournalEntry: React.FC = () => {
     );
   }
 
-  if (events?.length) {
+  if (events?.length || todaysEntry?.photos?.length) {
     return (
       <Layout.Scroll>
         <Layout.Row bg="cardBackground" radius>
@@ -47,7 +47,7 @@ const JournalEntry: React.FC = () => {
             })}
           </Layout.Scroll>
         </Layout.Row>
-        {events.map((e, i) => {
+        {events?.map((e, i) => {
           const category = categories.find((c) => c.name === e.category);
           return (
             <Layout.Row key={i} align justify="space-between" py>

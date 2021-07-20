@@ -5,7 +5,7 @@ import { ScrollView, FlatList } from 'react-native-gesture-handler';
 import { SafeAreaView } from 'react-native-safe-area-context';
 
 import { SharedLayoutCss } from '../theme/Layout';
-import { baseColumnLayout, baseLayout, LayoutProps, styled } from '../theme/theme';
+import { baseColumnLayout, baseLayout, baseRowLayout, LayoutProps, styled } from '../theme/theme';
 
 export const DefaultPressableProps = {
   pressColor: '#0002',
@@ -16,6 +16,7 @@ export const DefaultScrollableProps = {
   keyboardShouldPersistTaps: 'always',
   contentContainerStyle: { flexGrow: 1 },
   showsVerticalScrollIndicator: false,
+  showsHorizontalScrollIndicator: false,
 } as const;
 
 const KeyboardAvoiding: React.FC = (props) => {
@@ -80,19 +81,19 @@ export const Layout = {
   `,
   Scroll: styled(ScrollView).attrs(DefaultScrollableProps)`
     ${baseLayout}
-    ${baseColumnLayout}
+    ${({ horizontal }) => (horizontal ? baseRowLayout : baseColumnLayout)}
     ${({ debug, theme: { debugBorders } }) =>
       (debugBorders || debug) && `border: solid ${StyleSheet.hairlineWidth}px #c300ff;`}
   `,
   FlatList: styled(FlatList).attrs(DefaultScrollableProps)`
     ${baseLayout}
-    ${baseColumnLayout}
+    ${({ horizontal }) => (horizontal ? baseRowLayout : baseColumnLayout)}
     ${({ debug, theme: { debugBorders } }) =>
       (debugBorders || debug) && `border: solid ${StyleSheet.hairlineWidth}px #7700ff;`}
   ` as unknown as typeof FlatList,
   SectionList: styled(SectionList).attrs(DefaultScrollableProps)`
     ${baseLayout}
-    ${baseColumnLayout}
+    ${({ horizontal }) => (horizontal ? baseRowLayout : baseColumnLayout)}
     ${({ debug, theme: { debugBorders } }) =>
       (debugBorders || debug) && `border: solid ${StyleSheet.hairlineWidth}px #3cff00;`}
   ` as unknown as typeof SectionList,
