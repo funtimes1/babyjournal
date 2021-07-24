@@ -1,7 +1,7 @@
 import cuid from "cuid";
 import { useForm, Controller } from "react-hook-form";
 import { useJournalEntriesFirestoreRef } from "../hooks/UseUserJournalEntries";
-import { JournalEntry } from "../../Types";
+import { Events } from "../../Types";
 import { format } from "date-fns";
 import { categories } from "../../Categories";
 
@@ -14,26 +14,27 @@ export const AddJournal: React.FunctionComponent = () => {
     register,
     handleSubmit,
     formState: { errors },
-  } = useForm<JournalEntry>({
+  } = useForm<Events>({
     defaultValues: {
-      title: "",
       notes: "",
+      category: "",
+      duration: 0,
+      time: Date.now(),
+      id: cuid(),
     },
   });
 
-  const addJournalEntry = async (value: JournalEntry) => {
+  const addJournalEntry = async (value: Events) => {
     // const { title, notes, events } = value;
-    const { title, notes } = value;
-
+    const { notes, category, duration, time } = value;
     const formattedDate = format(new Date(), "yyyy-MM-dd");
     const id = cuid();
-    const now = Date.now();
     const entry = {
-      categories,
+      category,
       id,
-      date: now,
-      title,
       notes,
+      duration,
+      time,
     };
     console.log({ entry });
     console.log(journalCollectionRef.path);
@@ -67,16 +68,25 @@ export const AddJournal: React.FunctionComponent = () => {
   return (
     <div>
       <h2>Add Journal</h2>
+
+      <h4>Please choose a category</h4>
+      <select {...register("category", { required: "please select category" })}>
+        {/* <option value="">Select a category</option> */}
+        {categories.map((category) => (
+          <option key={category.name} value={category.display}>
+            {category.display}
+          </option>
+        ))}
+      </select>
+
       <form onSubmit={handleSubmit(addJournalEntry)}>
         <input
-          {...register("title", { required: "Title is required" })}
+          {...register("notes", { required: "notes is required" })}
           type="text"
-          placeholder="Title of Journal Entry"
-          name="title"
+          placeholder="Add notes here"
+          name="notes"
         />
-        {errors.title && <p>{errors.title.message}</p>}
-
-        <h3>Choose category</h3>
+        {errors.notes && <p>{errors.notes.message}</p>}
 
         <button type="submit">Submit</button>
       </form>

@@ -16,7 +16,7 @@ export type Events = {
   id: string; // cuid();
   category: string; // a Category ID
   notes: string;
-  //   time: DateTime; // defaults to current time, but is editable (past or future)
+  time: number; // defaults to current time, but is editable (past or future)
   duration?: number; // in minutes (with nice UI to select hours as well)
 };
 
