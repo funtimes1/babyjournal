@@ -55,6 +55,9 @@ export const AddJournal: React.FunctionComponent = () => {
     try {
       await journalCollectionRef
         .doc(formattedDate)
+        .set({ date: formattedDate, updatedAt: Date.now() });
+      await journalCollectionRef
+        .doc(formattedDate)
         .collection("events")
         .doc(id)
         .set({ ...entry });
