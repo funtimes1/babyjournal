@@ -49,7 +49,11 @@ const AuthenticatedApp: React.FC = () => {
       {/* JSON stringify converts object or value to a JSON string */}
       <AddJournal />
       <JournalList />
-      {JSON.stringify(user, null, 2)}
+      {/* {JSON.stringify(user, null, 2)} */}
+      USER ID: {user.uid}
+      <br></br>
+      USER EMAIL: {user?.email}
+      <br></br>
       <button onClick={() => firebase.auth().signOut()}>LOGOUT</button>
     </div>
   );

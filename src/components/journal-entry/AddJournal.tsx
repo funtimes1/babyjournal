@@ -1,6 +1,6 @@
 import cuid from "cuid";
-import { useForm, Controller } from "react-hook-form";
-import { useJournalEntriesFirestoreRef } from "../hooks/UseUserJournalEntries";
+import { useForm } from "react-hook-form";
+import { useJournalEntriesRef } from "../hooks/UseUserJournalEntries";
 import { Events } from "../../Types";
 import { format } from "date-fns";
 import { categories } from "../../Categories";
@@ -9,7 +9,7 @@ import { categories } from "../../Categories";
 //create hook usejournalentries hook
 
 export const AddJournal: React.FunctionComponent = () => {
-  const journalCollectionRef = useJournalEntriesFirestoreRef();
+  const journalCollectionRef = useJournalEntriesRef();
   const {
     register,
     handleSubmit,
@@ -53,6 +53,11 @@ export const AddJournal: React.FunctionComponent = () => {
     // this is the same
     //checking to see the errors
     try {
+      await journalCollectionRef.doc(formattedDate).set({
+        date: formattedDate,
+        updatedAt: Date.now(),
+        notes: notes,
+      });
       await journalCollectionRef
         .doc(formattedDate)
         .collection("events")
@@ -70,7 +75,9 @@ export const AddJournal: React.FunctionComponent = () => {
       <h2>Add Journal</h2>
 
       <h4>Please choose a category</h4>
-      <select {...register("category", { required: "please select category" })}>
+      <select
+        {...register("category", { required: "please select a category" })}
+      >
         {/* <option value="">Select a category</option> */}
         {categories.map((category) => (
           <option key={category.name} value={category.display}>
