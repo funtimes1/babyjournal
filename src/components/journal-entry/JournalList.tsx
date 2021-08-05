@@ -15,9 +15,11 @@ export const JournalList: React.FunctionComponent = () => {
       <h2>Journal Entries</h2>
       {/* shows all entries per day  */}
 
-      {/* {value?.docs.map((doc) => {
-        return <JournalEntryRow journalEntry={doc.data()} />;
-      })} */}
+      {value?.docs.map((doc) => {
+        return (
+          <JournalEntryRow key={doc.data().date} journalEntry={doc.data()} />
+        );
+      })}
     </div>
   );
 };
@@ -25,11 +27,12 @@ export const JournalList: React.FunctionComponent = () => {
 const JournalEntryRow: React.FunctionComponent<{
   journalEntry: JournalEntry;
 }> = (props) => {
-  const [value, loading, error] = useJournalEntryEvents(props.journalEntry.id);
+  const [value, loading, error] = useJournalEntryEvents(
+    props.journalEntry.date
+  );
   return (
     <div>
       <x.div
-        key={props.journalEntry.id}
         display="flex"
         flexDirection="column"
         borderRadius="2xl"
