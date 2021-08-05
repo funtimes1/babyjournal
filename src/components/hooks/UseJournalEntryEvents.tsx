@@ -6,6 +6,7 @@ import { useCurrentUser } from "./UseCurrentUser";
 export function useJournalEntryEventsRef(dateID: string) {
   //to add new journal event
   const user = useCurrentUser();
+
   return firestore
     .collection("users")
     .doc(user?.uid)

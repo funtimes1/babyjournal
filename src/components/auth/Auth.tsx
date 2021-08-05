@@ -6,6 +6,7 @@ import { Login } from "./Login";
 import { Signup } from "./Signup";
 import { AddJournal } from "../journal-entry/AddJournal";
 import { JournalList } from "../journal-entry/JournalList";
+import { JournalEntryEvents } from "../JournalEntryEvents";
 
 // export const Auth = () => {
 //   const login = () => {
@@ -48,6 +49,7 @@ const AuthenticatedApp: React.FC = () => {
     <div>
       {/* JSON stringify converts object or value to a JSON string */}
       <AddJournal />
+      <JournalEntryEvents />
       <JournalList />
       {/* {JSON.stringify(user, null, 2)} */}
       USER ID: {user.uid}

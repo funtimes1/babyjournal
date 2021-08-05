@@ -5,7 +5,6 @@
 
 //TO DO: list the events on the page and then edit
 
-import { useJournalEntryEvents } from "./hooks/UseJournalEntryEvents";
 import React from "react";
 import cuid from "cuid";
 import { useForm } from "react-hook-form";
@@ -14,14 +13,7 @@ import { Events } from "../Types";
 import { format } from "date-fns";
 import { categories } from "../Categories";
 
-// export const JournalEntryEvents: React.FunctionComponent<{
-//   journalEntryDate: string;
-// }> = ({ journalEntryDate }) => {
-//   const [value, loading, error] = useJournalEntryEvents(journalEntryDate);
-//   return <div> {JSON.stringify(value)}</div>;
-// };
-
-export const AddEvents: React.FunctionComponent<{
+export const JournalEntryEvents: React.FunctionComponent<{
   journalEntryDate: string;
 }> = ({ journalEntryDate }) => {
   const journalEventsRef = useJournalEntryEventsRef(journalEntryDate);
@@ -55,10 +47,20 @@ export const AddEvents: React.FunctionComponent<{
         date: formattedDate,
         updatedAt: Date.now(),
         notes: notes,
-        category: category,
-        duration: duration,
-        time: time,
       });
+      await journalEventsRef
+        .doc(formattedDate)
+        .collection("events")
+        .doc(id)
+        .set({ ...entry });
+      // .set({
+      //   date: formattedDate,
+      //   updatedAt: Date.now(),
+      //   notes: notes,
+      //   category: category,
+      //   duration: duration,
+      //   time: time,
+      // });
     } catch (error) {
       console.log(error.message);
     } finally {
@@ -69,6 +71,28 @@ export const AddEvents: React.FunctionComponent<{
   return (
     <div>
       <h2>Add Event</h2>
+      <h4>Please choose a category</h4>
+      <select
+        {...register("category", { required: "please select a category" })}
+      >
+        {/* <option value="">Select a category</option> */}
+        {categories.map((category) => (
+          <option key={category.name} value={category.display}>
+            {category.display}
+          </option>
+        ))}
+      </select>
+      <form onSubmit={handleSubmit(addEvents)}>
+        <input
+          {...register("notes", { required: "notes is required" })}
+          type="text"
+          placeholder="Add notes here"
+          name="notes"
+        />
+        {errors.notes && <p>{errors.notes.message}</p>}
+
+        <button type="submit">Submit</button>
+      </form>
     </div>
   );
 };
