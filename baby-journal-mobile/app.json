@@ -1,0 +1,39 @@
+{
+  "expo": {
+    "android": {
+      "adaptiveIcon": {
+        "backgroundColor": "#1EE5CE",
+        "foregroundImage": "./assets/adaptive-icon.png"
+      },
+      "package": "com.babyjournal.android"
+    },
+    "assetBundlePatterns": [
+      "**/*"
+    ],
+    "description": "",
+    "extra": {
+      "isStaging": true
+    },
+    "icon": "./assets/icon.png",
+    "ios": {
+      "supportsTablet": true,
+      "bundleIdentifier": "com.babyjournal.ios"
+    },
+    "name": "baby-journal-mobile",
+    "orientation": "portrait",
+    "owner": "babyjournal",
+    "slug": "baby-journal-mobile",
+    "splash": {
+      "backgroundColor": "#1EE5CE",
+      "image": "./assets/icon.png",
+      "resizeMode": "contain"
+    },
+    "updates": {
+      "fallbackToCacheTimeout": 0
+    },
+    "version": "1.0.0",
+    "web": {
+      "favicon": "./assets/icon.png"
+    }
+  }
+}
