@@ -1,7 +1,7 @@
 import firebase from "../../firebase";
 import { useForm } from "react-hook-form";
 import React from "react";
-import { AuthFormInput } from "./Login";
+import { AuthFormInput } from "../../Types";
 //how to redirect user to home page after clicking SignUp?
 
 export const Signup: React.FC = () => {
