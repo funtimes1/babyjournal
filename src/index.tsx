@@ -1,8 +1,6 @@
 import React from "react";
 import ReactDOM from "react-dom";
-import "./index.css";
-import App from "./App";
-import { Auth } from "../src/components/auth/Auth";
+import { App } from "./components/App";
 import {
   defaultTheme,
   ThemeProvider,
@@ -20,7 +18,6 @@ ReactDOM.render(
   <React.StrictMode>
     <ThemeProvider theme={theme}>
       <Preflight />
-      <Auth />
       <App />
     </ThemeProvider>
   </React.StrictMode>,

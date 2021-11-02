@@ -1,12 +1,13 @@
-import firebase from "../../firebase";
-import { useCurrentUser } from "../hooks/UseCurrentUser";
+import firebase from "../firebase";
+import { useCurrentUser } from "./hooks/UseCurrentUser";
 import React from "react";
 import { useAuthState } from "react-firebase-hooks/auth";
-import { Login } from "./Login";
-import { Signup } from "./Signup";
-import { AddJournal } from "../journal-entry/AddJournal";
-import { JournalList } from "../journal-entry/JournalList";
-import { JournalEntryEvents } from "../JournalEntryEvents";
+import { Login } from "./auth/Login";
+import { Signup } from "./auth/Signup";
+import { AddJournal } from "./journal-entry/AddJournal";
+import { JournalList } from "./journal-entry/JournalList";
+import { JournalEntryEvents } from "./JournalEntryEvents";
+import { format } from "date-fns";
 
 // export const Auth = () => {
 //   const login = () => {
@@ -17,7 +18,7 @@ import { JournalEntryEvents } from "../JournalEntryEvents";
 //   };
 
 //
-export const Auth: React.FunctionComponent = () => {
+export const App: React.FunctionComponent = () => {
   const [user, loading, error] = useAuthState(firebase.auth());
 
   if (loading) {
@@ -41,18 +42,20 @@ export const Auth: React.FunctionComponent = () => {
   // render login / signup here
   return <UnAuthenticatedApp />;
 };
+
 //User information such as ID contained in and accessible via Authenticated App
+// TODO: move this into its own file
 const AuthenticatedApp: React.FC = () => {
   const user = useCurrentUser();
-
+  const formattedDate = format(new Date(), "yyyy-MM-dd");
   return (
     <div>
       {/* JSON stringify converts object or value to a JSON string */}
-      <AddJournal />
-      <JournalEntryEvents />
-      <JournalList />
+      {/* <AddJournal />
+      <JournalEntryEvents journalEntryDate={formattedDate} />
+      <JournalList /> */}
       {/* {JSON.stringify(user, null, 2)} */}
-      USER ID: {user.uid}
+      USER ID: {user?.uid}
       <br></br>
       USER EMAIL: {user?.email}
       <br></br>
@@ -60,6 +63,8 @@ const AuthenticatedApp: React.FC = () => {
     </div>
   );
 };
+
+// TODO: move this into its own file
 const UnAuthenticatedApp: React.FC = () => {
   return (
     <div>

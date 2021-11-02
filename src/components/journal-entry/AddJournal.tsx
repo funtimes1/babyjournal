@@ -9,6 +9,7 @@ import React from "react";
 //create hook usejournalentries hook
 
 export const AddJournal: React.FunctionComponent = () => {
+  const formattedDate = format(new Date(), "yyyy-MM-dd");
   const journalCollectionRef = useJournalEntriesRef();
   const {
     register,
@@ -17,48 +18,26 @@ export const AddJournal: React.FunctionComponent = () => {
   } = useForm<JournalEntry>({
     defaultValues: {
       notes: "",
-      // category: "",
-      // duration: 0,
       time: Date.now(),
-      id: cuid(),
+      date: formattedDate,
+      photos: [],
     },
   });
 
   const addJournalEntry = async (value: JournalEntry) => {
     // const { title, notes, events } = value;
-    const { notes, time } = value;
-    const formattedDate = format(new Date(), "yyyy-MM-dd");
-    const id = cuid();
+    const { notes, time, photos } = value;
     const entry = {
-      id,
+      date: formattedDate,
       notes,
       time,
+      photos,
     };
     console.log({ entry });
     console.log(journalCollectionRef.path);
-    // journalCollectionRef
-    //   .doc(id)
-    //   .set(entry)
-    //   .then(() => {
-    //     console.log("finished");
-    //   })
-    //   .catch((error) => {
-    //     console.log(error.message);
-    //   })
-    //   .finally(() => {
-    //     console.log("finally done");
-    //   });
-    // this is the same
-    //checking to see the errors
+
     try {
-      // await journalCollectionRef.doc(formattedDate).set({
-      //   date: formattedDate,
-      //   updatedAt: Date.now(),
-      //   notes: notes,
-      // });
-      await journalCollectionRef
-        .doc(formattedDate)
-        .set({ date: formattedDate, updatedAt: Date.now(), notes: notes });
+      await journalCollectionRef.doc(formattedDate).set(entry);
       // await journalCollectionRef
       //   .doc(formattedDate)
       //   .collection("events")

@@ -9,11 +9,11 @@ import React from "react";
 import cuid from "cuid";
 import { useForm } from "react-hook-form";
 import { useJournalEntryEventsRef } from "./hooks/UseJournalEntryEvents";
-import { Events } from "../Types";
+import { Events, JournalEntry } from "../Types";
 import { format } from "date-fns";
 import { categories } from "../Categories";
 
-export const JournalEntryEvents: React.FunctionComponent<{
+export const JournalEntryEvents: React.FC<{
   journalEntryDate: string;
 }> = ({ journalEntryDate }) => {
   const journalEventsRef = useJournalEntryEventsRef(journalEntryDate);
@@ -33,7 +33,6 @@ export const JournalEntryEvents: React.FunctionComponent<{
 
   const addEvents = async (value: Events) => {
     const { notes, category, duration, time } = value;
-    const formattedDate = format(new Date(), "yyyy-MM-dd");
     const id = cuid();
     const entry = {
       category,
@@ -43,24 +42,7 @@ export const JournalEntryEvents: React.FunctionComponent<{
       time,
     };
     try {
-      await journalEventsRef.doc(formattedDate).set({
-        date: formattedDate,
-        updatedAt: Date.now(),
-        notes: notes,
-      });
-      await journalEventsRef
-        .doc(formattedDate)
-        .collection("events")
-        .doc(id)
-        .set({ ...entry });
-      // .set({
-      //   date: formattedDate,
-      //   updatedAt: Date.now(),
-      //   notes: notes,
-      //   category: category,
-      //   duration: duration,
-      //   time: time,
-      // });
+      await journalEventsRef.doc(entry.id).set(entry);
     } catch (error) {
       console.log(error.message);
     } finally {

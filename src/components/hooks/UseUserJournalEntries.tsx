@@ -1,6 +1,6 @@
 import { firestore } from "../../firebase";
 import { useCurrentUser } from "./UseCurrentUser";
-import { useCollection } from "react-firebase-hooks/firestore";
+import { useCollectionData } from "react-firebase-hooks/firestore";
 import { JournalEntry } from "../../Types";
 
 export function useJournalEntriesRef() {
@@ -14,7 +14,5 @@ export function useJournalEntriesRef() {
 export function useJournalEntries() {
   const journalEntriesRef = useJournalEntriesRef(); //uses the above hook
 
-  return useCollection<JournalEntry>(journalEntriesRef, {
-    snapshotListenOptions: { includeMetadataChanges: true },
-  });
+  return useCollectionData<JournalEntry>(journalEntriesRef);
 }

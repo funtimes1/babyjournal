@@ -1,4 +1,4 @@
-import { useCollection } from "react-firebase-hooks/firestore";
+import { useCollectionData } from "react-firebase-hooks/firestore";
 import { firestore } from "../../firebase";
 import { Events } from "../../Types";
 import { useCurrentUser } from "./UseCurrentUser";
@@ -17,8 +17,6 @@ export function useJournalEntryEventsRef(dateID: string) {
 
 export function useJournalEntryEvents(dateID: string) {
   const journalEntriesEventsRef = useJournalEntryEventsRef(dateID); //uses the above hook
-
-  return useCollection<Events>(journalEntriesEventsRef, {
-    snapshotListenOptions: { includeMetadataChanges: true },
-  });
+  console.log(journalEntriesEventsRef.path);
+  return useCollectionData<Events>(journalEntriesEventsRef);
 }
