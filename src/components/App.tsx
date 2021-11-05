@@ -8,6 +8,7 @@ import { AddJournal } from "./journal-entry/AddJournal";
 import { JournalList } from "./journal-entry/JournalList";
 import { JournalEntryEvents } from "./JournalEntryEvents";
 import { format } from "date-fns";
+import { AppLayout } from "./AppLayout";
 
 // export const Auth = () => {
 //   const login = () => {
@@ -50,6 +51,7 @@ const AuthenticatedApp: React.FC = () => {
   const formattedDate = format(new Date(), "yyyy-MM-dd");
   return (
     <div>
+      <AppLayout />
       {/* JSON stringify converts object or value to a JSON string */}
       {/* <AddJournal />
       <JournalEntryEvents journalEntryDate={formattedDate} />
