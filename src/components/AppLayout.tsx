@@ -1,6 +1,6 @@
 import React from "react";
 import { x } from "@xstyled/styled-components";
-
+import { NavBar } from "./NavBar";
 export const AppLayout: React.FunctionComponent = () => {
   return (
     <x.div
@@ -9,8 +9,8 @@ export const AppLayout: React.FunctionComponent = () => {
       flexDirection="column"
       backgroundColor="green-200"
     >
-      <x.div backgroundColor="red-200" h="20">
-        nav
+      <x.div backgroundColor="red-200" h="20" position="relative">
+        <NavBar />
       </x.div>
       <x.div display="flex" backgroundColor="blue-200" flex="1">
         <x.div backgroundColor="yellow-200">
