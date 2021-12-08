@@ -1,82 +1,44 @@
 import firebase from "../firebase";
 import React, { useState } from "react";
 import { x } from "@xstyled/styled-components";
-import { daysInWeek, endOfMonth, format, getDate, startOfWeek } from "date-fns";
+import {
+  addDays,
+  daysInWeek,
+  endOfMonth,
+  format,
+  getDate,
+  startOfWeek,
+} from "date-fns";
 import {
   eachDayOfInterval,
   eachWeekOfInterval,
   endOfWeek,
   startOfMonth,
 } from "date-fns/esm";
+import { CalendarMonth } from "./CalendarMonth";
+import { CalendarWeek } from "./CalendarWeek";
 
 export const Calendar: React.FC = () => {
   const currentDate = new Date();
   const [selectedDate, setSelectedDate] = useState(currentDate);
-  const startWeek = startOfWeek(selectedDate);
-  const endWeek = endOfWeek(selectedDate);
-  const currentWeek = eachDayOfInterval({
-    start: startWeek,
-    end: endWeek,
-  });
+
   const startMonth = startOfMonth(selectedDate);
   const endMonth = endOfMonth(selectedDate);
   const currentMonth = eachDayOfInterval({
     start: startMonth,
     end: endMonth,
   });
+  //   console.log(startOfWeek(startMonth));
 
-  // we need to get all days related to that month eg. 31st from prev month or 123 for next
+  // we need to get all days related to that month eg. 31st from prev month or first few days of next month
   // given the first day of the month, get the start of the week for that day
   // given the last day of the month, get the end of the week for that day
-
-  // const currentMonthWithPaddingDays = eachDayOfInterval...
-  console.log(currentWeek[0].getDate());
-  console.log(currentWeek);
-
-  console.log(currentWeek[0].getMonth());
-
-  const Circle: React.FC = (props) => {
-    const { children } = props;
-    return (
-      <x.div
-        backgroundColor="orange-200"
-        h={10}
-        w={10}
-        border={1}
-        borderRadius={20}
-        display="flex"
-        alignItems="center"
-        justifyContent="center"
-      >
-        {children}
-      </x.div>
-    );
-  };
 
   return (
     <x.div backgroundColor="yellow-200">
       <x.div backgroundColor="blue-200" h="300" w="300">
-        current month - {format(selectedDate, "MMMM")}
-        <x.div className="week" display="flex" flex-direction="row">
-          {currentMonth.map((day, index) => {
-            const onClick = () => {
-              console.log("hello", day);
-            };
-            {
-              /* not sure how to figure out a unique key?? */
-            }
-            return (
-              <x.div
-                key={`weekday-${index}`}
-                display="flex"
-                flex-direction="row"
-                onClick={onClick}
-              >
-                <Circle>{day.getDate()} </Circle>{" "}
-              </x.div>
-            );
-          })}
-        </x.div>
+        <CalendarMonth />
+        <CalendarWeek />
       </x.div>
     </x.div>
   );
