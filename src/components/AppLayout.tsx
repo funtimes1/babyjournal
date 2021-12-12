@@ -12,13 +12,13 @@ export const AppLayout: React.FunctionComponent = () => {
       <Layout.Column grow>
         <Layout.Row bg="blue-200" grow>
           {/* Sidebar */}
-          <Layout.Column size={280}>
+          <Layout.Column>
             {/* Calendar */}
             <Calendar />
             <Spacer.Flex />
             {/* Settings */}
             <Layout.Column bg="green-200" px py>
-              Settings
+              Settings!!!
             </Layout.Column>
           </Layout.Column>
           {/* Main Content */}
@@ -32,7 +32,7 @@ export const AppLayout: React.FunctionComponent = () => {
             </Layout.Column>
             <Spacer.Vertical />
             <Layout.Column px py radius={10} bg="pink-200">
-              Events!!
+              Events!!!!
             </Layout.Column>
           </Layout.Column>
         </Layout.Row>
