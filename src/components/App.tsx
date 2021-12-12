@@ -13,7 +13,7 @@ export const App: React.FC = () => {
       <ThemeProvider
         theme={{
           ...theme,
-          debugBorders: true,
+          debugBorders: false,
         }}
       >
         <Preflight />
