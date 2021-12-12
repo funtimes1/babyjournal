@@ -1,7 +1,8 @@
-import firebase from "../../firebase";
 import { useForm } from "react-hook-form";
 import React from "react";
 import { AuthFormInput } from "../../Types";
+import { createUserWithEmailAndPassword } from "firebase/auth";
+import { auth } from "../../firebase";
 //how to redirect user to home page after clicking SignUp?
 
 export const Signup: React.FC = () => {
@@ -20,9 +21,11 @@ export const Signup: React.FC = () => {
       <form
         onSubmit={handleSubmit(async (data) => {
           try {
-            await firebase
-              .auth()
-              .createUserWithEmailAndPassword(data.email, data.password);
+            await createUserWithEmailAndPassword(
+              auth,
+              data.email,
+              data.password
+            );
           } catch (error) {
             alert(error.message);
           }

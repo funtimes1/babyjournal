@@ -1,14 +1,11 @@
-import { firestore } from "../../firebase";
 import { useCurrentUser } from "./UseCurrentUser";
 import { useCollectionData } from "react-firebase-hooks/firestore";
 import { JournalEntry } from "../../Types";
+import { db } from "../../firebase";
 
 export function useJournalEntriesRef() {
   const user = useCurrentUser();
-  return firestore
-    .collection("users")
-    .doc(user?.uid)
-    .collection("journal-entries");
+  return db.collection("users").doc(user?.uid).collection("journal-entries");
 }
 
 export function useJournalEntries() {

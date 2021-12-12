@@ -1,36 +1,42 @@
 import React from "react";
-import { x } from "@xstyled/styled-components";
 import { NavBar } from "./NavBar";
 import { Calendar } from "./Calendar";
+import { Layout, Spacer } from "../theme/Layout.components";
 
 export const AppLayout: React.FunctionComponent = () => {
   return (
-    <x.div
-      display="flex"
-      h="100vh"
-      flexDirection="column"
-      backgroundColor="green-200"
-    >
+    <Layout.Column style={{ height: "100vh" }} bg="green-300">
+      {/* NavBar */}
       <NavBar />
-      <x.div display="flex" backgroundColor="blue-200" flex="1">
-        <Calendar />
-        <x.div
-          display="flex"
-          backgroundColor="green-200"
-          flex="1"
-          flexDirection="column"
-        >
-          <x.div backgroundColor="purple-200" h="100">
-            title
-          </x.div>
-          <x.div backgroundColor="red-200" h="300">
-            photo
-          </x.div>
-          <x.div backgroundColor="blue-200" flex="1">
-            events
-          </x.div>
-        </x.div>
-      </x.div>
-    </x.div>
+      {/* App Content */}
+      <Layout.Column grow>
+        <Layout.Row bg="blue-200" grow>
+          {/* Sidebar */}
+          <Layout.Column>
+            {/* Calendar */}
+            <Calendar />
+            <Spacer.Flex />
+            {/* Settings */}
+            <Layout.Column bg="green-200" px py>
+              Settings!!!
+            </Layout.Column>
+          </Layout.Column>
+          {/* Main Content */}
+          <Layout.Column grow bg="orange-200" px py>
+            <Layout.Column px py radius={10} bg="pink-200">
+              Title
+            </Layout.Column>
+            <Spacer.Vertical />
+            <Layout.Column px py radius={10} bg="pink-200">
+              Photo(s)
+            </Layout.Column>
+            <Spacer.Vertical />
+            <Layout.Column px py radius={10} bg="pink-200">
+              Events!!!!
+            </Layout.Column>
+          </Layout.Column>
+        </Layout.Row>
+      </Layout.Column>
+    </Layout.Column>
   );
 };

@@ -1,6 +1,5 @@
 {
   "recommendations": [
-    "nrwl.angular-console",
     "dbaeumer.vscode-eslint",
     "bycedric.vscode-expo",
     "esbenp.prettier-vscode",
@@ -13,7 +12,6 @@
     "ms-vsliveshare.vsliveshare-pack",
     "jpoissonnier.vscode-styled-components",
     "richie5um2.vscode-sort-json",
-    "coenraads.bracket-pair-colorizer-2",
     "mikestead.dotenv",
     "naumovs.color-highlight"
   ]

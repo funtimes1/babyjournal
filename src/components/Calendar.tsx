@@ -1,4 +1,3 @@
-import firebase from "../firebase";
 import React, { useState } from "react";
 import { x } from "@xstyled/styled-components";
 import {
@@ -17,6 +16,7 @@ import {
 } from "date-fns/esm";
 import { CalendarHeader } from "./CalendarHeader";
 import { CalendarWeeks } from "./CalendarWeeks";
+import { Layout } from "../theme/Layout.components";
 
 export const Calendar: React.FC = () => {
   const currentDate = new Date();
@@ -29,16 +29,14 @@ export const Calendar: React.FC = () => {
   // given the last day of the month, get the end of the week for that day
 
   return (
-    <x.div backgroundColor="yellow-200">
-      <x.div backgroundColor="blue-200" w="400">
-        <CalendarHeader
-          selectedDate={selectedDate}
-          setSelectedDate={setSelectedDate}
-        />
-        {/* clicked date pass down similarly to below as setSelectedDate*/}
-        <CalendarWeeks selectedDate={selectedDate} />
-      </x.div>
-    </x.div>
+    <Layout.Column bg="yellow-200" size={400}>
+      <CalendarHeader
+        selectedDate={selectedDate}
+        setSelectedDate={setSelectedDate}
+      />
+      {/* clicked date pass down similarly to below as setSelectedDate*/}
+      <CalendarWeeks selectedDate={selectedDate} />
+    </Layout.Column>
   );
 };
 

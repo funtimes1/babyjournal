@@ -1,26 +1,10 @@
-import React from "react";
 import ReactDOM from "react-dom";
 import { App } from "./components/App";
-import {
-  defaultTheme,
-  ThemeProvider,
-  Preflight,
-} from "@xstyled/styled-components";
-
-const theme = {
-  ...defaultTheme,
-  // Customize your theme here
-};
-
-// import reportWebVitals from "./reportWebVitals";
 
 ReactDOM.render(
-  <React.StrictMode>
-    <ThemeProvider theme={theme}>
-      <Preflight />
-      <App />
-    </ThemeProvider>
-  </React.StrictMode>,
+  // <React.StrictMode>
+  <App />,
+  // </React.StrictMode>,
   document.getElementById("root")
 );
 

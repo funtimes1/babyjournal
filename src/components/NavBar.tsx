@@ -1,5 +1,5 @@
 import { useCurrentUser } from "./hooks/UseCurrentUser";
-import firebase from "../firebase";
+import { auth } from "../firebase";
 import { x } from "@xstyled/styled-components";
 
 export const NavBar: React.FC = () => {
@@ -24,7 +24,7 @@ export const NavBar: React.FC = () => {
         </x.p>
 
         <x.div paddingTop={2}>
-          <button onClick={() => firebase.auth().signOut()}>LOGOUT</button>{" "}
+          <button onClick={() => auth.signOut()}>LOGOUT</button>{" "}
         </x.div>
       </x.div>
     </x.div>

@@ -8,7 +8,9 @@ import {
   format,
   startOfMonth,
   startOfWeek,
+  isSameMonth,
 } from "date-fns";
+import { Circle, Layout } from "../theme/Layout.components";
 
 export const CalendarWeeks: React.FC<{ selectedDate: Date }> = (props) => {
   const { selectedDate } = props;
@@ -30,28 +32,8 @@ export const CalendarWeeks: React.FC<{ selectedDate: Date }> = (props) => {
     end: weekEndOfMonth,
   });
 
-  const Circle: React.FC = (props) => {
-    const { children } = props;
-    return (
-      <x.div
-        backgroundColor="orange-200"
-        h={10}
-        w={10}
-        border={1}
-        borderRadius={20}
-        display="flex"
-        alignItems="center"
-        justifyContent="center"
-        margin={1}
-      >
-        {children}
-      </x.div>
-    );
-  };
-
   return (
-    <x.div>
-      {" "}
+    <Layout.Column>
       {sunday.map((day, index) => {
         // const onClick = () => {
         //   console.log("hello", day);
@@ -70,29 +52,45 @@ export const CalendarWeeks: React.FC<{ selectedDate: Date }> = (props) => {
             date.getDate(),
             format(new Date(date), "EEEEEE")
           );
+          const isMonthDay = isSameMonth(date, selectedDate);
           return (
-            <x.div
+            <Circle
               key={index}
-              className="week"
-              display="flex"
-              flex-direction="column"
+              circleSize={40}
+              bg={isMonthDay ? "cyan-300" : "cyan-100"}
+              center
             >
-              <Circle>{date.getDate()}</Circle>
-            </x.div>
+              {date.getDate()}
+            </Circle>
           );
         });
 
         return (
-          <x.div
+          <Layout.Row
             key={`weekday-${index}`}
-            display="flex"
-            flex-direction="row"
+            justify="space-around"
+            py={4}
             //onClick={onClick}
           >
             {week}
-          </x.div>
+          </Layout.Row>
         );
       })}
-    </x.div>
+    </Layout.Column>
   );
 };
+
+// const Circle: React.FC = (props) => {
+//   const { children } = props;
+//   return (
+//     <Layout.Column
+//       style={{ height: 40, width: 40 }}
+//       radius={20}
+//       center
+//       border={[1, "solid", "black"]}
+//       bg="cyan-300"
+//     >
+//       {children}
+//     </Layout.Column>
+//   );
+// };
