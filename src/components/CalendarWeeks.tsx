@@ -10,9 +10,8 @@ import {
   startOfWeek,
 } from "date-fns";
 
-export const CalendarWeek: React.FC = () => {
-  const currentDate = new Date();
-  const [selectedDate, setSelectedDate] = useState(currentDate);
+export const CalendarWeeks: React.FC<{ selectedDate: Date }> = (props) => {
+  const { selectedDate } = props;
   const startMonth = startOfMonth(selectedDate);
   const endMonth = endOfMonth(selectedDate);
   const currentMonth = eachDayOfInterval({
@@ -25,6 +24,7 @@ export const CalendarWeek: React.FC = () => {
     start: weekStartOfMonth,
     end: weekEndOfMonth,
   });
+
   const sunday = eachWeekOfInterval({
     start: weekStartOfMonth,
     end: weekEndOfMonth,
@@ -42,6 +42,7 @@ export const CalendarWeek: React.FC = () => {
         display="flex"
         alignItems="center"
         justifyContent="center"
+        margin={1}
       >
         {children}
       </x.div>
@@ -64,7 +65,11 @@ export const CalendarWeek: React.FC = () => {
         console.log("currentweek", currentWeek);
 
         const week = currentWeek.map((date, index) => {
-          console.log("day of currentweek", date.getDate(), date.getDay());
+          console.log(
+            "day of currentweek",
+            date.getDate(),
+            format(new Date(date), "EEEEEE")
+          );
           return (
             <x.div
               key={index}
