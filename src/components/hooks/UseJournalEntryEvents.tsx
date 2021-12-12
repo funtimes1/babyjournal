@@ -1,5 +1,5 @@
 import { useCollectionData } from "react-firebase-hooks/firestore";
-import { firestore } from "../../firebase";
+import { db } from "../../firebase";
 import { Events } from "../../Types";
 import { useCurrentUser } from "./UseCurrentUser";
 
@@ -7,7 +7,7 @@ export function useJournalEntryEventsRef(dateID: string) {
   //to add new journal event
   const user = useCurrentUser();
 
-  return firestore
+  return db
     .collection("users")
     .doc(user?.uid)
     .collection("journal-entries")

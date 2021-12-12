@@ -1,8 +1,8 @@
-import "firebase/auth";
-import firebase from "firebase/app";
 import { useForm } from "react-hook-form";
 import React from "react";
 import { AuthFormInput } from "../../Types";
+import { signInWithEmailAndPassword } from "firebase/auth";
+import { auth } from "../../firebase";
 //how to ensure user is signed in after page is refreshed?
 
 export const Login: React.FC = () => {
@@ -19,9 +19,7 @@ export const Login: React.FC = () => {
       <form
         onSubmit={handleSubmit(async (data) => {
           try {
-            await firebase
-              .auth()
-              .signInWithEmailAndPassword(data.email, data.password);
+            await signInWithEmailAndPassword(auth, data.email, data.password);
           } catch (error) {
             alert(error.message);
           }
