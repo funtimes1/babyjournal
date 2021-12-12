@@ -1,31 +1,20 @@
 import React from "react";
+import { NavBar } from "./NavBar";
+import { Calendar } from "./Calendar";
 import { Layout, Spacer } from "../theme/Layout.components";
 
 export const AppLayout: React.FunctionComponent = () => {
   return (
     <Layout.Column style={{ height: "100vh" }} bg="green-300">
       {/* NavBar */}
-      <Layout.Row bg="red-300" size={48} px py={8}>
-        <Layout.Column center>Title</Layout.Column>
-        <Spacer.Flex />
-        <Layout.Column center px bg="success" radius>
-          Login
-        </Layout.Column>
-      </Layout.Row>
+      <NavBar />
       {/* App Content */}
       <Layout.Column grow>
         <Layout.Row bg="blue-200" grow>
           {/* Sidebar */}
           <Layout.Column size={280}>
             {/* Calendar */}
-            <Layout.Column
-              bg="calendarBackground"
-              style={{ height: 280 }}
-              px
-              py
-            >
-              Calendar
-            </Layout.Column>
+            <Calendar />
             <Spacer.Flex />
             {/* Settings */}
             <Layout.Column bg="green-200" px py>
