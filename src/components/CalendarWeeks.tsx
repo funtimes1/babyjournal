@@ -57,7 +57,7 @@ export const CalendarWeeks: React.FC<{ selectedDate: Date }> = (props) => {
             <Circle
               key={index}
               circleSize={40}
-              bg={isMonthDay ? "cyan-300" : "cyan-100"}
+              bg={isMonthDay ? "green-300" : "cyan-100"}
               center
             >
               {date.getDate()}
