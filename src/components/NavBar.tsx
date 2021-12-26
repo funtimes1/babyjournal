@@ -1,33 +1,24 @@
 import { useCurrentUser } from "./hooks/UseCurrentUser";
 import { auth } from "../firebase";
 import { x } from "@xstyled/styled-components";
+import { Layout, Spacer } from "../theme/Layout.components";
 
 export const NavBar: React.FC = () => {
   const user = useCurrentUser();
   return (
-    <x.div
-      backgroundColor="red-200"
-      h="20"
-      position="relative"
-      flexDirection="row"
-      display="flex"
-    >
-      <x.div border={4} borderColor="green" w={100} h={10}>
-        **LOGO**
-      </x.div>
-
-      <FlexSpacer />
-      <x.div>
-        <x.p>
+    <Layout.Row bg="red-200">
+      **LOGO**
+      <Spacer.Flex debug />
+      <Layout.Row>
+        <p>
           <b>USER ID:</b> {user?.uid} <br></br>
           <b>USER EMAIL</b> {user?.email}
-        </x.p>
-
-        <x.div paddingTop={2}>
+        </p>
+        <Layout.Row px py>
           <button onClick={() => auth.signOut()}>LOGOUT</button>{" "}
-        </x.div>
-      </x.div>
-    </x.div>
+        </Layout.Row>
+      </Layout.Row>
+    </Layout.Row>
   );
 };
 
