@@ -16,6 +16,7 @@ import {
 } from "date-fns/esm";
 import { CalendarHeader } from "./CalendarHeader";
 import { CalendarWeeks } from "./CalendarWeeks";
+import { CalendarDaysOfWeek } from "./CalendarDaysOfWeek";
 import { Layout } from "../theme/Layout.components";
 
 export const Calendar: React.FC = () => {
@@ -34,6 +35,7 @@ export const Calendar: React.FC = () => {
         selectedDate={selectedDate}
         setSelectedDate={setSelectedDate}
       />
+      <CalendarDaysOfWeek></CalendarDaysOfWeek>
       {/* clicked date pass down similarly to below as setSelectedDate*/}
       <CalendarWeeks selectedDate={selectedDate} />
     </Layout.Column>

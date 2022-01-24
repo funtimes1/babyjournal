@@ -11,6 +11,7 @@ import {
   isSameMonth,
 } from "date-fns";
 import { Circle, Layout } from "../theme/Layout.components";
+import { AddJournal } from "./journal-entry/AddJournal";
 
 export const CalendarWeeks: React.FC<{ selectedDate: Date }> = (props) => {
   const { selectedDate } = props;
@@ -35,9 +36,6 @@ export const CalendarWeeks: React.FC<{ selectedDate: Date }> = (props) => {
   return (
     <Layout.Column>
       {sunday.map((day, index) => {
-        // const onClick = () => {
-        //   console.log("hello", day);
-        // };
         const startWeek = startOfWeek(day);
         const endWeek = endOfWeek(day);
         const currentWeek = eachDayOfInterval({
@@ -47,31 +45,34 @@ export const CalendarWeeks: React.FC<{ selectedDate: Date }> = (props) => {
         console.log("currentweek", currentWeek);
 
         const week = currentWeek.map((date, index) => {
-          console.log(
-            "day of currentweek",
-            date.getDate(),
-            format(new Date(date), "EEEEEE")
-          );
+          const onClick = () => {
+            console.log("hello", date);
+          };
+          // console.log(
+          //   "day of currentweek",
+          //   date.getDate(),
+          //   format(new Date(date), "EEEEEE")
+          // );
+          const currentDate = new Date();
+
           const isMonthDay = isSameMonth(date, selectedDate);
           return (
-            <Circle
-              key={index}
-              circleSize={40}
-              bg={isMonthDay ? "green-300" : "cyan-100"}
-              center
-            >
-              {date.getDate()}
-            </Circle>
+            <Layout.Row>
+              <Circle
+                key={index}
+                circleSize={40}
+                bg={isMonthDay ? "green-300" : "cyan-100"}
+                center
+                onClick={onClick}
+              >
+                {date.getDate()}
+              </Circle>
+            </Layout.Row>
           );
         });
 
         return (
-          <Layout.Row
-            key={`weekday-${index}`}
-            justify="space-around"
-            py={4}
-            //onClick={onClick}
-          >
+          <Layout.Row key={`weekday-${index}`} justify="space-around" py={4}>
             {week}
           </Layout.Row>
         );
