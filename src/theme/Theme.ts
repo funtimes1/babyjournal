@@ -56,7 +56,7 @@ export const {
   // example: <Row px="l-24" /> v. <Row px />
   {
     color: "primary",
-    font: "mono",
+    font: "sans-serif",
     weight: "regular",
     sizes: {
       font: "m-18",

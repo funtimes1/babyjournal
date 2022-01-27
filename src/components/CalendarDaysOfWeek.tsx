@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Layout } from "../theme/Layout.components";
+import { Layout, Text } from "../theme/Layout.components";
 import { eachDayOfInterval, format, getWeek } from "date-fns";
 
 export const CalendarDaysOfWeek: React.FC = () => {
@@ -10,9 +10,9 @@ export const CalendarDaysOfWeek: React.FC = () => {
   const daysOfWeek = result.map((day, index) => {
     console.log("result", format(new Date(day), "EEEEE"));
     return (
-      <Layout.Row key={`daysOfWeek-${index}`}>
+      <Text key={`daysOfWeek-${index}`} style={{ fontWeight: "bold" }}>
         {format(new Date(day), "EEEEE")}
-      </Layout.Row>
+      </Text>
     );
   });
   return (
