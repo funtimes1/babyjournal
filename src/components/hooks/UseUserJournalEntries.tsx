@@ -5,7 +5,7 @@ import { db } from "../../firebase";
 
 export function useJournalEntriesRef() {
   const user = useCurrentUser();
-  return db.collection("users").doc(user?.uid).collection("journal-entries");
+  return db().collection("users").doc(user?.uid).collection("journal-entries");
 }
 
 export function useJournalEntries() {
