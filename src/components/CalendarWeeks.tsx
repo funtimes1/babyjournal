@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { x } from "@xstyled/styled-components";
+import { useDateStore } from "../components/useStore";
 import {
   eachDayOfInterval,
   eachWeekOfInterval,
@@ -11,10 +11,9 @@ import {
   isSameMonth,
 } from "date-fns";
 import { Circle, Layout } from "../theme/Layout.components";
-import { AddJournal } from "./journal-entry/AddJournal";
 
-export const CalendarWeeks: React.FC<{ selectedDate: Date }> = (props) => {
-  const { selectedDate } = props;
+export const CalendarWeeks: React.FC = () => {
+  const { selectedDate, setSelectedDate } = useDateStore();
   const startMonth = startOfMonth(selectedDate);
   const endMonth = endOfMonth(selectedDate);
   const currentMonth = eachDayOfInterval({
@@ -42,20 +41,22 @@ export const CalendarWeeks: React.FC<{ selectedDate: Date }> = (props) => {
           start: startWeek,
           end: endWeek,
         });
-        console.log("currentweek", currentWeek);
+        // console.log("currentweek", currentWeek);
 
         const week = currentWeek.map((date, index) => {
           const onClick = () => {
             console.log("hello", date);
+            setSelectedDate(date);
           };
+
           // console.log(
           //   "day of currentweek",
           //   date.getDate(),
           //   format(new Date(date), "EEEEEE")
           // );
-          const currentDate = new Date();
 
           const isMonthDay = isSameMonth(date, selectedDate);
+
           return (
             <Layout.Row>
               <Circle
