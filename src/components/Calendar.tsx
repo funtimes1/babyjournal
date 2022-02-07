@@ -1,27 +1,13 @@
 import React, { useState } from "react";
-import { x } from "@xstyled/styled-components";
-import {
-  addDays,
-  daysInWeek,
-  endOfMonth,
-  format,
-  getDate,
-  startOfWeek,
-} from "date-fns";
-import {
-  eachDayOfInterval,
-  eachWeekOfInterval,
-  endOfWeek,
-  startOfMonth,
-} from "date-fns/esm";
+
 import { CalendarHeader } from "./CalendarHeader";
 import { CalendarWeeks } from "./CalendarWeeks";
 import { CalendarDaysOfWeek } from "./CalendarDaysOfWeek";
 import { Layout } from "../theme/Layout.components";
+import { useDateStore } from "./useStore";
 
 export const Calendar: React.FC = () => {
-  const currentDate = new Date();
-  const [selectedDate, setSelectedDate] = useState(currentDate);
+  const { selectedDate, setSelectedDate } = useDateStore();
 
   //   console.log(startOfWeek(startMonth));
 
@@ -31,13 +17,10 @@ export const Calendar: React.FC = () => {
 
   return (
     <Layout.Column bg="yellow-200" size={400}>
-      <CalendarHeader
-        selectedDate={selectedDate}
-        setSelectedDate={setSelectedDate}
-      />
+      <CalendarHeader />
       <CalendarDaysOfWeek></CalendarDaysOfWeek>
       {/* clicked date pass down similarly to below as setSelectedDate*/}
-      <CalendarWeeks selectedDate={selectedDate} />
+      <CalendarWeeks />
     </Layout.Column>
   );
 };

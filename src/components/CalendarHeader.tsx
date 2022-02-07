@@ -2,12 +2,10 @@ import React, { useState } from "react";
 import { x } from "@xstyled/styled-components";
 import { addMonths, subMonths, format, startOfMonth } from "date-fns";
 import { Circle, Layout } from "../theme/Layout.components";
+import { useDateStore } from "./useStore";
 
-export const CalendarHeader: React.FC<{
-  selectedDate: Date;
-  setSelectedDate: (date: Date) => void; //way to define a function that takes in a date without a return (defined by "void")
-}> = (props) => {
-  const { selectedDate, setSelectedDate } = props;
+export const CalendarHeader: React.FC = () => {
+  const { selectedDate, setSelectedDate } = useDateStore();
   const startMonth = startOfMonth(selectedDate);
 
   const onNextMonthClick = () => {

@@ -2,6 +2,7 @@ import {
   baseLayout,
   baseRowLayout,
   baseColumnLayout,
+  baseTypography,
   styled,
   divider,
   spacer,
@@ -67,4 +68,8 @@ export const baseSquareStyle = css<SquareProps>`
 
 export const Square = styled(Layout.Column)<SquareProps>`
   ${baseSquareStyle}
+`;
+
+export const Text = styled("p")`
+  ${baseTypography}
 `;

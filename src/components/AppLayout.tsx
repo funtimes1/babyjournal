@@ -2,6 +2,7 @@ import React from "react";
 import { NavBar } from "./NavBar";
 import { Calendar } from "./Calendar";
 import { Layout, Spacer } from "../theme/Layout.components";
+import { MainContent } from "./MainContent";
 
 export const AppLayout: React.FunctionComponent = () => {
   return (
@@ -15,6 +16,7 @@ export const AppLayout: React.FunctionComponent = () => {
           <Layout.Column>
             {/* Calendar */}
             <Calendar />
+
             <Spacer.Flex />
             {/* Settings */}
             <Layout.Column bg="green-200" px py>
@@ -22,18 +24,9 @@ export const AppLayout: React.FunctionComponent = () => {
             </Layout.Column>
           </Layout.Column>
           {/* Main Content */}
+
           <Layout.Column grow bg="orange-200" px py>
-            <Layout.Column px py radius={10} bg="pink-200">
-              Title
-            </Layout.Column>
-            <Spacer.Vertical />
-            <Layout.Column px py radius={10} bg="pink-200">
-              Photo(s)
-            </Layout.Column>
-            <Spacer.Vertical />
-            <Layout.Column px py radius={10} bg="pink-200">
-              Events!!!!
-            </Layout.Column>
+            <MainContent />
           </Layout.Column>
         </Layout.Row>
       </Layout.Column>

@@ -20,7 +20,8 @@
     "react-hook-form": "7.20.4",
     "styled-components": "5.3.3",
     "turbo-props": "0.16.1",
-    "web-vitals": "2.1.2"
+    "web-vitals": "2.1.2",
+    "zustand": "^3.6.9"
   },
   "scripts": {
     "start": "parcel serve src/index.html",

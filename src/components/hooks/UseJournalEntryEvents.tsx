@@ -7,7 +7,9 @@ export function useJournalEntryEventsRef(dateID: string) {
   //to add new journal event
   const user = useCurrentUser();
 
-  return db
+  const eventsPath = `users/${user?.uid}/journal-entries/${dateID}/events`;
+
+  return db()
     .collection("users")
     .doc(user?.uid)
     .collection("journal-entries")
