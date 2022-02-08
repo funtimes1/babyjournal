@@ -10,6 +10,8 @@ import React from "react";
 
 export const AddJournal: React.FunctionComponent = () => {
   const formattedDate = format(new Date(), "yyyy-MM-dd");
+  // QUESTION:  can the formattedDate be replaced by setSelectedDate from: const { selectedDate, setSelectedDate } = useDateStore() ??
+
   const journalCollectionRef = useJournalEntriesRef();
   const {
     register,

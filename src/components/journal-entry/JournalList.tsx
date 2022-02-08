@@ -10,6 +10,8 @@ export const JournalList: React.FunctionComponent = () => {
     return <div>loading...</div>;
   }
 
+  //Questions:
+
   return (
     <div>
       <h2>Journal Entries</h2>
