@@ -1,12 +1,10 @@
-import React from "react";
-
 // firestore path: /users/<firebaseAuthUserID>/journal-entries/<dateID>
 export type JournalEntry = {
+  title: string | null;
   date: string; // yyyy-mm-dd (also the unique id for this journal entry)
   notes: string | null; // overall summary of day
   // events are stored in a subcollection so they don't exist on the JournalEntry type events: Events[]; //button to add a new event, leads to a list of categories, user selects category, leads to a simple "event" form, which opens up on the same page
   photos: [Photo] | null;
-  time: number;
 };
 
 // list of notes / things that happened throughout the day
@@ -16,7 +14,7 @@ export type Events = {
   id: string; // cuid();
   category: string; // a Category ID
   notes: string;
-  time: number; // defaults to current time, but is editable (past or future)
+
   duration?: number; // in minutes (with nice UI to select hours as well)
 };
 

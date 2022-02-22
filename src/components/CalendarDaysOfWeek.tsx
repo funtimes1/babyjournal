@@ -8,7 +8,7 @@ export const CalendarDaysOfWeek: React.FC = () => {
     end: new Date(2022, 0, 22),
   });
   const daysOfWeek = result.map((day, index) => {
-    console.log("result", format(new Date(day), "EEEEE"));
+    // console.log("result", format(new Date(day), "EEEEE"));
     return (
       <Text key={`daysOfWeek-${index}`} style={{ fontWeight: "bold" }}>
         {format(new Date(day), "EEEEE")}
