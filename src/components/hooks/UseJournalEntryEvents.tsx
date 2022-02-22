@@ -1,14 +1,17 @@
 import { useCollectionData } from "react-firebase-hooks/firestore";
-import { collection, getFirestore } from "firebase/firestore";
-import { app, db } from "../../firebase";
+import { collection, getFirestore, doc, setDoc } from "firebase/firestore";
+import { app } from "../../firebase";
 import { Events } from "../../Types";
 import { useCurrentUser } from "./UseCurrentUser";
+import { useDateStore } from "../useStore";
+import { formatDate } from "../../utils/formatDate";
 
-export function useJournalEntryEventsRef(dateID: string) {
+export function useJournalEntryEventsRef() {
   //to add new journal event
   const user = useCurrentUser();
-
-  const eventsPath = `users/${user?.uid}/journal-entries/${dateID}/events`;
+  const { selectedDate } = useDateStore();
+  const dateId = formatDate(selectedDate);
+  const eventsPath = `users/${user?.uid}/journal-entries/${dateId}/events`;
 
   //   return db()
   //     .collection("users")
@@ -18,12 +21,29 @@ export function useJournalEntryEventsRef(dateID: string) {
   //     .collection("events");
   // }
 
-  return db().collection(getFirestore(app), eventsPath);
+  return collection(getFirestore(app), eventsPath);
 }
-// QUESTION: Is line 21 correct - replaces the former ".collection.doc.." etc?
 
-export function useJournalEntryEvents(dateID: string) {
-  const journalEntriesEventsRef = useJournalEntryEventsRef(dateID); //uses the above hook
+export function useAddEvents() {
+  const user = useCurrentUser();
+  const { selectedDate } = useDateStore();
+  const dateId = formatDate(selectedDate);
+  const eventsPath = `users/${user?.uid}/journal-entries/${dateId}/events`;
+  const addJournalEvent = async (dateId: string, data: Events) => {
+    try {
+      console.log("started");
+      await setDoc(doc(getFirestore(app), eventsPath, dateId), data);
+    } catch (error) {
+      console.error(error);
+    } finally {
+      console.log("finished");
+    }
+  };
+  return addJournalEvent;
+}
+
+export function useJournalEntryEvents(dateId: string) {
+  const journalEntriesEventsRef = useJournalEntryEventsRef(); //uses the above hook
   console.log(journalEntriesEventsRef.path);
   return useCollectionData<Events>(journalEntriesEventsRef);
 }

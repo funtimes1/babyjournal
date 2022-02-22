@@ -8,15 +8,19 @@
 import React from "react";
 import cuid from "cuid";
 import { useForm } from "react-hook-form";
-import { useJournalEntryEventsRef } from "./hooks/UseJournalEntryEvents";
+import { useAddEvents } from "./hooks/UseJournalEntryEvents";
 import { Events, JournalEntry } from "../Types";
 import { format } from "date-fns";
 import { categories } from "../Categories";
+import { formatDate } from "../utils/formatDate";
+import { useDateStore } from "./useStore";
 
-export const JournalEntryEvents: React.FC<{
-  journalEntryDate: string;
-}> = ({ journalEntryDate }) => {
-  const journalEventsRef = useJournalEntryEventsRef(journalEntryDate);
+export function AddJournalEntryEvents() {
+  // const journalEventsRef = useJournalEntryEventsRef(journalEntryDate);
+  const { selectedDate } = useDateStore();
+  const formattedDate = formatDate(selectedDate);
+  const addEvent = useAddEvents();
+
   const {
     register,
     handleSubmit,
@@ -26,28 +30,27 @@ export const JournalEntryEvents: React.FC<{
       notes: "",
       category: "",
       duration: 0,
-      time: Date.now(),
       id: cuid(),
     },
   });
 
   const addEvents = async (value: Events) => {
-    const { notes, category, duration, time } = value;
+    const { notes, category, duration } = value;
     const id = cuid();
     const entry = {
       category,
       id,
       notes,
       duration,
-      time,
     };
-    try {
-      await journalEventsRef.doc(entry.id).set(entry);
-    } catch (error) {
-      console.log(error.message);
-    } finally {
-      console.log("finally done");
-    }
+    addEvent(formattedDate, entry);
+    // try {
+    //   await journalEventsRef.doc(entry.id).set(entry);
+    // } catch (error) {
+    //   console.log(error.message);
+    // } finally {
+    //   console.log("finally done");
+    // }
   };
 
   return (
@@ -66,7 +69,7 @@ export const JournalEntryEvents: React.FC<{
       </select>
       <form onSubmit={handleSubmit(addEvents)}>
         <input
-          {...register("notes", { required: "notes is required" })}
+          {...register("notes")}
           type="text"
           placeholder="Add notes here"
           name="notes"
@@ -77,4 +80,4 @@ export const JournalEntryEvents: React.FC<{
       </form>
     </div>
   );
-};
+}

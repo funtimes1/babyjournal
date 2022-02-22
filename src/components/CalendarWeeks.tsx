@@ -45,7 +45,7 @@ export const CalendarWeeks: React.FC = () => {
 
         const week = currentWeek.map((date, index) => {
           const onClick = () => {
-            console.log("hello", date);
+            // console.log("hello", date);
             setSelectedDate(date);
           };
 
@@ -60,7 +60,7 @@ export const CalendarWeeks: React.FC = () => {
           return (
             <Layout.Row>
               <Circle
-                key={index}
+                key={`calendarDate-${index}`}
                 circleSize={40}
                 bg={isMonthDay ? "green-300" : "cyan-100"}
                 center

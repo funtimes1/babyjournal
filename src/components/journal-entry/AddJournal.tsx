@@ -1,18 +1,19 @@
-import cuid from "cuid";
 import { useForm } from "react-hook-form";
-import { useJournalEntriesRef } from "../hooks/UseUserJournalEntries";
+import { useAddJournalEntry } from "../hooks/UseUserJournalEntries";
 import { JournalEntry } from "../../Types";
-import { format } from "date-fns";
 import React from "react";
+import { formatDate } from "../../utils/formatDate";
+import { useDateStore } from "../useStore";
 
 //use JournalEntry type
 //create hook usejournalentries hook
 
 export const AddJournal: React.FunctionComponent = () => {
-  const formattedDate = format(new Date(), "yyyy-MM-dd");
-  // QUESTION:  can the formattedDate be replaced by setSelectedDate from: const { selectedDate, setSelectedDate } = useDateStore() ??
+  const { selectedDate } = useDateStore();
+  const formattedDate = formatDate(selectedDate);
 
-  const journalCollectionRef = useJournalEntriesRef();
+  // const journalCollectionRef = useJournalEntriesRef();
+  const addEntry = useAddJournalEntry();
   const {
     register,
     handleSubmit,
@@ -20,64 +21,62 @@ export const AddJournal: React.FunctionComponent = () => {
   } = useForm<JournalEntry>({
     defaultValues: {
       notes: "",
-      time: Date.now(),
+      title: "",
       date: formattedDate,
       photos: [],
     },
   });
 
   const addJournalEntry = async (value: JournalEntry) => {
-    // const { title, notes, events } = value;
-    const { notes, time, photos } = value;
+    const { title, notes, photos } = value;
     const entry = {
       date: formattedDate,
       notes,
-      time,
+      title,
       photos,
     };
-    console.log({ entry });
-    console.log(journalCollectionRef.path);
+    // console.log({ entry });
+    addEntry(formattedDate, entry);
 
-    try {
-      await journalCollectionRef.doc(formattedDate).set(entry);
-      // await journalCollectionRef
-      //   .doc(formattedDate)
-      //   .collection("events")
-      //   .doc(id)
-      //   .set({ ...entry });
-      console.log("finished");
-    } catch (error) {
-      console.log(error.message);
-    } finally {
-      console.log("finally done");
-    }
+    // try {
+    //   console.log("starting");
+    //   await addDoc(journalCollectionRef, entry);
+    //   // await journalCollectionRef.doc(formattedDate).set(entry);
+    //   // await journalCollectionRef
+    //   //   .doc(formattedDate)
+    //   //   .collection("events")
+    //   //   .doc(id)
+    //   //   .set({ ...entry });
+    //   console.log("finished");
+    // } catch (error) {
+    //   console.log(error.message);
+    // } finally {
+    //   console.log("finally done");
+    // }
   };
   return (
     <div>
       <h2>Add Journal</h2>
 
-      {/* <h4>Please choose a category</h4> */}
-      {/* <select */}
-      {/* // {...register("category", { required: "please select a category" })} */}
-      {/* > */}
-      {/* <option value="">Select a category</option> */}
-      {/* {categories.map((category) => (
-          <option key={category.name} value={category.display}>
-            {category.display}
-          </option>
-        ))} */}
-      {/* </select> */}
-
       <form onSubmit={handleSubmit(addJournalEntry)}>
+        <label>Title: </label>
         <input
-          {...register("notes", { required: "notes is required" })}
+          {...register("title")}
           type="text"
-          placeholder="Add summary of day here"
+          placeholder="e.g Graduation"
+          name="title"
+        />
+        <label>Notes: </label>
+
+        <input
+          {...register("notes")}
+          type="text"
+          placeholder="e.g. Today was a great day"
           name="notes"
         />
         {errors.notes && <p>{errors.notes.message}</p>}
 
-        <button type="submit">Submit</button>
+        <button type="submit">Add Journal</button>
       </form>
     </div>
   );
