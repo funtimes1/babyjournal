@@ -1,8 +1,7 @@
 import React, { useState } from "react";
-import { x } from "@xstyled/styled-components";
 import { addMonths, subMonths, format, startOfMonth } from "date-fns";
-import { Circle, Layout } from "../theme/Layout.components";
-import { useDateStore } from "./useStore";
+import { useDateStore } from "../useStore";
+import { Layout } from "../../theme/Layout.components";
 
 export const CalendarHeader: React.FC = () => {
   const { selectedDate, setSelectedDate } = useDateStore();

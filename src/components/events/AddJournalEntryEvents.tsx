@@ -8,12 +8,12 @@
 import React from "react";
 import cuid from "cuid";
 import { useForm } from "react-hook-form";
-import { useAddEvents } from "./hooks/UseJournalEntryEvents";
-import { Events, JournalEntry } from "../Types";
+import { useAddEvents } from "../hooks/UseJournalEntryEvents";
+import { Events, JournalEntry } from "../../Types";
 import { format } from "date-fns";
-import { categories } from "../Categories";
-import { formatDate } from "../utils/formatDate";
-import { useDateStore } from "./useStore";
+import { categories } from "../../Categories";
+import { formatDate } from "../../utils/formatDate";
+import { useDateStore } from "../useStore";
 
 export function AddJournalEntryEvents() {
   // const journalEventsRef = useJournalEntryEventsRef(journalEntryDate);

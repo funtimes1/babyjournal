@@ -2,7 +2,7 @@ import React from "react";
 import { Layout, Spacer } from "../theme/Layout.components";
 import { formatDate } from "../utils/formatDate";
 import { useJournalEntryEvents } from "./hooks/UseJournalEntryEvents";
-import { AddJournalEntryEvents } from "./AddJournalEntryEvents";
+import { AddJournalEntryEvents } from "./events/AddJournalEntryEvents";
 import { useDateStore } from "./useStore";
 import { JournalHeader } from "./journal-entry/JournalHeader";
 import { JournalPhoto } from "./journal-entry/JournalPhoto";
