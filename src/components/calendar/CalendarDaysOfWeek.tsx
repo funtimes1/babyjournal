@@ -1,6 +1,6 @@
 import React, { useState } from "react";
-import { Layout, Text } from "../theme/Layout.components";
 import { eachDayOfInterval, format, getWeek } from "date-fns";
+import { Layout, Text } from "../../theme/Layout.components";
 
 export const CalendarDaysOfWeek: React.FC = () => {
   const result = eachDayOfInterval({

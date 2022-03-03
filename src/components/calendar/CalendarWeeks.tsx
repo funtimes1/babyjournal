@@ -1,5 +1,4 @@
 import React, { useState } from "react";
-import { useDateStore } from "../components/useStore";
 import {
   eachDayOfInterval,
   eachWeekOfInterval,
@@ -10,7 +9,8 @@ import {
   startOfWeek,
   isSameMonth,
 } from "date-fns";
-import { Circle, Layout } from "../theme/Layout.components";
+import { useDateStore } from "../useStore";
+import { Layout, Circle } from "../../theme/Layout.components";
 
 export const CalendarWeeks: React.FC = () => {
   const { selectedDate, setSelectedDate } = useDateStore();

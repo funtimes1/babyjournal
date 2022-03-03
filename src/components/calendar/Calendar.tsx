@@ -3,8 +3,8 @@ import React, { useState } from "react";
 import { CalendarHeader } from "./CalendarHeader";
 import { CalendarWeeks } from "./CalendarWeeks";
 import { CalendarDaysOfWeek } from "./CalendarDaysOfWeek";
-import { Layout } from "../theme/Layout.components";
-import { useDateStore } from "./useStore";
+import { Layout } from "../../theme/Layout.components";
+import { useDateStore } from "../useStore";
 
 export const Calendar: React.FC = () => {
   const { selectedDate, setSelectedDate } = useDateStore();

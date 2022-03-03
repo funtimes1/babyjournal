@@ -1,6 +1,6 @@
 import React from "react";
 import { NavBar } from "./NavBar";
-import { Calendar } from "./Calendar";
+import { Calendar } from "./calendar/Calendar";
 import { Layout, Spacer } from "../theme/Layout.components";
 import { MainContent } from "./MainContent";
 import { AddJournal } from "./journal-entry/AddJournal";
