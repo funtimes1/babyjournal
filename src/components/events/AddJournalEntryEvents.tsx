@@ -8,24 +8,27 @@
 import React from "react";
 import cuid from "cuid";
 import { useForm } from "react-hook-form";
-import { useAddEvents } from "../hooks/UseJournalEntryEvents";
-import { Events, JournalEntry } from "../../Types";
+import { Event, JournalEntry } from "../../Types";
 import { format } from "date-fns";
 import { categories } from "../../Categories";
 import { formatDate } from "../../utils/formatDate";
 import { useDateStore } from "../useStore";
+import { useAddJournalEntry } from "../hooks/UseUserJournalEntries";
+import { Layout } from "../../theme/Layout.components";
+import { upsertJournalEntry } from "../../databaseFirestore/upsertJournalEntry";
+import { useAddEvent } from "../../databaseFirestore/useAddEvent";
 
 export function AddJournalEntryEvents() {
   // const journalEventsRef = useJournalEntryEventsRef(journalEntryDate);
   const { selectedDate } = useDateStore();
   const formattedDate = formatDate(selectedDate);
-  const addEvent = useAddEvents();
-
+  const id = cuid();
+  const addEvent = useAddEvent();
   const {
     register,
     handleSubmit,
     formState: { errors },
-  } = useForm<Events>({
+  } = useForm<Event>({
     defaultValues: {
       notes: "",
       category: "",
@@ -34,40 +37,44 @@ export function AddJournalEntryEvents() {
     },
   });
 
-  const addEvents = async (value: Events) => {
+  const onSubmit = async (value: Event) => {
     const { notes, category, duration } = value;
     const id = cuid();
-    const entry = {
+    const event = {
       category,
       id,
       notes,
       duration,
     };
-    addEvent(formattedDate, entry);
-    // try {
-    //   await journalEventsRef.doc(entry.id).set(entry);
-    // } catch (error) {
-    //   console.log(error.message);
-    // } finally {
-    //   console.log("finally done");
-    // }
+    // const { title, notes, photos } = value;
+    // const entry = {
+    //   date: formattedDate,
+    //   notes: "",
+    //   title: "",
+    //   photos,
+    // };
+    addEvent(formattedDate, event);
   };
 
+  //!!!update journal entry upon adding events!!!
+
   return (
-    <div>
+    <Layout.Column px py radius={10} bg="pink-200">
       <h2>Add Event</h2>
-      <h4>Please choose a category</h4>
-      <select
-        {...register("category", { required: "please select a category" })}
-      >
-        {/* <option value="">Select a category</option> */}
-        {categories.map((category) => (
-          <option key={category.name} value={category.display}>
-            {category.display}
-          </option>
-        ))}
-      </select>
-      <form onSubmit={handleSubmit(addEvents)}>
+      <Layout.Row>
+        <h4>Please choose a category</h4>
+        <select
+          {...register("category", { required: "please select a category" })}
+        >
+          {/* <option value="">Select a category</option> */}
+          {categories.map((category) => (
+            <option key={category.name} value={category.display}>
+              {category.display}
+            </option>
+          ))}{" "}
+        </select>
+      </Layout.Row>
+      <form onSubmit={handleSubmit(onSubmit)}>
         <input
           {...register("notes")}
           type="text"
@@ -78,6 +85,6 @@ export function AddJournalEntryEvents() {
 
         <button type="submit">Submit</button>
       </form>
-    </div>
+    </Layout.Column>
   );
 }

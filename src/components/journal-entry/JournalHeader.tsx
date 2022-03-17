@@ -1,3 +1,4 @@
+import cuid from "cuid";
 import { format } from "date-fns";
 import { deleteField, doc, updateDoc } from "firebase/firestore";
 import React from "react";
@@ -5,19 +6,19 @@ import { db } from "../../firebase";
 import { Layout } from "../../theme/Layout.components";
 import { formatDate } from "../../utils/formatDate";
 import { useCurrentUser } from "../hooks/UseCurrentUser";
-import {
-  useJournalEntries,
-  useJournalEntry,
-} from "../hooks/UseUserJournalEntries";
+import { useJournalEntryEvents } from "../hooks/UseJournalEntryEvents";
+import { useJournalEntry } from "../hooks/UseUserJournalEntries";
 import { useDateStore } from "../useStore";
-import { AddJournal } from "./AddJournal";
+import { JournalEntryInfo } from "./JournalEntryInfo";
 
 export const JournalHeader: React.FC = () => {
   const { selectedDate } = useDateStore();
   const formattedDate = formatDate(selectedDate);
   const stringDate = format(selectedDate, "yyyy-MM-dd");
   const user = useCurrentUser();
+  const id = cuid();
   const journalEntriesPath = `users/${user?.uid}/journal-entries`;
+  const [journalEventsData] = useJournalEntryEvents(id);
 
   const [journalData, loading, error] = useJournalEntry(formattedDate);
   if (loading) {
@@ -81,38 +82,38 @@ export const JournalHeader: React.FC = () => {
       console.log("finished");
     }
   };
-  const journal = (
-    <Layout.Row>
-      Title: {journalData?.title}
-      <button
-        onClick={() => {
-          deleteJournalTitle(formattedDate);
-        }}
-      >
-        Delete{" "}
-      </button>
-      <br></br>
-      Notes: {journalData?.notes}
-      <button
-        onClick={() => {
-          deleteJournalNotes(formattedDate);
-        }}
-      >
-        {" "}
-        Delete{" "}
-      </button>
-      {/* !!!! or show nothing if there is no content */}
-      {/* <button onClick={() => editJournal(doc.date, doc.title, doc.notes)}>
-            {" "}
-           Edit Journal{" "}
-          </button> */}
-    </Layout.Row>
-  );
+  // const journal = (
+  //   <Layout.Row>
+  //     Title: {journalData?.title}
+  //     <button
+  //       onClick={() => {
+  //         deleteJournalTitle(formattedDate);
+  //       }}
+  //     >
+  //       Delete{" "}
+  //     </button>
+  //     <br></br>
+  //     Notes: {journalData?.notes}
+  //     <button
+  //       onClick={() => {
+  //         deleteJournalNotes(formattedDate);
+  //       }}
+  //     >
+  //       {" "}
+  //       Delete{" "}
+  //     </button>
+  //     {/* !!!! or show nothing if there is no content */}
+  //     {/* <button onClick={() => editJournal(doc.date, doc.title, doc.notes)}>
+  //           {" "}
+  //          Edit Journal{" "}
+  //         </button> */}
+  //   </Layout.Row>
+  // );
 
   return (
     <Layout.Column px py radius={10} bg="pink-200">
       <Layout.Row>{`${format(selectedDate, "EEEE, MMMM dd yyyy")}`}</Layout.Row>
-      <AddJournal />
+      <JournalEntryInfo journalData={journalData} />
     </Layout.Column>
   );
 };

@@ -4,13 +4,13 @@ export type JournalEntry = {
   date: string; // yyyy-mm-dd (also the unique id for this journal entry)
   notes: string | null; // overall summary of day
   // events are stored in a subcollection so they don't exist on the JournalEntry type events: Events[]; //button to add a new event, leads to a list of categories, user selects category, leads to a simple "event" form, which opens up on the same page
-  photos: [Photo] | null;
+  photos: Photo[] | null;
 };
 
 // list of notes / things that happened throughout the day
 //gets the list of all event
 // firestore path: /users/<firebaseAuthUserID>/journal-entries/<dateID>/events/<documentCUID>
-export type Events = {
+export type Event = {
   id: string; // cuid();
   category: string; // a Category ID
   notes: string;
@@ -19,7 +19,7 @@ export type Events = {
 };
 
 export type Photo = {
-  url: string;
+  url: string; // this url is the result from the upload process
   caption?: string;
 };
 

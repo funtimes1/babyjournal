@@ -3,15 +3,7 @@ import {
   useCollectionData,
   useDocumentData,
 } from "react-firebase-hooks/firestore";
-import {
-  collection,
-  deleteDoc,
-  deleteField,
-  doc,
-  getFirestore,
-  setDoc,
-  updateDoc,
-} from "firebase/firestore";
+import { collection, doc, setDoc } from "firebase/firestore";
 import { JournalEntry } from "../../Types";
 import { db } from "../../firebase";
 import { useDateStore } from "../useStore";
@@ -49,21 +41,7 @@ export function useAddJournalEntry() {
     }
   };
   return addJournalEntry;
-  //QUESTION: line 32, what is "data" for??
 }
-// const user = useCurrentUser();
-// const journalEntriesPath = `users/${user?.uid}/journal-entries`;
-
-// export const deleteJournal = async (dateId: string) => {
-//   try {
-//     console.log("started");
-//     await deleteDoc(doc(db, journalEntriesPath, dateId));
-//   } catch (error) {
-//     console.error(error);
-//   } finally {
-//     console.log("finished");
-//   }
-// };
 
 export function useJournalEntries() {
   const journalEntriesRef = useJournalEntriesRef(); //uses the above hook
@@ -72,6 +50,7 @@ export function useJournalEntries() {
   return useCollectionData<JournalEntry>(journalEntriesRef);
 }
 
+//for singular journal entry (journal entry is a document not collection, no need to map over!)
 export function useJournalEntry(dateId: string) {
   const journalEntryRef = useJournalEntryRef(dateId); //uses the above hook
 

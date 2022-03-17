@@ -1,16 +1,23 @@
 import { useForm } from "react-hook-form";
 import { useAddJournalEntry } from "../hooks/UseUserJournalEntries";
-import { JournalEntry } from "../../Types";
+import { Event, JournalEntry } from "../../Types";
 import React from "react";
 import { formatDate } from "../../utils/formatDate";
 import { useDateStore } from "../useStore";
+import cuid from "cuid";
 
 //use JournalEntry type
 //create hook usejournalentries hook
 
-export const AddJournal: React.FunctionComponent = () => {
+export const JournalEntryInfo: React.FunctionComponent<{
+  journalData?: JournalEntry;
+}> = (props) => {
+  const { journalData } = props;
   const { selectedDate } = useDateStore();
   const formattedDate = formatDate(selectedDate);
+  const dateId = formatDate(selectedDate);
+
+  const id = cuid();
 
   // const journalCollectionRef = useJournalEntriesRef();
   const addEntry = useAddJournalEntry();
@@ -20,8 +27,8 @@ export const AddJournal: React.FunctionComponent = () => {
     formState: { errors },
   } = useForm<JournalEntry>({
     defaultValues: {
-      notes: "",
-      title: "",
+      notes: journalData?.notes ?? "",
+      title: journalData?.title ?? "",
       date: formattedDate,
       photos: [],
     },
@@ -35,25 +42,9 @@ export const AddJournal: React.FunctionComponent = () => {
       title,
       photos,
     };
-    // console.log({ entry });
     addEntry(formattedDate, entry);
-
-    // try {
-    //   console.log("starting");
-    //   await addDoc(journalCollectionRef, entry);
-    //   // await journalCollectionRef.doc(formattedDate).set(entry);
-    //   // await journalCollectionRef
-    //   //   .doc(formattedDate)
-    //   //   .collection("events")
-    //   //   .doc(id)
-    //   //   .set({ ...entry });
-    //   console.log("finished");
-    // } catch (error) {
-    //   console.log(error.message);
-    // } finally {
-    //   console.log("finally done");
-    // }
   };
+
   return (
     <div>
       <h2>Add Journal</h2>

@@ -1,10 +1,11 @@
 import { useCollectionData } from "react-firebase-hooks/firestore";
 import { collection, getFirestore, doc, setDoc } from "firebase/firestore";
 import { app } from "../../firebase";
-import { Events } from "../../Types";
+import { Event } from "../../Types";
 import { useCurrentUser } from "./UseCurrentUser";
 import { useDateStore } from "../useStore";
 import { formatDate } from "../../utils/formatDate";
+import cuid from "cuid";
 
 export function useJournalEntryEventsRef() {
   //to add new journal event
@@ -28,11 +29,13 @@ export function useAddEvents() {
   const user = useCurrentUser();
   const { selectedDate } = useDateStore();
   const dateId = formatDate(selectedDate);
+  const id = cuid();
+
   const eventsPath = `users/${user?.uid}/journal-entries/${dateId}/events`;
-  const addJournalEvent = async (dateId: string, data: Events) => {
+  const addJournalEvent = async (id: string, data: Event) => {
     try {
       console.log("started");
-      await setDoc(doc(getFirestore(app), eventsPath, dateId), data);
+      await setDoc(doc(getFirestore(app), eventsPath, id), data);
     } catch (error) {
       console.error(error);
     } finally {
@@ -42,8 +45,10 @@ export function useAddEvents() {
   return addJournalEvent;
 }
 
-export function useJournalEntryEvents(dateId: string) {
+export function useJournalEntryEvents(id: string) {
   const journalEntriesEventsRef = useJournalEntryEventsRef(); //uses the above hook
   console.log(journalEntriesEventsRef.path);
-  return useCollectionData<Events>(journalEntriesEventsRef);
+  // @ts-expect-error
+
+  return useCollectionData<Event>(journalEntriesEventsRef);
 }
