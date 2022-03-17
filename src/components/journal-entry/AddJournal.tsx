@@ -76,7 +76,7 @@ export const AddJournal: React.FunctionComponent = () => {
         />
         {errors.notes && <p>{errors.notes.message}</p>}
 
-        <button type="submit">Add Journal</button>
+        <button type="submit">Add</button>
       </form>
     </div>
   );

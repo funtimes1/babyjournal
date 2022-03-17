@@ -8,6 +8,7 @@ import {
   startOfMonth,
   startOfWeek,
   isSameMonth,
+  isSameDay,
 } from "date-fns";
 import { useDateStore } from "../useStore";
 import { Layout, Circle } from "../../theme/Layout.components";
@@ -56,13 +57,20 @@ export const CalendarWeeks: React.FC = () => {
           // );
 
           const isMonthDay = isSameMonth(date, selectedDate);
+          const isSelectedDay = isSameDay(date, selectedDate);
 
           return (
             <Layout.Row>
               <Circle
                 key={`calendarDate-${index}`}
                 circleSize={40}
-                bg={isMonthDay ? "green-300" : "cyan-100"}
+                bg={
+                  isMonthDay
+                    ? "green-300"
+                    : isSelectedDay
+                    ? "red-100"
+                    : "cyan-100"
+                }
                 center
                 onClick={onClick}
               >
