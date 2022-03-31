@@ -5,24 +5,19 @@
 
 //TO DO: list the events on the page and then edit
 
-import React from "react";
 import cuid from "cuid";
 import { useForm } from "react-hook-form";
-import { Event, JournalEntry } from "../../Types";
-import { format } from "date-fns";
+import { Event } from "../../Types";
 import { categories } from "../../Categories";
 import { formatDate } from "../../utils/formatDate";
 import { useDateStore } from "../useStore";
-import { useAddJournalEntry } from "../hooks/UseUserJournalEntries";
 import { Layout } from "../../theme/Layout.components";
-import { upsertJournalEntry } from "../../databaseFirestore/upsertJournalEntry";
 import { useAddEvent } from "../../databaseFirestore/useAddEvent";
 
 export function AddJournalEntryEvents() {
   // const journalEventsRef = useJournalEntryEventsRef(journalEntryDate);
   const { selectedDate } = useDateStore();
   const formattedDate = formatDate(selectedDate);
-  const id = cuid();
   const addEvent = useAddEvent();
   const {
     register,
@@ -46,17 +41,8 @@ export function AddJournalEntryEvents() {
       notes,
       duration,
     };
-    // const { title, notes, photos } = value;
-    // const entry = {
-    //   date: formattedDate,
-    //   notes: "",
-    //   title: "",
-    //   photos,
-    // };
     addEvent(formattedDate, event);
   };
-
-  //!!!update journal entry upon adding events!!!
 
   return (
     <Layout.Column px py radius={10} bg="pink-200">

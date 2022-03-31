@@ -1,26 +1,28 @@
 import cuid from "cuid";
-import { doc, setDoc, getDoc } from "firebase/firestore";
+import { doc, setDoc, getDoc, arrayUnion, updateDoc } from "firebase/firestore";
+import { getDownloadURL, ref, uploadBytes } from "firebase/storage";
+import { useState } from "react";
 import { useCurrentUser } from "../components/hooks/UseCurrentUser";
 import { useDateStore } from "../components/useStore";
-import { db } from "../firebase";
-import { Event, JournalEntry, Photo } from "../Types";
+import { db, storage } from "../firebase";
+import { JournalEntry, Photo } from "../Types";
 import { formatDate } from "../utils/formatDate";
 
 export function useAddPhotos() {
   const user = useCurrentUser();
   const { selectedDate } = useDateStore();
-  const dateId = formatDate(selectedDate);
+  const formattedDate = formatDate(selectedDate);
   const id = cuid();
 
-  //journal entry
   const journalEntryPath = `users/${user?.uid}/journal-entries`;
-  const journalRef = doc(db, journalEntryPath, dateId);
+  const journalRef = doc(db, journalEntryPath, formattedDate);
 
-  //event entries
-  //   const eventsPath = `users/${user?.uid}/journal-entries/${dateId}/events`;
-  //   const eventRef = doc(db, eventsPath, id);
+  const upsertPhoto = async (dateId: string, data: Photo, file: File) => {
+    const storageRef = ref(
+      storage,
+      "the-images/" + id + formattedDate + file.name
+    );
 
-  const upsertPhoto = async (dateId: string, data: Photo) => {
     try {
       console.log("started");
       const journalSnap = await getDoc(journalRef);
@@ -34,8 +36,35 @@ export function useAddPhotos() {
         };
         await setDoc(journalRef, newJournal);
       }
-      // await add photo+update photos array in the journal entry
-      //   await setDoc(eventRef, data);
+
+      await uploadBytes(storageRef, file).then(
+        // (err) => {
+        //   setError(err.message);
+        //}, //function is fired when upload is complete and gets the url when completed
+
+        async () => {
+          await setDoc(journalRef, data);
+
+          const url = await getDownloadURL(storageRef);
+
+          await updateDoc(journalRef, { photo: arrayUnion(url) });
+          return url;
+          //   setUrl(url);
+        }
+      );
+
+      //       await add photo with created upload file function
+      //+ update photos array in the journal entry
+      //       const newPhoto: JournalEntry = {
+      //           date: dateId,
+      //           title: "",
+      //           notes: "",
+      //           photos: [],
+      //       };
+      //       await updateDoc(journalRef, {
+      //           photos: arrayUnion(url)
+      //       })
+      //   }
     } finally {
       console.log("finished");
     }
@@ -43,8 +72,3 @@ export function useAddPhotos() {
 
   return upsertPhoto;
 }
-
-//click on upload file
-//choose photo
-//save photo to the journal entry object in an array of photos
-//display photos
