@@ -9,46 +9,46 @@ import {
 import React from "react";
 import { db } from "../../firebase";
 import { Layout, Spacer } from "../../theme/Layout.components";
+import { Event } from "../../Types";
 import { formatDate } from "../../utils/formatDate";
 import { useCurrentUser } from "../hooks/UseCurrentUser";
 import { useJournalEntryEvents } from "../hooks/UseJournalEntryEvents";
 import { useDateStore } from "../useStore";
 
-export const EventHeader: React.FC = () => {
-  const id = cuid();
+export const EventsList: React.FC = () => {
   const user = useCurrentUser();
   const { selectedDate } = useDateStore();
   const formattedDate = formatDate(selectedDate);
   const eventsPath = `users/${user?.uid}/journal-entries/${formattedDate}/events/`;
-  const eventRef = doc(db, eventsPath, id);
 
   const [journalEventsData, loading, error] = useJournalEntryEvents();
   if (loading) {
     return <div>loading journal events...</div>;
   }
 
-  // const delete = async (id: string) => {
-  //   try {
-  //     console.log("started");
-  //     await deleteDoc(eventRef);
-  //   } catch (error) {
-  //     console.error(error);
-  //   } finally {
-  //     console.log("finished");
-  //   }
-  // };
-  const deleteEventCategory = async (id: string) => {
+  const deleteEvent = async (id: string) => {
     try {
+      const eventRef = doc(db, eventsPath, id);
       console.log("started");
-      await updateDoc(doc(db, "events", id), {
-        category: deleteField(),
-      });
+      await deleteDoc(eventRef);
     } catch (error) {
       console.error(error);
     } finally {
       console.log("finished");
     }
   };
+  // const deleteEventCategory = async (id: string) => {
+  //   try {
+  //     console.log("started");
+  //     await updateDoc(doc(db, eventsPath, id), {
+  //       category: deleteField(),
+  //     });
+  //   } catch (error) {
+  //     console.error(error);
+  //   } finally {
+  //     console.log("finished");
+  //   }
+  // };
   const eventsList = journalEventsData?.map((e, index) => {
     return (
       <ul key={e.id}>
@@ -56,8 +56,9 @@ export const EventHeader: React.FC = () => {
         <li>
           {" "}
           <b>Category:</b>
-          {e.category}
-          <button onClick={() => deleteEventCategory(id)}>Delete</button>{" "}
+          {e.category} <br></br>
+          {e.notes}
+          <button onClick={() => deleteEvent(e.id)}>Delete</button>{" "}
         </li>
         <Spacer.Vertical />
       </ul>

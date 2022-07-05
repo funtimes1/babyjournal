@@ -8,21 +8,19 @@ import { formatDate } from "../utils/formatDate";
 
 export function useAddEvent() {
   const user = useCurrentUser();
-  const { selectedDate } = useDateStore();
-  const dateId = formatDate(selectedDate);
-  const id = cuid();
-
-  //journal entry
-  const journalEntryPath = `users/${user?.uid}/journal-entries`;
-  const journalRef = doc(db, journalEntryPath, dateId);
-
-  //event entries
-  const eventsPath = `users/${user?.uid}/journal-entries/${dateId}/events`;
-  const eventRef = doc(db, eventsPath, id);
-
   const upsertEvent = async (dateId: string, data: Event) => {
     try {
+      //journal entry
+      const journalEntryPath = `users/${user?.uid}/journal-entries`;
+      const journalRef = doc(db, journalEntryPath, dateId);
+
+      //event entries
+      const eventsPath = `users/${user?.uid}/journal-entries/${dateId}/events`;
+      const eventRef = doc(db, eventsPath, data.id);
       console.log("started");
+
+      //moved the above journal and event refs within the function to have/create only one ID when adding event
+
       const journalSnap = await getDoc(journalRef);
       if (!journalSnap.exists()) {
         // create a new blank journal entry object and save it before adding the event data
