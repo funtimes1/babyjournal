@@ -14,11 +14,8 @@ import { JournalEntryInfo } from "./JournalEntryInfo";
 export const JournalHeader: React.FC = () => {
   const { selectedDate } = useDateStore();
   const formattedDate = formatDate(selectedDate);
-  const stringDate = format(selectedDate, "yyyy-MM-dd");
   const user = useCurrentUser();
-  const id = cuid();
   const journalEntriesPath = `users/${user?.uid}/journal-entries`;
-  const [journalEventsData] = useJournalEntryEvents(id);
 
   const [journalData, loading, error] = useJournalEntry(formattedDate);
   if (loading) {

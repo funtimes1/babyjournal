@@ -45,7 +45,7 @@ export function useAddEvents() {
   return addJournalEvent;
 }
 
-export function useJournalEntryEvents(id: string) {
+export function useJournalEntryEvents() {
   const journalEntriesEventsRef = useJournalEntryEventsRef(); //uses the above hook
   console.log(journalEntriesEventsRef.path);
   // @ts-expect-error

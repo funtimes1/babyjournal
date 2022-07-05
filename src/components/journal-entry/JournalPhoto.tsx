@@ -1,6 +1,13 @@
-import { arrayUnion, doc, getDoc, setDoc, updateDoc } from "firebase/firestore";
-import React, { useState } from "react";
-
+import {
+  arrayUnion,
+  doc,
+  getDoc,
+  setDoc,
+  updateDoc,
+  deleteField,
+  arrayRemove,
+} from "firebase/firestore";
+import React from "react";
 import { useForm } from "react-hook-form";
 import { uploadFile } from "../../databaseFirestore/uploadFile";
 import { db } from "../../firebase";
@@ -9,14 +16,15 @@ import { JournalEntry, Photo } from "../../Types";
 import { formatDate } from "../../utils/formatDate";
 import { useCurrentUser } from "../hooks/UseCurrentUser";
 import { useDateStore } from "../useStore";
+import { useDocumentData } from "react-firebase-hooks/firestore";
 
 //adds and displays photos
-export const AddJournalPhoto: React.FC = () => {
+export const JournalPhoto: React.FC = () => {
   const { selectedDate } = useDateStore();
   const user = useCurrentUser();
   const formattedDate = formatDate(selectedDate);
-  const journalEntryPath = `users/${user?.uid}/journal-entries`;
-  const journalRef = doc(db, journalEntryPath, formattedDate);
+  const journalEntryPath = `users/${user?.uid}/journal-entries/${formattedDate}`;
+  const journalRef = doc(db, journalEntryPath);
   const types = ["image/png", "image/jpeg"];
 
   const {
@@ -49,15 +57,16 @@ export const AddJournalPhoto: React.FC = () => {
       await setDoc(journalRef, newJournal);
     }
     await updateDoc(journalRef, { photos: arrayUnion(photo) });
-
-    // after all that, update the journal to add the new photo using the arrayunion thing
+    // clear out the form state //setValue to empty url and caption
+    // await setValue("url", "");
   };
 
   return (
     <Layout.Column px py radius={10} bg="pink-200">
       Add photo
       <form onSubmit={handleSubmit(onSubmit)}>
-        {/* using onChange to set url photo before uploading it to firestore via onsubmit  */}
+        {/* using onChange to set url photo before uploading it to firestore via onsubmit 
+        onSubmit to upload file to firestore  */}
         <input
           onChange={async (event) => {
             //using if here to ensure user is exists
@@ -73,8 +82,32 @@ export const AddJournalPhoto: React.FC = () => {
           name="image"
         />
         <input {...register("caption")} type="text" name="caption" />
+
         <button>Submit</button>
-      </form>
+        <FirestoreImageCollection />
+      </form>{" "}
+    </Layout.Column>
+  );
+};
+
+const FirestoreImageCollection = () => {
+  const { selectedDate } = useDateStore();
+  const user = useCurrentUser();
+  const formattedDate = formatDate(selectedDate);
+  const journalEntryPath = `users/${user?.uid}/journal-entries/${formattedDate}`;
+  const [journalEntry] = useDocumentData<JournalEntry>(
+    doc(db, journalEntryPath)
+  );
+
+  return (
+    <Layout.Column>
+      {journalEntry?.photos?.map((photo) => {
+        return (
+          <div>
+            <img src={photo.url} alt="images" width={300} height={200} />
+          </div>
+        );
+      })}
     </Layout.Column>
   );
 };

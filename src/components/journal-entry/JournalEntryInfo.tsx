@@ -1,6 +1,6 @@
 import { useForm } from "react-hook-form";
 import { useAddJournalEntry } from "../hooks/UseUserJournalEntries";
-import { Event, JournalEntry } from "../../Types";
+import { JournalEntry } from "../../Types";
 import React from "react";
 import { formatDate } from "../../utils/formatDate";
 import { useDateStore } from "../useStore";
@@ -15,11 +15,6 @@ export const JournalEntryInfo: React.FunctionComponent<{
   const { journalData } = props;
   const { selectedDate } = useDateStore();
   const formattedDate = formatDate(selectedDate);
-  const dateId = formatDate(selectedDate);
-
-  const id = cuid();
-
-  // const journalCollectionRef = useJournalEntriesRef();
   const addEntry = useAddJournalEntry();
   const {
     register,

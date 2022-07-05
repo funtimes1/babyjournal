@@ -23,6 +23,7 @@ export function AddJournalEntryEvents() {
     register,
     handleSubmit,
     formState: { errors },
+    setValue,
   } = useForm<Event>({
     defaultValues: {
       notes: "",
@@ -42,6 +43,8 @@ export function AddJournalEntryEvents() {
       duration,
     };
     addEvent(formattedDate, event);
+    setValue("notes", "");
+    setValue("category", "");
   };
 
   return (

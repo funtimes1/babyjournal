@@ -2,7 +2,7 @@ import React from "react";
 import { Layout, Spacer } from "../theme/Layout.components";
 import { AddJournalEntryEvents } from "./events/AddJournalEntryEvents";
 import { JournalHeader } from "./journal-entry/JournalHeader";
-import { AddJournalPhoto } from "./journal-entry/AddJournalPhoto";
+import { JournalPhoto } from "./journal-entry/JournalPhoto";
 import { EventHeader } from "./events/EventHeader";
 
 export const MainContent: React.FC = () => {
@@ -10,7 +10,7 @@ export const MainContent: React.FC = () => {
     <Layout.Column>
       <JournalHeader />
       <Spacer.Vertical />
-      <AddJournalPhoto />
+      <JournalPhoto />
       <Spacer.Vertical />
       <AddJournalEntryEvents />
       <EventHeader />
