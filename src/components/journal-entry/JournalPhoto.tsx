@@ -99,12 +99,20 @@ const FirestoreImageCollection = () => {
     doc(db, journalEntryPath)
   );
 
+  //delete photo using url? path??
+
   return (
     <Layout.Column>
-      {journalEntry?.photos?.map((photo) => {
+      {journalEntry?.photos?.map((photo, index) => {
         return (
           <div>
-            <img src={photo.url} alt="images" width={300} height={200} />
+            <img
+              key={`photo-${index}`}
+              src={photo.url}
+              alt="images"
+              width={300}
+              height={200}
+            />
           </div>
         );
       })}

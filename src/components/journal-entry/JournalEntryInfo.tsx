@@ -4,7 +4,6 @@ import { JournalEntry } from "../../Types";
 import React from "react";
 import { formatDate } from "../../utils/formatDate";
 import { useDateStore } from "../useStore";
-import cuid from "cuid";
 
 //use JournalEntry type
 //create hook usejournalentries hook

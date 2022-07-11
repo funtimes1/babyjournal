@@ -1,21 +1,17 @@
-import cuid from "cuid";
-import {
-  deleteField,
-  doc,
-  updateDoc,
-  deleteDoc,
-  collection,
-} from "firebase/firestore";
+import { doc, deleteDoc } from "firebase/firestore";
 import React from "react";
 import { db } from "../../firebase";
 import { Layout, Spacer } from "../../theme/Layout.components";
-import { Event } from "../../Types";
 import { formatDate } from "../../utils/formatDate";
 import { useCurrentUser } from "../hooks/UseCurrentUser";
 import { useJournalEntryEvents } from "../hooks/UseJournalEntryEvents";
 import { useDateStore } from "../useStore";
+import { Event } from "../../Types";
 
-export const EventsList: React.FC = () => {
+//editEvent doesn't return anything therefore void
+export const EventsList: React.FC<{ editEvent: (event: Event) => void }> = ({
+  editEvent,
+}) => {
   const user = useCurrentUser();
   const { selectedDate } = useDateStore();
   const formattedDate = formatDate(selectedDate);
@@ -37,28 +33,31 @@ export const EventsList: React.FC = () => {
       console.log("finished");
     }
   };
-  // const deleteEventCategory = async (id: string) => {
-  //   try {
-  //     console.log("started");
-  //     await updateDoc(doc(db, eventsPath, id), {
-  //       category: deleteField(),
-  //     });
-  //   } catch (error) {
-  //     console.error(error);
-  //   } finally {
-  //     console.log("finished");
-  //   }
-  // };
+
   const eventsList = journalEventsData?.map((e, index) => {
     return (
       <ul key={e.id}>
         {/* <li key={`eventCategory-${index}`}>{e.id} </li> */}
         <li>
           {" "}
+          {/* <b>Event id</b>
+          {e.id} */}
           <b>Category:</b>
           {e.category} <br></br>
+          <b>Notes: </b>
           {e.notes}
           <button onClick={() => deleteEvent(e.id)}>Delete</button>{" "}
+          <button
+            onClick={() =>
+              editEvent({
+                id: e.id,
+                notes: e.notes,
+                category: e.category,
+              })
+            }
+          >
+            Edit
+          </button>{" "}
         </li>
         <Spacer.Vertical />
       </ul>

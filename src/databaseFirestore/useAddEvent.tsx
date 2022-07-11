@@ -1,10 +1,7 @@
-import cuid from "cuid";
 import { doc, setDoc, getDoc } from "firebase/firestore";
 import { useCurrentUser } from "../components/hooks/UseCurrentUser";
-import { useDateStore } from "../components/useStore";
 import { db } from "../firebase";
 import { Event, JournalEntry } from "../Types";
-import { formatDate } from "../utils/formatDate";
 
 export function useAddEvent() {
   const user = useCurrentUser();

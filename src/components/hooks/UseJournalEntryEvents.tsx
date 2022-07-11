@@ -5,7 +5,6 @@ import { Event } from "../../Types";
 import { useCurrentUser } from "./UseCurrentUser";
 import { useDateStore } from "../useStore";
 import { formatDate } from "../../utils/formatDate";
-import cuid from "cuid";
 
 export function useJournalEntryEventsRef() {
   //to add new journal event
@@ -29,7 +28,6 @@ export function useAddEvents() {
   const user = useCurrentUser();
   const { selectedDate } = useDateStore();
   const dateId = formatDate(selectedDate);
-  const id = cuid();
 
   const eventsPath = `users/${user?.uid}/journal-entries/${dateId}/events`;
   const addJournalEvent = async (id: string, data: Event) => {

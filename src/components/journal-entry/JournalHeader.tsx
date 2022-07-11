@@ -1,4 +1,3 @@
-import cuid from "cuid";
 import { format } from "date-fns";
 import { deleteField, doc, updateDoc } from "firebase/firestore";
 import React from "react";
@@ -6,7 +5,6 @@ import { db } from "../../firebase";
 import { Layout } from "../../theme/Layout.components";
 import { formatDate } from "../../utils/formatDate";
 import { useCurrentUser } from "../hooks/UseCurrentUser";
-import { useJournalEntryEvents } from "../hooks/UseJournalEntryEvents";
 import { useJournalEntry } from "../hooks/UseUserJournalEntries";
 import { useDateStore } from "../useStore";
 import { JournalEntryInfo } from "./JournalEntryInfo";
