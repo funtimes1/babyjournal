@@ -1,15 +1,15 @@
-import cuid from "cuid";
-import React, { ChangeEvent, FormEvent, useEffect, useState } from "react";
-import { useForm } from "react-hook-form";
 import { Layout } from "../../theme/Layout.components";
+import React, { useEffect, useState } from "react";
+import { useForm } from "react-hook-form";
 import { Event } from "../../Types";
 import { categories } from "../../Categories";
+import { useEditEventStore } from "../useStore";
 
-export const EventUpdate: React.FC<{
-  toggleEditingOff: () => void;
+export const EditEvent: React.FC<{
+  //   toggleEditingOff: () => void;
   currentEvent: Event;
   updateEvent: (updatedEvent: Event) => void;
-}> = ({ currentEvent, toggleEditingOff, updateEvent }) => {
+}> = ({ currentEvent, updateEvent }) => {
   const {
     register,
     handleSubmit,
@@ -17,14 +17,15 @@ export const EventUpdate: React.FC<{
     setValue,
   } = useForm<Event>({
     defaultValues: {
-      notes: "",
-      category: "",
-      duration: 0,
-      id: "",
+      notes: currentEvent.notes,
+      category: currentEvent.category,
+      duration: currentEvent.duration,
+      id: currentEvent.id,
     },
   });
 
   const [editEvent, setEditEvent] = useState<Event>(currentEvent);
+  const { setEditingEventID } = useEditEventStore();
 
   useEffect(() => {
     setEditEvent(currentEvent);
@@ -34,6 +35,7 @@ export const EventUpdate: React.FC<{
   const onSubmit = () => {
     // e.preventDefault();
     console.log("onSubmit", { editEvent });
+    setEditingEventID("");
     updateEvent(editEvent);
     setValue("notes", "");
     setValue("category", "");
@@ -71,8 +73,8 @@ export const EventUpdate: React.FC<{
           onChange={handleChange}
         />{" "}
         <button type="submit">Update</button>
-        <button onClick={toggleEditingOff}>Cancel Edit</button>
-      </form>{" "}
+        <button onClick={() => setEditingEventID("")}>Cancel </button>
+      </form>
     </Layout.Column>
   );
 };

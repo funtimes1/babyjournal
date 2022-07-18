@@ -12,3 +12,15 @@ export const useDateStore = create(
     })
   )
 );
+
+export const useEditEventStore = create(
+  combine(
+    {
+      editingEventID: "",
+    },
+    (set) => ({
+      setEditingEventID: (editingID: string) =>
+        set({ editingEventID: editingID }),
+    })
+  )
+);
