@@ -20,8 +20,8 @@ export async function uploadFile(
     `the-images/${user?.uid}/${formattedDate}/${id}`
   );
   const result = await uploadBytes(storageRef, file);
-  console.log("result", result);
+  // console.log("result", result);
   const url = await getDownloadURL(storageRef);
   console.log("url", url);
-  return url;
+  return { url, id };
 }

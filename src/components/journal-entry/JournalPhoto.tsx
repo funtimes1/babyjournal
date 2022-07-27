@@ -1,22 +1,22 @@
 import {
+  arrayRemove,
   arrayUnion,
   doc,
   getDoc,
   setDoc,
   updateDoc,
-  deleteField,
-  arrayRemove,
 } from "firebase/firestore";
 import React from "react";
 import { useForm } from "react-hook-form";
 import { uploadFile } from "../../databaseFirestore/uploadFile";
-import { db } from "../../firebase";
+import { db, storage } from "../../firebase";
 import { Layout } from "../../theme/Layout.components";
 import { JournalEntry, Photo } from "../../Types";
 import { formatDate } from "../../utils/formatDate";
 import { useCurrentUser } from "../hooks/UseCurrentUser";
 import { useDateStore } from "../useStore";
 import { useDocumentData } from "react-firebase-hooks/firestore";
+import { deleteObject, ref } from "firebase/storage";
 
 //adds and displays photos
 export const JournalPhoto: React.FC = () => {
@@ -36,14 +36,16 @@ export const JournalPhoto: React.FC = () => {
     defaultValues: {
       url: "",
       caption: "",
+      id: "",
     },
   });
 
   const onSubmit = async (value: Photo) => {
-    const { url, caption } = value;
+    const { url, caption, id } = value;
     const photo = {
       url,
       caption,
+      id,
     };
     // check to see if there is a journal and if not create a blank one
     const journalSnap = await getDoc(journalRef);
@@ -66,16 +68,17 @@ export const JournalPhoto: React.FC = () => {
       Add photo
       <form onSubmit={handleSubmit(onSubmit)}>
         {/* using onChange to set url photo before uploading it to firestore via onsubmit 
-        onSubmit to upload file to firestore  */}
+        onSubmit uploads file to firestore  */}
         <input
           onChange={async (event) => {
-            //using if here to ensure user is exists
             if (user) {
               console.log(event.target.files);
               // takes the first element of the array
               const [file] = event.target.files ?? [];
-              const url = await uploadFile(file, user, formattedDate);
+              // added id to Photo array to make reference for deleting this file (id created when creating url in uploadFile)
+              const { url, id } = await uploadFile(file, user, formattedDate);
               setValue("url", url);
+              setValue("id", id);
             }
           }}
           type="file"
@@ -95,24 +98,38 @@ const FirestoreImageCollection = () => {
   const user = useCurrentUser();
   const formattedDate = formatDate(selectedDate);
   const journalEntryPath = `users/${user?.uid}/journal-entries/${formattedDate}`;
+  const journalRef = doc(db, journalEntryPath);
+
   const [journalEntry] = useDocumentData<JournalEntry>(
     doc(db, journalEntryPath)
   );
-
-  //delete photo using url? path??
+  const deletePhoto = async (value: Photo) => {
+    const { url, caption, id } = value;
+    const photo = {
+      url,
+      caption,
+      id,
+    };
+    try {
+      const photoRef = ref(
+        storage,
+        `the-images/${user?.uid}/${formattedDate}/${id}`
+      );
+      await deleteObject(photoRef);
+      await updateDoc(journalRef, { photos: arrayRemove(photo) });
+    } finally {
+      console.log("finished");
+    }
+  };
 
   return (
     <Layout.Column>
       {journalEntry?.photos?.map((photo, index) => {
         return (
-          <div>
-            <img
-              key={`photo-${index}`}
-              src={photo.url}
-              alt="images"
-              width={300}
-              height={200}
-            />
+          <div key={`photo-${index}`}>
+            <img src={photo.url} alt="images" width={300} height={200} />
+
+            <button onClick={() => deletePhoto(photo)}> delete </button>
           </div>
         );
       })}

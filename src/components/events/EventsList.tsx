@@ -9,7 +9,6 @@ import { useDateStore, useEditEventStore } from "../useStore";
 import { Event } from "../../Types";
 import { EditEvent } from "./EditEvent";
 
-//editEvent doesn't return anything therefore void
 export const EventsList: React.FC = () => {
   const user = useCurrentUser();
   const { selectedDate } = useDateStore();
@@ -42,7 +41,6 @@ export const EventsList: React.FC = () => {
 
     try {
       editingEventID;
-      //   setEditing(true);
       setCurrentEvent({
         id: updatedEvent.id,
         category: updatedEvent.category,
@@ -73,8 +71,6 @@ export const EventsList: React.FC = () => {
           <EditEvent currentEvent={currentEvent} updateEvent={updateEvent} />
         ) : (
           <ul>
-            {/* <li key={`eventCategory-${index}`}>{e.id} </li> */}
-
             <li>
               <b>Category:</b>
               {e.category} <br></br>
@@ -91,7 +87,6 @@ export const EventsList: React.FC = () => {
                   setEditingEventID(e.id);
                 }}
               >
-                {" "}
                 Edit{" "}
               </button>
             </li>

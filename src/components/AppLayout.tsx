@@ -19,9 +19,9 @@ export const AppLayout: React.FunctionComponent = () => {
 
             <Spacer.Flex />
             {/* Settings */}
-            <Layout.Column bg="green-200" px py>
+            {/* <Layout.Column bg="green-200" px py>
               Settings!!!
-            </Layout.Column>
+            </Layout.Column> */}
           </Layout.Column>
           {/* Main Content */}
 

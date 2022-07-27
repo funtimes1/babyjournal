@@ -19,6 +19,7 @@ export type Event = {
 };
 
 export type Photo = {
+  id: string;
   url: string; // this url is the result from the upload process
   caption?: string;
 };

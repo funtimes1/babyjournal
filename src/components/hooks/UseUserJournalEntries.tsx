@@ -27,8 +27,6 @@ export function useJournalEntryRef(dateId: string) {
 }
 export function useAddJournalEntry() {
   const user = useCurrentUser();
-  const { selectedDate } = useDateStore();
-  const dateId = formatDate(selectedDate);
   const journalEntriesPath = `users/${user?.uid}/journal-entries`;
   const addJournalEntry = async (dateId: string, data: JournalEntry) => {
     try {
