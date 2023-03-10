@@ -6,7 +6,7 @@ import {
   setDoc,
   updateDoc,
 } from "firebase/firestore";
-import React from "react";
+import React, { useState } from "react";
 import { useForm } from "react-hook-form";
 import { uploadFile } from "../../databaseFirestore/uploadFile";
 import { db, storage } from "../../firebase";
@@ -26,12 +26,15 @@ export const JournalPhoto: React.FC = () => {
   const journalEntryPath = `users/${user?.uid}/journal-entries/${formattedDate}`;
   const journalRef = doc(db, journalEntryPath);
   const types = ["image/png", "image/jpeg"];
+  const [error, setError] = useState("");
+  const [isLoading, setIsLoading] = useState(false);
 
   const {
     register,
     handleSubmit,
     formState: { errors },
     setValue,
+    reset,
   } = useForm<Photo>({
     defaultValues: {
       url: "",
@@ -41,12 +44,14 @@ export const JournalPhoto: React.FC = () => {
   });
 
   const onSubmit = async (value: Photo) => {
+    console.log("submit", value);
     const { url, caption, id } = value;
     const photo = {
       url,
       caption,
       id,
     };
+
     // check to see if there is a journal and if not create a blank one
     const journalSnap = await getDoc(journalRef);
     if (!journalSnap.exists()) {
@@ -59,8 +64,9 @@ export const JournalPhoto: React.FC = () => {
       await setDoc(journalRef, newJournal);
     }
     await updateDoc(journalRef, { photos: arrayUnion(photo) });
-    // clear out the form state //setValue to empty url and caption
-    // await setValue("url", "");
+    //resets form (removes file name)
+
+    reset();
   };
 
   return (
@@ -71,24 +77,36 @@ export const JournalPhoto: React.FC = () => {
         onSubmit uploads file to firestore  */}
         <input
           onChange={async (event) => {
+            setIsLoading(true);
             if (user) {
-              console.log(event.target.files);
+              // console.log(event.target.files);
               // takes the first element of the array
               const [file] = event.target.files ?? [];
               // added id to Photo array to make reference for deleting this file (id created when creating url in uploadFile)
-              const { url, id } = await uploadFile(file, user, formattedDate);
-              setValue("url", url);
-              setValue("id", id);
+              if (file && types.includes(file.type)) {
+                const { url, id } = await uploadFile(file, user, formattedDate);
+                setIsLoading(false);
+                setValue("url", url);
+                setValue("id", id);
+              }
+            } else {
+              setError("Please upload an image file (png or jpeg)");
             }
           }}
           type="file"
           name="image"
         />
-        <input {...register("caption")} type="text" name="caption" />
+        <input
+          {...register("caption")}
+          type="text"
+          name="caption"
+          placeholder="Add a caption"
+        />
 
-        <button>Submit</button>
-        <FirestoreImageCollection />
-      </form>{" "}
+        <button disabled={isLoading}>Submit</button>
+      </form>
+      {/* removed the firestoreimagecollection out of the form as it was calling delete and submit button (causing it to upload an empty photo array)  */}
+      <FirestoreImageCollection />
     </Layout.Column>
   );
 };
@@ -100,7 +118,7 @@ const FirestoreImageCollection = () => {
   const journalEntryPath = `users/${user?.uid}/journal-entries/${formattedDate}`;
   const journalRef = doc(db, journalEntryPath);
 
-  const [journalEntry] = useDocumentData<JournalEntry>(
+  const [journalEntry, loading] = useDocumentData<JournalEntry>(
     doc(db, journalEntryPath)
   );
   const deletePhoto = async (value: Photo) => {
@@ -111,12 +129,15 @@ const FirestoreImageCollection = () => {
       id,
     };
     try {
+      console.log("photo", photo);
       const photoRef = ref(
         storage,
         `the-images/${user?.uid}/${formattedDate}/${id}`
       );
+      await updateDoc(journalRef, {
+        photos: arrayRemove(photo),
+      });
       await deleteObject(photoRef);
-      await updateDoc(journalRef, { photos: arrayRemove(photo) });
     } finally {
       console.log("finished");
     }
@@ -128,7 +149,7 @@ const FirestoreImageCollection = () => {
         return (
           <div key={`photo-${index}`}>
             <img src={photo.url} alt="images" width={300} height={200} />
-
+            <p>{photo.caption}</p>
             <button onClick={() => deletePhoto(photo)}> delete </button>
           </div>
         );

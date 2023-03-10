@@ -35,7 +35,6 @@
   "editor.formatOnType": true,
   "editor.minimap.enabled": true,
   "editor.minimap.renderCharacters": false,
-  "editor.renderIndentGuides": true,
   "editor.renderWhitespace": "boundary",
   "typescript.tsdk": "node_modules/typescript/lib",
   "wallaby.startAutomatically": true,
@@ -77,5 +76,6 @@
     "undelete",
     "yolo",
     "zustand"
-  ]
+  ],
+  "editor.guides.indentation": true
 }

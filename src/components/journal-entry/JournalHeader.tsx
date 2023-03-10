@@ -17,6 +17,7 @@ export const JournalHeader: React.FC = () => {
 
   return (
     <Layout.Column px py radius={10} bg="pink-200">
+      <div className="purple">Hi</div>
       <Layout.Row>{`${format(selectedDate, "EEEE, MMMM dd yyyy")}`}</Layout.Row>
       <JournalEntryInfo journalData={journalData} />
     </Layout.Column>

@@ -4,4 +4,8 @@ export const categories = [
   { name: "napping", display: "napping" },
   { name: "poop", display: "pooping" },
   { name: "playing", display: "playing" },
+  { name: "firsts", display: "firsts" },
+  { name: "appointments", display: "appointments" },
+  { name: "milestones", display: "milestones" },
+  { name: "travelling", display: "travelling" },
 ];

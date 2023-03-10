@@ -8,9 +8,10 @@ export const NavBar: React.FC = () => {
   return (
     <Layout.Row bg="red-200">
       **LOGO**
+      <div>Hi</div>
       <Spacer.Flex debug />
       <Layout.Row>
-        <p>
+        <p className="purple">
           <b>USER ID:</b> {user?.uid} <br></br>
           <b>USER EMAIL</b> {user?.email}
         </p>

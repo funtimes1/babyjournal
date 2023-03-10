@@ -22,7 +22,7 @@ export function AddJournalEntryEvents() {
   const {
     register,
     handleSubmit,
-    formState: { errors },
+    formState: { errors, isDirty, isValid },
     setValue,
   } = useForm<Event>({
     defaultValues: {
@@ -31,6 +31,7 @@ export function AddJournalEntryEvents() {
       duration: 0,
       id: cuid(),
     },
+    mode: "onChange",
   });
 
   const onSubmit = async (value: Event) => {
@@ -72,7 +73,9 @@ export function AddJournalEntryEvents() {
         />
         {errors.notes && <p>{errors.notes.message}</p>}
 
-        <button type="submit">Submit</button>
+        <button disabled={!isDirty || !isValid} type="submit">
+          Submit
+        </button>
       </form>
     </Layout.Column>
   );
